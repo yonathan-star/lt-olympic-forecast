@@ -574,7 +574,7 @@ function getActiveSportProbs() {
     if (!selectedSports.has(s)) return 0;
     let p = d.per_sport[s] || 0;
 
-    // Budget scenario: re-apply funding sensitivity delta
+    // GDP/budget scenario: apply extra funding delta on top of base slider level
     const fundingDelta = (FUNDING_LEVELS[currentFundingIdx] * budgetScale) - FUNDING_LEVELS[currentFundingIdx];
     p += (FUNDING_SENS[s] || 0.05) * fundingDelta;
 
@@ -595,7 +595,7 @@ function getActiveSportProbs() {
       const entry = PIPELINE_DELTAS[id];
       if (!entry) return;
       if (entry.sport === s) p += entry.delta;
-      if (entry.sport === null && s === SPORTS[0]) p += entry.delta; // top sport
+      if (entry.sport === null && s === 'Athletics') p += entry.delta; // unknown breakout counted toward top sport
     });
 
     // Coaching quality (top sports only)
@@ -622,7 +622,7 @@ function getExpected() {
   return probs.reduce((a,b)=>a+b, 0);
 }
 
-// Approximate MC dist from sum of independent Bernoullis
+// Approximate MC dist from sum of independent Bernoullis (exact for rho=0)
 function approxMCDist(probs) {
   let dist = [1.0];
   for (const p of probs) {
@@ -634,6 +634,61 @@ function approxMCDist(probs) {
     dist = newDist;
   }
   return dist;
+}
+
+// Box-Muller normal sample
+function randn() {
+  let u, v;
+  do { u = Math.random(); } while (u === 0);
+  do { v = Math.random(); } while (v === 0);
+  return Math.sqrt(-2*Math.log(u)) * Math.cos(2*Math.PI*v);
+}
+
+// Rational approximation to Phi^{-1}(p) (Acklam 2000, |error| < 4.5e-4)
+function normInv(p) {
+  if (p <= 0) return -6; if (p >= 1) return 6;
+  const a = [-3.969683028665376e+01,2.209460984245205e+02,-2.759285104469687e+02,1.383577518672690e+02,-3.066479806614716e+01,2.506628277459239e+00];
+  const b = [-5.447609879822406e+01,1.615858368580409e+02,-1.556989798598866e+02,6.680131188771972e+01,-1.328068155288572e+01];
+  const c = [-7.784894002430293e-03,-3.223964580411365e-01,-2.400758277161838e+00,-2.549732539343734e+00,4.374664141464968e+00,2.938163982698783e+00];
+  const d = [7.784695709041462e-03,3.224671290700398e-01,2.445134137142996e+00,3.754408661907416e+00];
+  const pLow = 0.02425, pHigh = 1 - pLow;
+  let q, r;
+  if (p < pLow) {
+    q = Math.sqrt(-2*Math.log(p));
+    return (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5]) / ((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);
+  } else if (p <= pHigh) {
+    q = p - 0.5; r = q*q;
+    return (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q / (((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1);
+  } else {
+    q = Math.sqrt(-2*Math.log(1-p));
+    return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5]) / ((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);
+  }
+}
+
+// Correlated MC using Gaussian copula factor model (n_sim simulations)
+// rho = cross-sport correlation coefficient
+function correlatedMCDist(probs, rho, nSim) {
+  const n = probs.length;
+  const sqrtRho = Math.sqrt(rho);
+  const sqrtOne = Math.sqrt(1 - rho);
+  const thresh = probs.map(p => normInv(p));
+  const counts = new Array(n + 1).fill(0);
+  for (let i = 0; i < nSim; i++) {
+    const Z = randn(); // shared factor
+    let medals = 0;
+    for (let j = 0; j < n; j++) {
+      const x = sqrtRho * Z + sqrtOne * randn();
+      if (x < thresh[j]) medals++;
+    }
+    counts[medals]++;
+  }
+  return counts.map(c => c / nSim);
+}
+
+// Get rho value from adv-rho control
+function getRho() {
+  const val = document.getElementById('adv-rho')?.value || 'medium';
+  return {low: 0.05, medium: 0.15, high: 0.30}[val] || 0.15;
 }
 
 // =========================================================
@@ -676,8 +731,9 @@ function updateMetrics() {
   document.getElementById('val-expected').textContent = expected.toFixed(2);
   document.getElementById('sub-expected').textContent = `P10–P90: ${p10}–${p90}`;
   document.getElementById('val-range').textContent = `${p10}–${p90}`;
-  // Zero medal risk: approx P(0) from active probs
-  const dist = approxMCDist(activeProbs);
+  // Zero medal risk: use correlated dist if rho > 0
+  const rho = getRho();
+  const dist = rho > 0 ? correlatedMCDist(activeProbs, rho, 2000) : approxMCDist(activeProbs);
   const zeroEl = document.getElementById('val-zero');
   if (zeroEl) zeroEl.textContent = ((dist[0] || 0) * 100).toFixed(1) + '%';
   // Athletics current prob (use index-aligned array)
@@ -732,7 +788,8 @@ function updateSportsChart() {
 let mcChartInit = false;
 function updateMCChart() {
   const probs = getActiveSportProbs().filter(p=>p>0);
-  const dist  = approxMCDist(probs);
+  const rho   = getRho();
+  const dist  = rho > 0 ? correlatedMCDist(probs, rho, 4000) : approxMCDist(probs);
   const mcX   = dist.map((_,i)=>i);
   const mcY   = dist;
   const exp   = getExpected();
@@ -860,8 +917,22 @@ function initScenChart() {
   }, CFG);
 }
 function updateScenChart() {
-  const d = getPreData();
-  Plotly.restyle('chart-scen', {y:[[d.expected]],'error_y.array':[[d.p90-d.expected]],'error_y.arrayminus':[[d.expected-d.p10]]}, [2]);
+  const exp = getExpected();
+  const activeProbs = getActiveSportProbs().filter(p => p > 0);
+  const dist = approxMCDist(activeProbs);
+  // Derive P10/P90 from the approximated distribution
+  let cum = 0, p10 = 0, p90 = 0;
+  for (let k = 0; k < dist.length; k++) {
+    cum += dist[k];
+    if (cum >= 0.10 && !p10) p10 = k;
+    if (cum >= 0.90 && !p90) { p90 = k; break; }
+  }
+  Plotly.restyle('chart-scen', {
+    y:[[exp]],
+    text:[[exp.toFixed(1)]],
+    'error_y.array':[[Math.max(0, p90 - exp)]],
+    'error_y.arrayminus':[[Math.max(0, exp - p10)]]
+  }, [2]);
 }
 
 // =========================================================
