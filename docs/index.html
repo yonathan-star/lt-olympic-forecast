@@ -105,6 +105,27 @@ tr:hover td{background:#1e2235}
 
 /* FADE TRANSITION */
 .fade{transition:opacity .25s}
+
+/* ADVANCED PANEL */
+.adv-panel{background:var(--card2);border:1px solid var(--border);border-radius:14px;
+  margin:0 28px 20px;padding:18px 28px}
+.adv-panel summary{font-size:.85rem;text-transform:uppercase;letter-spacing:.8px;
+  color:var(--muted);cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px}
+.adv-panel summary::before{content:"▶";font-size:.65rem;transition:transform .2s}
+details[open] summary::before{transform:rotate(90deg)}
+.adv-groups{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-top:16px}
+@media(max-width:900px){.adv-groups{grid-template-columns:1fr}}
+.adv-group h4{font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;color:var(--accent);
+  margin-bottom:10px;border-bottom:1px solid var(--border);padding-bottom:6px}
+.adv-row{margin-bottom:10px}
+.adv-row label{font-size:.76rem;color:var(--muted);display:block;margin-bottom:4px}
+.adv-row .val-disp{color:var(--accent2);font-weight:700;float:right;font-size:.8rem}
+.adv-row select{width:100%;background:var(--card);border:1px solid var(--border);
+  border-radius:6px;color:var(--text);padding:5px 8px;font-size:.76rem;cursor:pointer}
+.adv-row select:focus{outline:1px solid var(--accent)}
+.checkbox-row{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--muted);
+  margin-bottom:6px;cursor:pointer}
+.checkbox-row input{accent-color:var(--accent);cursor:pointer}
 </style>
 </head>
 <body>
@@ -130,12 +151,12 @@ tr:hover td{background:#1e2235}
     <div class="sub">P10 &ndash; P90</div>
   </div>
   <div class="metric">
-    <div class="val">3.7%</div>
+    <div class="val" id="val-zero">13.2%</div>
     <div class="lbl">Zero-medal risk</div>
-    <div class="sub">baseline funding</div>
+    <div class="sub" id="sub-zero">current settings</div>
   </div>
   <div class="metric">
-    <div class="val">82%</div>
+    <div class="val" id="val-ath">58%</div>
     <div class="lbl">Athletics</div>
     <div class="sub">Alekna &mdash; gold favourite</div>
   </div>
@@ -163,6 +184,111 @@ tr:hover td{background:#1e2235}
     </div>
   </div>
 </div>
+
+<!-- ADVANCED CONTROLS -->
+<details class="adv-panel">
+  <summary>Advanced Factors &mdash; click to expand</summary>
+  <div class="adv-groups">
+
+    <div class="adv-group">
+      <h4>Athletes</h4>
+      <div class="adv-row">
+        <label>Mykolas Alekna status</label>
+        <select id="adv-alekna">
+          <option value="peak" selected>Peak form (world #1)</option>
+          <option value="uncertain">Minor injury / uncertain</option>
+          <option value="out">Out / retired</option>
+        </select>
+      </div>
+      <div class="adv-row">
+        <label>Ruta Meilutyte status</label>
+        <select id="adv-meilutyte">
+          <option value="normal" selected>Active (100m breast only)</option>
+          <option value="confirmed_50m">50m breast confirmed for LA 2028</option>
+          <option value="retired">Retired by 2028</option>
+        </select>
+      </div>
+      <div class="adv-row">
+        <label>3x3 Basketball roster</label>
+        <select id="adv-bball">
+          <option value="full" selected>Full core roster (Paris 2024 squad)</option>
+          <option value="partial">2&ndash;3 core players remain</option>
+          <option value="new">Mostly new/young squad</option>
+          <option value="dnq">Fails to qualify</option>
+        </select>
+      </div>
+      <div class="adv-row" style="margin-top:10px">
+        <label style="margin-bottom:6px">Youth pipeline (add emerging contenders)</label>
+        <label class="checkbox-row"><input type="checkbox" id="pipe-lukminas"> Lukminas (Athletics, +2%)</label>
+        <label class="checkbox-row"><input type="checkbox" id="pipe-dilyte" checked> Dilyte (Wrestling, +5%)</label>
+        <label class="checkbox-row"><input type="checkbox" id="pipe-navikonis"> Navikonis (Rowing, +2%)</label>
+        <label class="checkbox-row"><input type="checkbox" id="pipe-unknown"> Unknown breakout (+2.5%)</label>
+      </div>
+    </div>
+
+    <div class="adv-group">
+      <h4>Program &amp; Investment</h4>
+      <div class="adv-row">
+        <label>Focus mode</label>
+        <select id="adv-focus">
+          <option value="broad" selected>Broad (spread across all sports)</option>
+          <option value="top3">Focused &mdash; top 3 sports</option>
+          <option value="top2">Elite &mdash; top 2 sports only</option>
+        </select>
+      </div>
+      <div class="adv-row">
+        <label>Delegation size <span class="val-disp" id="deleg-display">50</span></label>
+        <input type="range" id="adv-deleg" min="25" max="80" value="50" step="5">
+      </div>
+      <div class="adv-row">
+        <label>Coaching &amp; support quality</label>
+        <select id="adv-coaching">
+          <option value="low">Below average</option>
+          <option value="normal" selected>Average (current)</option>
+          <option value="high">Above average (+5% top sports)</option>
+          <option value="elite">Elite programme (+10% top sports)</option>
+        </select>
+      </div>
+      <div class="adv-row">
+        <label>Competition peaking &amp; timing</label>
+        <select id="adv-peak">
+          <option value="poor">Poor peaking (off-form at Games)</option>
+          <option value="normal" selected>Normal</option>
+          <option value="good">Good peaking (+3% top sports)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="adv-group">
+      <h4>External Conditions</h4>
+      <div class="adv-row">
+        <label>Host nation effect (LA 2028)</label>
+        <select id="adv-host">
+          <option value="negative">Negative (crowd disadvantage)</option>
+          <option value="neutral" selected>Neutral</option>
+          <option value="positive">Positive (Lithuanian diaspora boost)</option>
+        </select>
+      </div>
+      <div class="adv-row">
+        <label>GDP &amp; budget growth scenario</label>
+        <select id="adv-gdp">
+          <option value="recession">Recession (budget cut -10%)</option>
+          <option value="baseline" selected>Baseline (modest growth)</option>
+          <option value="strong">Strong growth (+15%)</option>
+        </select>
+      </div>
+      <div class="adv-row">
+        <label>Cross-sport correlation &rho;</label>
+        <select id="adv-rho">
+          <option value="low">Low (0.05 &mdash; sports independent)</option>
+          <option value="medium" selected>Medium (0.15 &mdash; default)</option>
+          <option value="high">High (0.30 &mdash; shared luck)</option>
+        </select>
+      </div>
+    </div>
+
+  </div>
+</details>
 
 <!-- CHARTS ROW 1 -->
 <div class="grid grid-3-2">
@@ -285,21 +411,21 @@ tr:hover td{background:#1e2235}
   <h2>Key Athletes &mdash; LA 2028 Contenders</h2>
   <div class="athlete-grid">
     <div class="acard">
-      <span class="abadge">82%</span>
+      <span class="abadge">58%</span>
       <div class="aname">Mykolas Alekna</div>
       <div class="asport">Athletics &mdash; Discus Throw</div>
-      <p>Top global gold favorite. Olympic silver Paris 2024 aged 20. 74.35m world lead 2024. Father Virgilijus won discus gold 2000 &amp; 2004. Will be 24 in LA &mdash; absolute prime.</p>
-      <div class="astat">Paris 2024: Silver &bull; 74.35m WL &bull; Age in 2028: 24</div>
+      <p>Top global gold favorite. Olympic silver Paris 2024 aged 21. 74.35m world lead 2024. Father Virgilijus won discus gold 2000 &amp; 2004. Will be 25 in LA (born Sept 2002) &mdash; absolute prime.</p>
+      <div class="astat">Paris 2024: Silver &bull; 74.35m WL &bull; Age in 2028: 25</div>
     </div>
     <div class="acard">
-      <span class="abadge">32%</span>
+      <span class="abadge">38%</span>
       <div class="aname">Viktorija Senkute</div>
       <div class="asport">Rowing &mdash; Women's Single Sculls</div>
-      <p>Olympic bronze Paris 2024. Will be 27 in 2028 &mdash; peak rowing age. Consistent World Cup top-5 competitor with strong upside.</p>
-      <div class="astat">Paris 2024: Bronze &bull; Age in 2028: 27</div>
+      <p>Olympic bronze Paris 2024. Born 1996, age 32 in 2028 &mdash; near peak sculling age. Consistent top-3 competitor in single sculls on World Cup circuit.</p>
+      <div class="astat">Paris 2024: Bronze &bull; Born 1996 &bull; Age in 2028: 32</div>
     </div>
     <div class="acard">
-      <span class="abadge">34%</span>
+      <span class="abadge">25%</span>
       <div class="aname">Lithuania 3x3 Basketball</div>
       <div class="asport">3x3 Basketball &mdash; Men's Team</div>
       <p>Olympic bronze 2024. Core roster averages ~27 in 2028. Basketball is Lithuania's structural sport &mdash; FIBA 3x3 consistent top-10 globally. LA outdoor courts suit physical play.</p>
@@ -370,6 +496,39 @@ const PEER_BRONZE    = [2, 1, 1, 1, 1, 6, 3];
 const PEER_PER_POP   = [1.4, 2.3, 1.7, 1.0, 0.4, 2.6, 1.5];
 
 // =========================================================
+// ADVANCED FACTOR CONSTANTS
+// =========================================================
+// Per-sport funding sensitivity (mirrors Python model)
+const FUNDING_SENS = {Athletics:0.03,Rowing:0.07,Swimming:0.08,'3x3 Basketball':0.04,'Modern Pentathlon':0.06,Weightlifting:0.05,Wrestling:0.05,Shooting:0.05,'Canoe Sprint':0.07};
+const IS_TEAM = {'3x3 Basketball':true};
+// Alekna scalars applied to Athletics probability
+const ALEKNA_SCALARS = {peak:1.0, uncertain:0.65, out:0.18};
+// Meilutyte scalars applied to Swimming probability
+const MEILUTYTE_SCALARS = {normal:1.0, confirmed_50m:1.62, retired:0.55};
+// 3x3 Basketball roster scalars
+const BBALL_SCALARS = {full:1.15, partial:1.0, new:0.65, dnq:0.10};
+// Youth pipeline additive deltas per sport
+const PIPELINE_DELTAS = {
+  'pipe-lukminas':  {sport:'Athletics',   delta:0.020},
+  'pipe-dilyte':    {sport:'Wrestling',   delta:0.047},
+  'pipe-navikonis': {sport:'Rowing',      delta:0.019},
+  'pipe-unknown':   {sport:null,          delta:0.025}  // spread across top sport
+};
+// Host nation scalars
+const HOST_SCALARS = {negative:0.93, neutral:1.0, positive:1.05};
+// GDP / budget scalars (applied as extra funding multiplier)
+const BUDGET_SCALARS = {recession:0.90, baseline:1.05, strong:1.15};
+// Coaching quality additive delta on top sports (Athletics, Rowing, Swimming)
+const COACHING_SPORTS = new Set(['Athletics','Rowing','Swimming','3x3 Basketball','Modern Pentathlon']);
+const COACHING_DELTAS = {low:-0.04, normal:0.0, high:0.05, elite:0.10};
+// Peaking deltas on top sports
+const PEAK_DELTAS = {poor:-0.05, normal:0.0, good:0.03};
+// Focus mode: which sports get bonus and multiplier
+const FOCUS_TOP3 = ['Athletics','Rowing','Swimming'];
+const FOCUS_TOP2 = ['Athletics','Rowing'];
+const FOCUS_BONUS = {broad:1.0, top3:1.18, top2:1.30};
+
+// =========================================================
 // STATE
 // =========================================================
 let currentFundingIdx = 2; // 1.0x
@@ -390,9 +549,72 @@ function getPreData() {
   return PRE[String(FUNDING_LEVELS[currentFundingIdx])];
 }
 
+function getAdvancedFactors() {
+  return {
+    alekna:   document.getElementById('adv-alekna')?.value   || 'peak',
+    meilutyte:document.getElementById('adv-meilutyte')?.value|| 'normal',
+    bball:    document.getElementById('adv-bball')?.value    || 'full',
+    focus:    document.getElementById('adv-focus')?.value    || 'broad',
+    deleg:    parseInt(document.getElementById('adv-deleg')?.value || '50'),
+    coaching: document.getElementById('adv-coaching')?.value || 'normal',
+    peak:     document.getElementById('adv-peak')?.value     || 'normal',
+    host:     document.getElementById('adv-host')?.value     || 'neutral',
+    gdp:      document.getElementById('adv-gdp')?.value      || 'baseline',
+    pipelines: Object.keys(PIPELINE_DELTAS).filter(id => document.getElementById(id)?.checked),
+  };
+}
+
 function getActiveSportProbs() {
   const d = getPreData();
-  return SPORTS.map(s => selectedSports.has(s) ? (d.per_sport[s] || 0) : 0);
+  const f = getAdvancedFactors();
+  const budgetScale = BUDGET_SCALARS[f.gdp] || 1.0;
+  const hostScale   = HOST_SCALARS[f.host]   || 1.0;
+
+  return SPORTS.map(s => {
+    if (!selectedSports.has(s)) return 0;
+    let p = d.per_sport[s] || 0;
+
+    // Budget scenario: re-apply funding sensitivity delta
+    const fundingDelta = (FUNDING_LEVELS[currentFundingIdx] * budgetScale) - FUNDING_LEVELS[currentFundingIdx];
+    p += (FUNDING_SENS[s] || 0.05) * fundingDelta;
+
+    // Focus mode bonus
+    const focusMode = f.focus;
+    if (focusMode === 'top3' && !FOCUS_TOP3.includes(s)) p *= 0.88;
+    if (focusMode === 'top2' && !FOCUS_TOP2.includes(s)) p *= 0.75;
+    if (focusMode === 'top3' && FOCUS_TOP3.includes(s))  p *= FOCUS_BONUS.top3;
+    if (focusMode === 'top2' && FOCUS_TOP2.includes(s))  p *= FOCUS_BONUS.top2;
+
+    // Athlete status scalars
+    if (s === 'Athletics')     p *= ALEKNA_SCALARS[f.alekna]    || 1.0;
+    if (s === 'Swimming')      p *= MEILUTYTE_SCALARS[f.meilutyte] || 1.0;
+    if (s === '3x3 Basketball') p *= BBALL_SCALARS[f.bball]    || 1.0;
+
+    // Youth pipeline (additive)
+    f.pipelines.forEach(id => {
+      const entry = PIPELINE_DELTAS[id];
+      if (!entry) return;
+      if (entry.sport === s) p += entry.delta;
+      if (entry.sport === null && s === SPORTS[0]) p += entry.delta; // top sport
+    });
+
+    // Coaching quality (top sports only)
+    if (COACHING_SPORTS.has(s)) p += COACHING_DELTAS[f.coaching] || 0;
+
+    // Peaking (top sports only)
+    if (COACHING_SPORTS.has(s)) p += PEAK_DELTAS[f.peak] || 0;
+
+    // Delegation size (non-team sports)
+    if (!IS_TEAM[s]) {
+      const athRatio = Math.min(f.deleg / 50.0, 2.0);
+      p *= (0.85 + 0.15 * athRatio);
+    }
+
+    // Host nation
+    p *= hostScale;
+
+    return Math.min(Math.max(p, 0), 0.95);
+  });
 }
 
 function getExpected() {
@@ -445,14 +667,23 @@ function buildToggles() {
 // =========================================================
 function updateMetrics() {
   const d = getPreData();
-  const expected = getExpected().toFixed(2);
-  // Rough range from precomputed (scale by ratio of active/all)
-  const ratio = getExpected() / d.expected;
+  const probs = getActiveSportProbs().filter(p => p > 0);
+  const expected = probs.reduce((a,b)=>a+b,0);
+  const ratio = expected / Math.max(d.expected, 0.01);
   const p10 = Math.max(0, Math.round(d.p10 * ratio));
   const p90 = Math.round(d.p90 * ratio);
-  document.getElementById('val-expected').textContent = expected;
+  document.getElementById('val-expected').textContent = expected.toFixed(2);
   document.getElementById('sub-expected').textContent = `P10–P90: ${p10}–${p90}`;
   document.getElementById('val-range').textContent = `${p10}–${p90}`;
+  // Zero medal risk: approx P(0) from MC dist
+  const dist = approxMCDist(probs);
+  const zeroRisk = dist[0] || 0;
+  const zeroEl = document.getElementById('val-zero');
+  if (zeroEl) zeroEl.textContent = (zeroRisk * 100).toFixed(1) + '%';
+  // Athletics current prob
+  const athIdx = SPORTS.indexOf('Athletics');
+  const athEl = document.getElementById('val-ath');
+  if (athEl && athIdx >= 0) athEl.textContent = (probs[athIdx] !== undefined ? (getActiveSportProbs()[athIdx]*100).toFixed(0) : '?') + '%';
 }
 
 // =========================================================
@@ -673,6 +904,29 @@ slider.addEventListener('input', () => {
 });
 
 // =========================================================
+// ADVANCED CONTROLS WIRING
+// =========================================================
+function wireAdvanced() {
+  const adv = ['adv-alekna','adv-meilutyte','adv-bball','adv-focus','adv-coaching','adv-peak','adv-host','adv-gdp','adv-rho'];
+  adv.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', updateAll);
+  });
+  Object.keys(PIPELINE_DELTAS).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', updateAll);
+  });
+  const delegSlider = document.getElementById('adv-deleg');
+  const delegDisplay = document.getElementById('deleg-display');
+  if (delegSlider) {
+    delegSlider.addEventListener('input', () => {
+      if (delegDisplay) delegDisplay.textContent = delegSlider.value;
+      updateAll();
+    });
+  }
+}
+
+// =========================================================
 // INIT
 // =========================================================
 buildToggles();
@@ -680,6 +934,7 @@ initHistChart();
 initTypeChart();
 initScenChart();
 initPeersChart();
+wireAdvanced();
 updateAll();
 </script>
 
@@ -709,9 +964,8 @@ updateAll();
 <section>
   <h2>Emerging Athletes &mdash; Not in Current Predictions</h2>
   <p style="color:var(--muted);font-size:.82rem;margin-bottom:14px">
-    Partner insight: NICKA and Senkute were not in predictions for 2024 either.
-    These athletes competed at Paris 2024, are at prime age in 2028, but have no identified
-    medal path yet. Worth tracking as 2028 approaches.
+    These athletes competed at Paris 2024 and will be at prime age in 2028, but have no identified
+    medal path yet in the current model. Worth tracking as 2028 approaches.
   </p>
   <div class="grid grid-2">
     <div class="card">
@@ -723,8 +977,8 @@ updateAll();
     <div class="card">
       <h2>50m Breaststroke &mdash; Conditional Scenario</h2>
       <p class="caption">
-        Ruta Meilutyte is world champion and record holder in 50m breaststroke (partner note).
-        If confirmed for LA 2028, her probability in that event alone is estimated at 42%.
+        Meilutyte holds the 50m breaststroke world record and won the 2023 World Championship in that event.
+        If 50m breast is confirmed for LA 2028, her probability in that event alone is estimated at 42%.
       </p>
       <div style="background:#1b3a1b;border:1px solid #2d5a2d;border-radius:8px;padding:14px;margin-top:8px;font-size:.81rem;color:#6fcf6f;line-height:1.8">
         <strong>Current model (100m breast only):</strong> Swimming = 27%<br>
@@ -733,17 +987,15 @@ updateAll();
         <strong>Status:</strong> Pending IOC confirmation
       </div>
       <div style="margin-top:12px;font-size:.78rem;color:var(--muted);line-height:1.6">
-        <em>Partner note: "She is the 50m world champion and record holder, and the 50m is a new discipline
-        at the Olympics, so she has an advantage. That said, she also needs to work on the psychological aspect,
-        as she doesn't always perform well at the Olympics." Last Olympic medal: gold 2012.</em>
+        Note: Meilutyte's Olympic track record includes inconsistency vs world ranking — psych factor 0.85 applied in current model. Last Olympic medal: gold 2012.
       </div>
     </div>
   </div>
 </section>
 
-<!-- PARTNER NOTES -->
+<!-- MODEL NOTES -->
 <section>
-  <h2>Model Revisions from Partner Analysis</h2>
+  <h2>Key Model Corrections &amp; Methodology Notes</h2>
   <div class="card">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
       <div>
@@ -757,7 +1009,7 @@ updateAll();
       <div>
         <div style="font-size:.8rem;font-weight:700;color:var(--accent);margin-bottom:6px">Senkute: age corrected to 32 (not 27)</div>
         <div style="font-size:.78rem;color:var(--muted);line-height:1.6">
-          Born 1996-04-12 from Paris 2024 athletes data. Partner was correct: age 32 in 2028.
+          Born 1996-04-12 from Paris 2024 athletes data. Age 32 in 2028.
           32 is near the upper range of peak sculling age but not past it. Still a serious contender.
         </div>
       </div>
