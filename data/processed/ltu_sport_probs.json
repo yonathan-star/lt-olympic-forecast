@@ -1,8 +1,10 @@
 {
   "Athletics": {
-    "base_prob_2028": 0.817,
+    "base_prob_2028": 0.585,
+    "athlete_model_prob": 0.594,
     "historical_win_rate": 0.778,
-    "bayesian_rate": 0.594,
+    "bayesian_weighted_rate": 0.556,
+    "blend_weight_athlete": 0.75,
     "games_with_medals": 7,
     "games_participated": 9,
     "medal_years": [
@@ -14,15 +16,37 @@
       2016,
       2024
     ],
-    "pipeline_factor": 1.05,
-    "notes_athlete": "Mykolas Alekna (b.2004): 74.35m WL 2024, Olympic silver 2024. Andrius Gudzius (b.1991, 37 in 2028): may still compete. Two-generation pipeline. Alekna is top-3 global favorite for gold.",
-    "source": "World Athletics results 2024; Paris 2024 official results (IOC)",
-    "in_2028_program": true
+    "contenders": [
+      {
+        "athlete": "Mykolas Alekna",
+        "event": "Discus Throw Men",
+        "rank_2024": 1,
+        "psych": 0.9,
+        "birth_year": 2002,
+        "age_2028": 26,
+        "event_medal_prob": 0.583,
+        "notes": "World #1 2024, 74.35m WL, Olympic silver 2024 (age 21). Age 25 in 2028."
+      },
+      {
+        "athlete": "Martynas Alekna",
+        "event": "Discus Throw Men",
+        "rank_2024": 18,
+        "psych": 1.0,
+        "birth_year": 2000,
+        "age_2028": 28,
+        "event_medal_prob": 0.027,
+        "notes": "Brother of Mykolas, Paris 2024 participant. Age 27 in 2028. Rising contender."
+      }
+    ],
+    "in_2028_program": true,
+    "meilutyte_50m_conditional": null
   },
   "Rowing": {
-    "base_prob_2028": 0.316,
+    "base_prob_2028": 0.376,
+    "athlete_model_prob": 0.404,
     "historical_win_rate": 0.333,
-    "bayesian_rate": 0.286,
+    "bayesian_weighted_rate": 0.313,
+    "blend_weight_athlete": 0.7,
     "games_with_medals": 3,
     "games_participated": 9,
     "medal_years": [
@@ -30,166 +54,425 @@
       2016,
       2024
     ],
-    "pipeline_factor": 0.95,
-    "notes_athlete": "Viktorija Senkute (b.2001): Olympic bronze 2024 (W Single Sculls). Will be 27 in 2028 — peak rowing age. Strong training program.",
-    "source": "Paris 2024 official results; LTU Rowing Federation",
-    "in_2028_program": true
+    "contenders": [
+      {
+        "athlete": "Viktorija Senkute",
+        "event": "W Single Sculls",
+        "rank_2024": 3,
+        "psych": 1.0,
+        "birth_year": 1996,
+        "age_2028": 32,
+        "event_medal_prob": 0.368,
+        "notes": "Olympic bronze 2024, born 1996, age 32 in 2028. Peak rowing years."
+      },
+      {
+        "athlete": "Stankunas Domantas/Dovydas",
+        "event": "M Double Sculls",
+        "rank_2024": 14,
+        "psych": 1.0,
+        "birth_year": 2000,
+        "age_2028": 28,
+        "event_medal_prob": 0.056,
+        "notes": "Twin brothers, Paris 2024 participants, age 27-28 in 2028. Developing."
+      }
+    ],
+    "in_2028_program": true,
+    "meilutyte_50m_conditional": null
   },
   "Modern Pentathlon": {
-    "base_prob_2028": 0.225,
-    "historical_win_rate": 0.5,
-    "bayesian_rate": 0.393,
+    "base_prob_2028": 0.203,
+    "athlete_model_prob": 0.072,
+    "historical_win_rate": 0.444,
+    "bayesian_weighted_rate": 0.364,
+    "blend_weight_athlete": 0.55,
     "games_with_medals": 4,
-    "games_participated": 8,
+    "games_participated": 9,
     "medal_years": [
       2004,
       2008,
       2012,
       2020
     ],
-    "pipeline_factor": 0.45,
-    "notes_athlete": "Laura Asadauskaite (b.1984): 5 Olympic medals but will be 44 in 2028. Virtually certain to have retired. Next-gen: Gintare Venckauskaite — needs to prove senior-level consistency.",
-    "source": "UIPM World Ranking 2024; age-based retirement probability",
-    "in_2028_program": true
+    "contenders": [
+      {
+        "athlete": "Gintare Venckauskaite",
+        "event": "Women's Pentathlon",
+        "rank_2024": 10,
+        "psych": 0.85,
+        "birth_year": 1992,
+        "age_2028": 36,
+        "event_medal_prob": 0.072,
+        "notes": "Born 1992, age 35 in 2028 — late career. Previous top-10 senior."
+      }
+    ],
+    "in_2028_program": true,
+    "meilutyte_50m_conditional": null
   },
   "Swimming": {
-    "base_prob_2028": 0.188,
-    "historical_win_rate": 0.125,
-    "bayesian_rate": 0.143,
+    "base_prob_2028": 0.271,
+    "athlete_model_prob": 0.341,
+    "historical_win_rate": 0.111,
+    "bayesian_weighted_rate": 0.142,
+    "blend_weight_athlete": 0.65,
     "games_with_medals": 1,
-    "games_participated": 8,
+    "games_participated": 9,
     "medal_years": [
       2012
     ],
-    "pipeline_factor": 1.5,
-    "notes_athlete": "Ruta Meilutyte (b.1997): WR holder 100m breaststroke, Olympic gold 2012. Danas Rapsys (b.1995): European champion, 3 Olympic A-finals. Both capable of medals; neither is a clear favorite.",
-    "source": "FINA World Rankings 2024; Olympic results archive",
-    "in_2028_program": true
+    "contenders": [
+      {
+        "athlete": "Ruta Meilutyte",
+        "event": "100m Breaststroke Women",
+        "rank_2024": 4,
+        "psych": 0.8,
+        "birth_year": 1997,
+        "age_2028": 31,
+        "event_medal_prob": 0.215,
+        "notes": "WR holder 50m breast, top-5 100m breast. Age 31 in 2028. Olympic underperformer (last medal 2012)."
+      },
+      {
+        "athlete": "Danas Rapsys",
+        "event": "200m Freestyle Men",
+        "rank_2024": 7,
+        "psych": 0.9,
+        "birth_year": 1995,
+        "age_2028": 33,
+        "event_medal_prob": 0.126,
+        "notes": "European champion, 3 Olympic A-finals. Age 33 in 2028 — at the edge."
+      },
+      {
+        "athlete": "Tomas Lukminas",
+        "event": "Breaststroke",
+        "rank_2024": 22,
+        "psych": 1.0,
+        "birth_year": 2004,
+        "age_2028": 24,
+        "event_medal_prob": 0.02,
+        "notes": "Born 2004, age 23 in 2028 — prime sprint age. Emerging contender."
+      },
+      {
+        "athlete": "Tomas Navikonis",
+        "event": "Backstroke/Freestyle",
+        "rank_2024": 28,
+        "psych": 1.0,
+        "birth_year": 2003,
+        "age_2028": 25,
+        "event_medal_prob": 0.019,
+        "notes": "Born 2003, age 25 in 2028. Participated Paris 2024."
+      }
+    ],
+    "in_2028_program": true,
+    "meilutyte_50m_conditional": 0.42
   },
   "3x3 Basketball": {
-    "base_prob_2028": 0.344,
-    "historical_win_rate": 1.0,
-    "bayesian_rate": 0.344,
+    "base_prob_2028": 0.25,
+    "athlete_model_prob": 0.213,
+    "historical_win_rate": 0.5,
+    "bayesian_weighted_rate": 0.305,
+    "blend_weight_athlete": 0.6,
     "games_with_medals": 1,
-    "games_participated": 1,
+    "games_participated": 2,
     "medal_years": [
       2024
     ],
-    "pipeline_factor": 1.0,
-    "notes_athlete": "Olympic bronze medalists Paris 2024. Core roster: Augustinas Marciulionis, Tomas Dimsa, Paulius Beleckis — avg 27 in 2028. Basketball culture is structural strength.",
-    "source": "FIBA 3x3 World Ranking 2024; Paris 2024 results",
-    "in_2028_program": true
+    "contenders": [
+      {
+        "athlete": "Lithuania 3x3 Men",
+        "event": "3x3 Basketball Men",
+        "rank_2024": 5,
+        "psych": 1.0,
+        "birth_year": 1993,
+        "age_2028": 35,
+        "event_medal_prob": 0.213,
+        "notes": "Olympic bronze 2024. Core roster ages 31-41 in 2028 — roster uncertainty high. FIBA rank ~5."
+      }
+    ],
+    "in_2028_program": true,
+    "meilutyte_50m_conditional": null
   },
   "Canoe Sprint": {
-    "base_prob_2028": 0.087,
-    "historical_win_rate": 0.125,
-    "bayesian_rate": 0.143,
+    "base_prob_2028": 0.11,
+    "athlete_model_prob": 0.014,
+    "historical_win_rate": 0.111,
+    "bayesian_weighted_rate": 0.151,
+    "blend_weight_athlete": 0.3,
     "games_with_medals": 1,
-    "games_participated": 8,
+    "games_participated": 9,
     "medal_years": [
       2016
     ],
-    "pipeline_factor": 0.7,
-    "notes_athlete": "2016 bronze: Lankas/Ramanauskas (K2-200m). No identified 2028 contender. Program active but no pipeline to podium yet confirmed.",
-    "source": "ICF World Rankings 2024; LTU Canoe Federation",
-    "in_2028_program": true
+    "contenders": [
+      {
+        "athlete": "TBD",
+        "event": "Canoe Sprint",
+        "rank_2024": 20,
+        "psych": 1.0,
+        "birth_year": 1993,
+        "age_2028": 35,
+        "event_medal_prob": 0.014,
+        "notes": "No confirmed 2028 contender. 2016 bronze was one-off K2-200m duo."
+      }
+    ],
+    "in_2028_program": true,
+    "meilutyte_50m_conditional": null
   },
   "Shooting": {
-    "base_prob_2028": 0.086,
+    "base_prob_2028": 0.115,
+    "athlete_model_prob": 0.014,
     "historical_win_rate": 0.143,
-    "bayesian_rate": 0.156,
+    "bayesian_weighted_rate": 0.14,
+    "blend_weight_athlete": 0.2,
     "games_with_medals": 1,
     "games_participated": 7,
     "medal_years": [
       2000
     ],
-    "pipeline_factor": 0.6,
-    "notes_athlete": "Last medal: Daina Gudzineviciute, Trap Gold 2000. No Lithuanian shooter in current global top-20 identified.",
-    "source": "ISSF World Rankings 2024",
-    "in_2028_program": true
+    "contenders": [
+      {
+        "athlete": "TBD",
+        "event": "Shooting",
+        "rank_2024": 25,
+        "psych": 1.0,
+        "birth_year": 1990,
+        "age_2028": 38,
+        "event_medal_prob": 0.014,
+        "notes": "Last medal 2000 (Gudzineviciute). No current ISSF top-20 identified."
+      }
+    ],
+    "in_2028_program": true,
+    "meilutyte_50m_conditional": null
   },
   "Weightlifting": {
-    "base_prob_2028": 0.084,
+    "base_prob_2028": 0.149,
+    "athlete_model_prob": 0.013,
     "historical_win_rate": 0.167,
-    "bayesian_rate": 0.172,
+    "bayesian_weighted_rate": 0.195,
+    "blend_weight_athlete": 0.25,
     "games_with_medals": 1,
     "games_participated": 6,
     "medal_years": [
       2016
     ],
-    "pipeline_factor": 0.5,
-    "notes_athlete": "Aurimas Didzbalis: bronze 2016, now 35+ in 2028. LTU weightlifting program reduced after IWF sanctions era.",
-    "source": "IWF Rankings 2024; CAS doping rulings history",
-    "in_2028_program": true
+    "contenders": [
+      {
+        "athlete": "TBD",
+        "event": "Weightlifting",
+        "rank_2024": 22,
+        "psych": 1.0,
+        "birth_year": 1992,
+        "age_2028": 36,
+        "event_medal_prob": 0.013,
+        "notes": "Didzbalis bronze 2016 now 37. Program weakened post-sanctions."
+      }
+    ],
+    "in_2028_program": true,
+    "meilutyte_50m_conditional": null
   },
   "Wrestling": {
-    "base_prob_2028": 0.1,
-    "historical_win_rate": 0.25,
-    "bayesian_rate": 0.227,
+    "base_prob_2028": 0.14,
+    "athlete_model_prob": 0.072,
+    "historical_win_rate": 0.222,
+    "bayesian_weighted_rate": 0.209,
+    "blend_weight_athlete": 0.5,
     "games_with_medals": 2,
-    "games_participated": 8,
+    "games_participated": 9,
     "medal_years": [
       2008,
       2012
     ],
-    "pipeline_factor": 0.4,
-    "notes_athlete": "Mindaugas Mizgaitis: silver 2008. No current top-global contender identified.",
-    "source": "UWW World Rankings 2024",
-    "in_2028_program": true
-  },
-  "Cycling Road": {
-    "base_prob_2028": 0.037,
-    "historical_win_rate": 0.125,
-    "bayesian_rate": 0.143,
-    "games_with_medals": 1,
-    "games_participated": 8,
-    "medal_years": [
-      2000
+    "contenders": [
+      {
+        "athlete": "Gabija Dilyte",
+        "event": "Women's Wrestling",
+        "rank_2024": 15,
+        "psych": 1.0,
+        "birth_year": 2003,
+        "age_2028": 25,
+        "event_medal_prob": 0.047,
+        "notes": "Born 2003, age 24 in 2028. Paris 2024 participant. Prime years, developing."
+      },
+      {
+        "athlete": "Mindaugas Venckaitis",
+        "event": "Men's Wrestling",
+        "rank_2024": 18,
+        "psych": 1.0,
+        "birth_year": 2001,
+        "age_2028": 27,
+        "event_medal_prob": 0.026,
+        "notes": "Born 2001, age 26 in 2028. Paris 2024 participant. Emerging contender."
+      }
     ],
-    "pipeline_factor": 0.3,
-    "notes_athlete": "Diana Ziliste: bronze 2000. No current UCI WorldTour contender from LTU.",
-    "source": "UCI rankings 2024",
-    "in_2028_program": true
-  },
-  "Sailing": {
-    "base_prob_2028": 0.043,
-    "historical_win_rate": 0.143,
-    "bayesian_rate": 0.156,
-    "games_with_medals": 1,
-    "games_participated": 7,
-    "medal_years": [
-      2008
-    ],
-    "pipeline_factor": 0.3,
-    "notes_athlete": "Gintare Volungeviciute: silver 2008 Laser Radial. No confirmed contender for 2028 equipment classes.",
-    "source": "World Sailing rankings 2024",
-    "in_2028_program": true
-  },
-  "Boxing": {
-    "base_prob_2028": 0.057,
-    "historical_win_rate": 0.143,
-    "bayesian_rate": 0.156,
-    "games_with_medals": 1,
-    "games_participated": 7,
-    "medal_years": [
-      2012
-    ],
-    "pipeline_factor": 0.4,
-    "notes_athlete": "Evaldas Petrauskas: bronze 2012. Sporadic program. No confirmed 2028 medalist pipeline.",
-    "source": "IBA results archive",
-    "in_2028_program": true
+    "in_2028_program": true,
+    "meilutyte_50m_conditional": null
   },
   "Breaking": {
     "base_prob_2028": 0.0,
-    "historical_win_rate": 0.5,
-    "games_with_medals": 1,
-    "games_participated": 1,
+    "historical_win_rate": 1.0,
     "medal_years": [
       2024
     ],
-    "pipeline_factor": 0.0,
-    "notes_athlete": "NICKA (Dominyka Banevic): silver 2024. Breaking is NOT on the LA 2028 program. This medal cannot be replicated at LA 2028.",
-    "source": "IOC Program Commission 2023: Breaking removed from LA 2028",
-    "in_2028_program": false
+    "in_2028_program": false,
+    "notes": "NICKA (born 2007, age 21 in 2028) won Silver 2024. NOT on LA 2028 programme. IOC Program Commission 2023."
+  },
+  "_outlier_candidates": [
+    {
+      "name": "LUKMINAS Tomas",
+      "sport": "Swimming",
+      "age_2028": 24,
+      "birth_year": 2004,
+      "known_contender": true,
+      "flag": "tracked"
+    },
+    {
+      "name": "DILYTE Gabija",
+      "sport": "Wrestling",
+      "age_2028": 25,
+      "birth_year": 2003,
+      "known_contender": true,
+      "flag": "tracked"
+    },
+    {
+      "name": "NAVIKONIS Tomas",
+      "sport": "Swimming",
+      "age_2028": 25,
+      "birth_year": 2003,
+      "known_contender": true,
+      "flag": "tracked"
+    },
+    {
+      "name": "SAVICKAS Aleksas",
+      "sport": "Swimming",
+      "age_2028": 25,
+      "birth_year": 2003,
+      "known_contender": false,
+      "flag": "NEW CONTENDER"
+    },
+    {
+      "name": "ALEKNA Mykolas",
+      "sport": "Athletics",
+      "age_2028": 26,
+      "birth_year": 2002,
+      "known_contender": true,
+      "flag": "tracked"
+    },
+    {
+      "name": "TETEREVKOVA Kotryna",
+      "sport": "Swimming",
+      "age_2028": 26,
+      "birth_year": 2002,
+      "known_contender": false,
+      "flag": "NEW CONTENDER"
+    },
+    {
+      "name": "VENCKAITIS Mindaugas",
+      "sport": "Wrestling",
+      "age_2028": 27,
+      "birth_year": 2001,
+      "known_contender": true,
+      "flag": "tracked"
+    },
+    {
+      "name": "RIMKUTE Dovile",
+      "sport": "Rowing",
+      "age_2028": 27,
+      "birth_year": 2001,
+      "known_contender": false,
+      "flag": "NEW CONTENDER"
+    },
+    {
+      "name": "KRALIKAITE Kamile",
+      "sport": "Rowing",
+      "age_2028": 27,
+      "birth_year": 2001,
+      "known_contender": false,
+      "flag": "NEW CONTENDER"
+    },
+    {
+      "name": "ALEKNA Martynas",
+      "sport": "Athletics",
+      "age_2028": 28,
+      "birth_year": 2000,
+      "known_contender": true,
+      "flag": "tracked"
+    },
+    {
+      "name": "GALVYDYTE Gabija",
+      "sport": "Athletics",
+      "age_2028": 28,
+      "birth_year": 2000,
+      "known_contender": true,
+      "flag": "tracked"
+    },
+    {
+      "name": "STANKUNAS Domantas",
+      "sport": "Rowing",
+      "age_2028": 28,
+      "birth_year": 2000,
+      "known_contender": true,
+      "flag": "tracked"
+    },
+    {
+      "name": "STANKUNAS Dovydas",
+      "sport": "Rowing",
+      "age_2028": 28,
+      "birth_year": 2000,
+      "known_contender": true,
+      "flag": "tracked"
+    },
+    {
+      "name": "RAUPELYTE Aine",
+      "sport": "Beach Volleyball",
+      "age_2028": 28,
+      "birth_year": 2000,
+      "known_contender": false,
+      "flag": "NEW CONTENDER"
+    },
+    {
+      "name": "BALEISYTE Olivija",
+      "sport": "Cycling Track",
+      "age_2028": 30,
+      "birth_year": 1998,
+      "known_contender": false,
+      "flag": "NEW CONTENDER"
+    },
+    {
+      "name": "ZAGAINOVA Diana",
+      "sport": "Athletics",
+      "age_2028": 31,
+      "birth_year": 1997,
+      "known_contender": false,
+      "flag": "NEW CONTENDER"
+    },
+    {
+      "name": "BIELIAUSKAS Giedrius",
+      "sport": "Rowing",
+      "age_2028": 31,
+      "birth_year": 1997,
+      "known_contender": false,
+      "flag": "NEW CONTENDER"
+    },
+    {
+      "name": "MATUSEVICIUS Edis",
+      "sport": "Athletics",
+      "age_2028": 32,
+      "birth_year": 1996,
+      "known_contender": false,
+      "flag": "NEW CONTENDER"
+    },
+    {
+      "name": "SENKUTE Viktorija",
+      "sport": "Rowing",
+      "age_2028": 32,
+      "birth_year": 1996,
+      "known_contender": true,
+      "flag": "tracked"
+    }
+  ],
+  "_meta": {
+    "generated": "2026-03-25",
+    "meilutyte_50m_confirmed": false,
+    "meilutyte_50m_prob_if_confirmed": 0.42,
+    "model_version": "2.0",
+    "note": "Partner feedback incorporated: age corrections (Alekna 25, Senkute 32, Venckauskaite 35), psychological factors, outlier detection"
   }
 }

@@ -217,24 +217,59 @@ def predict_total_medals(
     selected_sports: list = None,
     focus_mode: bool = False,
     n_simulations: int = 10_000,
+    rho: float = 0.15,
 ) -> dict:
     """
-    Monte Carlo simulation: sample each sport independently,
-    sum medals, return distribution.
+    Correlated Monte Carlo simulation using a Gaussian copula.
+
+    Sports are not fully independent: shared factors (delegation quality,
+    travel conditions, funding shocks) induce mild positive correlation.
+    Fat-tail shocks capture the observed variance in small-program outcomes
+    (Lithuania ranged 1–5 medals across Games — wider than independent Bernoulli implies).
+
+    Parameters
+    ----------
+    rho : float
+        Cross-sport correlation coefficient (0 = independent, 1 = perfectly correlated).
+        0.15 is conservative: a "good Lithuania Games" lifts all sports modestly.
     """
     sport_probs = compute_medal_probs(
         funding_multiplier, athletes_sent, selected_sports, focus_mode
     )
 
-    rng = np.random.default_rng(42)
-    total_sim = np.zeros(n_simulations)
-    sport_sims = {}
+    sports   = list(sport_probs.keys())
+    n_sports = len(sports)
+    probs    = np.array([sport_probs[s]["medal_probability"] for s in sports])
 
-    for sport, data in sport_probs.items():
-        p = data["medal_probability"]
-        draws = rng.random(n_simulations) < p
-        total_sim += draws.astype(float)
-        sport_sims[sport] = float(draws.mean())
+    rng = np.random.default_rng(42)
+
+    # Gaussian copula: correlated standard normals -> correlated uniform -> Bernoulli
+    cov = np.full((n_sports, n_sports), rho)
+    np.fill_diagonal(cov, 1.0)
+    L = np.linalg.cholesky(cov)  # Cholesky factor
+
+    from scipy.stats import norm
+
+    # Fat-tail shock distribution: occasionally everything goes very well or very badly.
+    # Calibrated so that Lithuania's observed range (1–5 medals) is plausible.
+    SHOCK_VALS = np.array([0.55, 0.80, 1.00, 1.00, 1.20, 1.50])
+    SHOCK_PROB = np.array([0.08, 0.12, 0.40, 0.20, 0.12, 0.08])
+
+    total_sim  = np.zeros(n_simulations, dtype=float)
+    draws_mat  = np.zeros((n_simulations, n_sports), dtype=float)
+
+    Z = (L @ rng.standard_normal((n_sports, n_simulations))).T  # (n_sim, n_sports)
+    U = norm.cdf(Z)  # correlated uniforms
+
+    shocks = rng.choice(SHOCK_VALS, size=n_simulations, p=SHOCK_PROB)
+
+    for i in range(n_simulations):
+        p_adj = np.clip(probs * shocks[i], 0.0, 0.95)
+        medals = (U[i] < p_adj).astype(float)
+        draws_mat[i]  = medals
+        total_sim[i]  = medals.sum()
+
+    sport_sims = {s: float(draws_mat[:, i].mean()) for i, s in enumerate(sports)}
 
     return {
         "expected_total":  float(np.mean(total_sim)),
