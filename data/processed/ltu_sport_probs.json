@@ -1,0 +1,195 @@
+{
+  "Athletics": {
+    "base_prob_2028": 0.817,
+    "historical_win_rate": 0.778,
+    "bayesian_rate": 0.594,
+    "games_with_medals": 7,
+    "games_participated": 9,
+    "medal_years": [
+      1992,
+      2000,
+      2004,
+      2008,
+      2012,
+      2016,
+      2024
+    ],
+    "pipeline_factor": 1.05,
+    "notes_athlete": "Mykolas Alekna (b.2004): 74.35m WL 2024, Olympic silver 2024. Andrius Gudzius (b.1991, 37 in 2028): may still compete. Two-generation pipeline. Alekna is top-3 global favorite for gold.",
+    "source": "World Athletics results 2024; Paris 2024 official results (IOC)",
+    "in_2028_program": true
+  },
+  "Rowing": {
+    "base_prob_2028": 0.316,
+    "historical_win_rate": 0.333,
+    "bayesian_rate": 0.286,
+    "games_with_medals": 3,
+    "games_participated": 9,
+    "medal_years": [
+      2000,
+      2016,
+      2024
+    ],
+    "pipeline_factor": 0.95,
+    "notes_athlete": "Viktorija Senkute (b.2001): Olympic bronze 2024 (W Single Sculls). Will be 27 in 2028 — peak rowing age. Strong training program.",
+    "source": "Paris 2024 official results; LTU Rowing Federation",
+    "in_2028_program": true
+  },
+  "Modern Pentathlon": {
+    "base_prob_2028": 0.225,
+    "historical_win_rate": 0.5,
+    "bayesian_rate": 0.393,
+    "games_with_medals": 4,
+    "games_participated": 8,
+    "medal_years": [
+      2004,
+      2008,
+      2012,
+      2020
+    ],
+    "pipeline_factor": 0.45,
+    "notes_athlete": "Laura Asadauskaite (b.1984): 5 Olympic medals but will be 44 in 2028. Virtually certain to have retired. Next-gen: Gintare Venckauskaite — needs to prove senior-level consistency.",
+    "source": "UIPM World Ranking 2024; age-based retirement probability",
+    "in_2028_program": true
+  },
+  "Swimming": {
+    "base_prob_2028": 0.188,
+    "historical_win_rate": 0.125,
+    "bayesian_rate": 0.143,
+    "games_with_medals": 1,
+    "games_participated": 8,
+    "medal_years": [
+      2012
+    ],
+    "pipeline_factor": 1.5,
+    "notes_athlete": "Ruta Meilutyte (b.1997): WR holder 100m breaststroke, Olympic gold 2012. Danas Rapsys (b.1995): European champion, 3 Olympic A-finals. Both capable of medals; neither is a clear favorite.",
+    "source": "FINA World Rankings 2024; Olympic results archive",
+    "in_2028_program": true
+  },
+  "3x3 Basketball": {
+    "base_prob_2028": 0.344,
+    "historical_win_rate": 1.0,
+    "bayesian_rate": 0.344,
+    "games_with_medals": 1,
+    "games_participated": 1,
+    "medal_years": [
+      2024
+    ],
+    "pipeline_factor": 1.0,
+    "notes_athlete": "Olympic bronze medalists Paris 2024. Core roster: Augustinas Marciulionis, Tomas Dimsa, Paulius Beleckis — avg 27 in 2028. Basketball culture is structural strength.",
+    "source": "FIBA 3x3 World Ranking 2024; Paris 2024 results",
+    "in_2028_program": true
+  },
+  "Canoe Sprint": {
+    "base_prob_2028": 0.087,
+    "historical_win_rate": 0.125,
+    "bayesian_rate": 0.143,
+    "games_with_medals": 1,
+    "games_participated": 8,
+    "medal_years": [
+      2016
+    ],
+    "pipeline_factor": 0.7,
+    "notes_athlete": "2016 bronze: Lankas/Ramanauskas (K2-200m). No identified 2028 contender. Program active but no pipeline to podium yet confirmed.",
+    "source": "ICF World Rankings 2024; LTU Canoe Federation",
+    "in_2028_program": true
+  },
+  "Shooting": {
+    "base_prob_2028": 0.086,
+    "historical_win_rate": 0.143,
+    "bayesian_rate": 0.156,
+    "games_with_medals": 1,
+    "games_participated": 7,
+    "medal_years": [
+      2000
+    ],
+    "pipeline_factor": 0.6,
+    "notes_athlete": "Last medal: Daina Gudzineviciute, Trap Gold 2000. No Lithuanian shooter in current global top-20 identified.",
+    "source": "ISSF World Rankings 2024",
+    "in_2028_program": true
+  },
+  "Weightlifting": {
+    "base_prob_2028": 0.084,
+    "historical_win_rate": 0.167,
+    "bayesian_rate": 0.172,
+    "games_with_medals": 1,
+    "games_participated": 6,
+    "medal_years": [
+      2016
+    ],
+    "pipeline_factor": 0.5,
+    "notes_athlete": "Aurimas Didzbalis: bronze 2016, now 35+ in 2028. LTU weightlifting program reduced after IWF sanctions era.",
+    "source": "IWF Rankings 2024; CAS doping rulings history",
+    "in_2028_program": true
+  },
+  "Wrestling": {
+    "base_prob_2028": 0.1,
+    "historical_win_rate": 0.25,
+    "bayesian_rate": 0.227,
+    "games_with_medals": 2,
+    "games_participated": 8,
+    "medal_years": [
+      2008,
+      2012
+    ],
+    "pipeline_factor": 0.4,
+    "notes_athlete": "Mindaugas Mizgaitis: silver 2008. No current top-global contender identified.",
+    "source": "UWW World Rankings 2024",
+    "in_2028_program": true
+  },
+  "Cycling Road": {
+    "base_prob_2028": 0.037,
+    "historical_win_rate": 0.125,
+    "bayesian_rate": 0.143,
+    "games_with_medals": 1,
+    "games_participated": 8,
+    "medal_years": [
+      2000
+    ],
+    "pipeline_factor": 0.3,
+    "notes_athlete": "Diana Ziliste: bronze 2000. No current UCI WorldTour contender from LTU.",
+    "source": "UCI rankings 2024",
+    "in_2028_program": true
+  },
+  "Sailing": {
+    "base_prob_2028": 0.043,
+    "historical_win_rate": 0.143,
+    "bayesian_rate": 0.156,
+    "games_with_medals": 1,
+    "games_participated": 7,
+    "medal_years": [
+      2008
+    ],
+    "pipeline_factor": 0.3,
+    "notes_athlete": "Gintare Volungeviciute: silver 2008 Laser Radial. No confirmed contender for 2028 equipment classes.",
+    "source": "World Sailing rankings 2024",
+    "in_2028_program": true
+  },
+  "Boxing": {
+    "base_prob_2028": 0.057,
+    "historical_win_rate": 0.143,
+    "bayesian_rate": 0.156,
+    "games_with_medals": 1,
+    "games_participated": 7,
+    "medal_years": [
+      2012
+    ],
+    "pipeline_factor": 0.4,
+    "notes_athlete": "Evaldas Petrauskas: bronze 2012. Sporadic program. No confirmed 2028 medalist pipeline.",
+    "source": "IBA results archive",
+    "in_2028_program": true
+  },
+  "Breaking": {
+    "base_prob_2028": 0.0,
+    "historical_win_rate": 0.5,
+    "games_with_medals": 1,
+    "games_participated": 1,
+    "medal_years": [
+      2024
+    ],
+    "pipeline_factor": 0.0,
+    "notes_athlete": "NICKA (Dominyka Banevic): silver 2024. Breaking is NOT on the LA 2028 program. This medal cannot be replicated at LA 2028.",
+    "source": "IOC Program Commission 2023: Breaking removed from LA 2028",
+    "in_2028_program": false
+  }
+}
