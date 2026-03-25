@@ -186,7 +186,7 @@ details[open] summary::before{transform:rotate(90deg)}
 </div>
 
 <!-- ADVANCED CONTROLS -->
-<details class="adv-panel">
+<details class="adv-panel" open>
   <summary>Advanced Factors &mdash; click to expand</summary>
   <div class="adv-groups">
 
@@ -220,7 +220,7 @@ details[open] summary::before{transform:rotate(90deg)}
       <div class="adv-row" style="margin-top:10px">
         <label style="margin-bottom:6px">Youth pipeline (add emerging contenders)</label>
         <label class="checkbox-row"><input type="checkbox" id="pipe-lukminas"> Lukminas (Athletics, +2%)</label>
-        <label class="checkbox-row"><input type="checkbox" id="pipe-dilyte" checked> Dilyte (Wrestling, +5%)</label>
+        <label class="checkbox-row"><input type="checkbox" id="pipe-dilyte"> Dilyte (Wrestling, +5%)</label>
         <label class="checkbox-row"><input type="checkbox" id="pipe-navikonis"> Navikonis (Rowing, +2%)</label>
         <label class="checkbox-row"><input type="checkbox" id="pipe-unknown"> Unknown breakout (+2.5%)</label>
       </div>
@@ -505,8 +505,8 @@ const IS_TEAM = {'3x3 Basketball':true};
 const ALEKNA_SCALARS = {peak:1.0, uncertain:0.65, out:0.18};
 // Meilutyte scalars applied to Swimming probability
 const MEILUTYTE_SCALARS = {normal:1.0, confirmed_50m:1.62, retired:0.55};
-// 3x3 Basketball roster scalars
-const BBALL_SCALARS = {full:1.15, partial:1.0, new:0.65, dnq:0.10};
+// 3x3 Basketball roster scalars (full = same Paris 2024 squad = model baseline = 1.0)
+const BBALL_SCALARS = {full:1.0, partial:0.85, new:0.56, dnq:0.09};
 // Youth pipeline additive deltas per sport
 const PIPELINE_DELTAS = {
   'pipe-lukminas':  {sport:'Athletics',   delta:0.020},
@@ -516,8 +516,8 @@ const PIPELINE_DELTAS = {
 };
 // Host nation scalars
 const HOST_SCALARS = {negative:0.93, neutral:1.0, positive:1.05};
-// GDP / budget scalars (applied as extra funding multiplier)
-const BUDGET_SCALARS = {recession:0.90, baseline:1.05, strong:1.15};
+// GDP / budget scalars (baseline = model baseline = 1.0, no extra effect)
+const BUDGET_SCALARS = {recession:0.90, baseline:1.0, strong:1.12};
 // Coaching quality additive delta on top sports (Athletics, Rowing, Swimming)
 const COACHING_SPORTS = new Set(['Athletics','Rowing','Swimming','3x3 Basketball','Modern Pentathlon']);
 const COACHING_DELTAS = {low:-0.04, normal:0.0, high:0.05, elite:0.10};
@@ -578,12 +578,9 @@ function getActiveSportProbs() {
     const fundingDelta = (FUNDING_LEVELS[currentFundingIdx] * budgetScale) - FUNDING_LEVELS[currentFundingIdx];
     p += (FUNDING_SENS[s] || 0.05) * fundingDelta;
 
-    // Focus mode bonus
-    const focusMode = f.focus;
-    if (focusMode === 'top3' && !FOCUS_TOP3.includes(s)) p *= 0.88;
-    if (focusMode === 'top2' && !FOCUS_TOP2.includes(s)) p *= 0.75;
-    if (focusMode === 'top3' && FOCUS_TOP3.includes(s))  p *= FOCUS_BONUS.top3;
-    if (focusMode === 'top2' && FOCUS_TOP2.includes(s))  p *= FOCUS_BONUS.top2;
+    // Focus mode: concentrated funding boosts priority sports, penalises others
+    if (f.focus === 'top3') p *= FOCUS_TOP3.includes(s) ? FOCUS_BONUS.top3 : 0.88;
+    if (f.focus === 'top2') p *= FOCUS_TOP2.includes(s) ? FOCUS_BONUS.top2 : 0.75;
 
     // Athlete status scalars
     if (s === 'Athletics')     p *= ALEKNA_SCALARS[f.alekna]    || 1.0;
@@ -845,15 +842,20 @@ function initHistChart() {
 function updateHistChart() {
   const d = getPreData();
   const exp = getExpected();
-  const ratio = exp / d.expected;
-  const p10 = Math.max(0, d.p10 * ratio);
-  const p90 = d.p90 * ratio;
-  Plotly.restyle('chart-hist', {x:[[2028]], y:[[exp]],
-    'error_y.array':[[p90-exp]], 'error_y.arrayminus':[[exp-p10]]}, [4]);
-  Plotly.relayout('chart-hist', {
-    shapes:[],
-    annotations:[]
-  });
+  const activeProbs = getActiveSportProbs().filter(p => p > 0);
+  const dist = approxMCDist(activeProbs);
+  let cum = 0, p10 = 0, p90 = 0, p10f = false, p90f = false;
+  for (let k = 0; k < dist.length; k++) {
+    cum += dist[k];
+    if (!p10f && cum >= 0.10) { p10 = k; p10f = true; }
+    if (!p90f && cum >= 0.90) { p90 = k; p90f = true; break; }
+  }
+  Plotly.restyle('chart-hist', {
+    x: [[2028]],
+    y: [[exp]],
+    'error_y.array':      [[Math.max(0, p90 - exp)]],
+    'error_y.arrayminus': [[Math.max(0, exp - p10)]]
+  }, [4]);
 }
 
 // =========================================================
@@ -921,11 +923,11 @@ function updateScenChart() {
   const activeProbs = getActiveSportProbs().filter(p => p > 0);
   const dist = approxMCDist(activeProbs);
   // Derive P10/P90 from the approximated distribution
-  let cum = 0, p10 = 0, p90 = 0;
+  let cum = 0, p10 = 0, p90 = 0, p10f = false, p90f = false;
   for (let k = 0; k < dist.length; k++) {
     cum += dist[k];
-    if (cum >= 0.10 && !p10) p10 = k;
-    if (cum >= 0.90 && !p90) { p90 = k; break; }
+    if (!p10f && cum >= 0.10) { p10 = k; p10f = true; }
+    if (!p90f && cum >= 0.90) { p90 = k; p90f = true; break; }
   }
   Plotly.restyle('chart-scen', {
     y:[[exp]],
