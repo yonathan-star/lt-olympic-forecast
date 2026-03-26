@@ -1,11 +1,178 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lithuania LA 2028 Olympic Medal Forecast</title>
-<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
-<style>
+"""Rebuild docs/index.html — light-mode Olympic-themed design with LT translation."""
+import os
+ROOT = os.path.join(os.path.dirname(__file__), "..")
+with open(os.path.join(ROOT, "docs", "_js_block.txt"), encoding="utf-8") as f:
+    JS = f.read()
+
+RINGS = '<span class="or"></span>' * 5
+
+# ── Translation script — backtick template literals avoid all quote/apostrophe issues ──
+TRANS_JS = """
+<script>
+var LANG = 'en';
+var T = {
+  en: {
+    'nav-forecast':       `Forecast`,
+    'nav-athletes':       `Athletes`,
+    'nav-simulator':      `Simulator`,
+    'nav-analysis':       `Analysis`,
+    'nav-data':           `Data`,
+    'nav-expected-lbl':   `Expected medals:`,
+    'hero-title':         `Lithuania\u2005<span class="edition">LA\u00a02028</span><br>Olympic Medal Forecast`,
+    'hero-tagline':       `Sport-by-sport prediction built from Olympedia historical data (1992\u20132024), the known athlete pipeline, and a correlated Monte Carlo simulation.`,
+    'hero-datasrc':       `Olympedia 1992\u20132020 \u2022 IOC Paris 2024 \u2022 Bayesian shrinkage \u2022 10,000-run Monte Carlo \u2022 Gaussian copula \u03c1=0.15`,
+    'sec-forecast':       `2028 Forecast`,
+    'sub-forecast':       `Baseline scenario \u2014 use the Simulator below to adjust funding, athletes, and conditions`,
+    'lbl-expected':       `Expected medals`,
+    'lbl-range':          `Likely range`,
+    'sub-range':          `P10 \u2013 P90`,
+    'lbl-zero':           `Zero-medal risk`,
+    'sub-zero-static':    `current settings`,
+    'lbl-athletics':      `Athletics`,
+    'sub-athletics':      `Alekna \u2014 gold favourite`,
+    'lbl-paris':          `Paris 2024 actual`,
+    'sub-paris':          `incl. Breaking silver`,
+    'lbl-beet':           `\u0160altibar\u0161\u010diai Index`,
+    'sub-beet':           `Post-medal ceremony probability`,
+    'tbl-title':          `Sport-by-Sport Detail`,
+    'sec-athletes':       `Key Athletes \u2014 LA 2028 Contenders`,
+    'sub-athletes':       `Primary medal candidates driving the per-sport probabilities above`,
+    'warn-breaking':      `<strong>Breaking is NOT on the LA 2028 programme.</strong> NICKA (Dominyka Banevic) won Silver at Paris 2024, but the IOC removed Breaking from the 2028 Games. Lithuania's 2028 forecast is calculated without this sport. <em style="opacity:.7">&nbsp; Source: IOC Programme Commission, 2023.</em>`,
+    'sec-simulator':      `Interactive Simulator`,
+    'sub-simulator':      `Adjust funding, athlete status, and conditions \u2014 charts update live. The forecast table above also updates.`,
+    'ctrl-core':          `Core controls`,
+    'lbl-funding':        `Funding multiplier`,
+    'lbl-sports':         `Sports to include \u2014 click to toggle off / on`,
+    'adv-title':          `Advanced Factors \u2014 athlete status, programme & external conditions`,
+    'adv-ath-head':       `Athlete Status`,
+    'adv-prog-head':      `Programme & Investment`,
+    'adv-ext-head':       `External Conditions`,
+    'lbl-alekna':         `Mykolas Alekna`,
+    'lbl-meilutyte':      `Ruta Meilutyte`,
+    'lbl-bball':          `3x3 Basketball roster`,
+    'lbl-pipeline':       `Youth pipeline`,
+    'lbl-focus':          `Focus mode`,
+    'lbl-deleg':          `Delegation size`,
+    'lbl-coaching':       `Coaching & support quality`,
+    'lbl-peaking':        `Competition peaking`,
+    'lbl-host':           `Host nation effect (LA 2028)`,
+    'lbl-gdp':            `GDP & budget scenario`,
+    'lbl-rho':            `Cross-sport correlation \u03c1`,
+    'lbl-saltibarciai':   `\u0160altibar\u0161\u010diai protocol (+\u221e%)`,
+    'chart-mc-title':     `Medal Count Distribution`,
+    'chart-mc-cap':       `Exact Poisson-binomial probability at current settings`,
+    'chart-hist-title':   `Historical Performance 1992\u20132024`,
+    'chart-hist-cap':     `Red star = 2028 forecast with P10\u2013P90 error bar`,
+    'chart-type-title':   `Medal Type Breakdown`,
+    'chart-type-cap':     `Estimated gold / silver / bronze split per sport`,
+    'chart-scen-title':   `Scenario Comparison`,
+    'chart-scen-cap':     `Baseline, 2x & 3x funding vs current settings (red bar)`,
+    'chart-peers-title':  `Peer Country Comparison \u2014 Paris 2024`,
+    'chart-peers-cap':    `Lithuania vs similar small European nations`,
+    'sec-analysis':       `Model Analysis`,
+    'sub-analysis':       `How each probability is built \u2014 athlete decomposition and pipeline`,
+    'chart-decomp-title': `Athlete Model vs Historical Rate`,
+    'chart-decomp-cap':   `Grey = recency-weighted historical win rate \u2022 Blue = athlete ranking model \u2022 Red diamond = final blended estimate`,
+    'pipe-title':         `Athlete Pipeline & World Rankings`,
+    'pipe-cap':           `Event medal prob = rank_prob \u00d7 psych_factor \u00d7 age_factor. Union across contenders gives sport probability.`,
+    'emerging-title':     `Emerging Athletes \u2014 Not in Current Model`,
+    'emerging-cap':       `Competed at Paris 2024, prime age in 2028, no identified medal path yet.`,
+    'breaststroke-title': `50m Breaststroke \u2014 Conditional Scenario`,
+    'breaststroke-cap':   `Meilutyte holds the 50m breast world record and won the 2023 World Championship. If confirmed for LA 2028, her probability in that event alone is estimated at 42%.`,
+    'footer-sources':     `Data sources:`,
+    'footer-gen':         `Generated 2026-03-26`,
+  },
+  lt: {
+    'nav-forecast':       `Prognoz\u0117`,
+    'nav-athletes':       `Sportininkai`,
+    'nav-simulator':      `Simuliatorius`,
+    'nav-analysis':       `Analiz\u0117`,
+    'nav-data':           `Duomenys`,
+    'nav-expected-lbl':   `Tik\u0117tini medaliai:`,
+    'hero-title':         `Lietuva\u2005<span class="edition">LA\u00a02028</span><br>olimpini\u0173 medali\u0173 prognoz\u0117`,
+    'hero-tagline':       `Prognoz\u0117 kiekvienai sporto \u0161akai, pagrista Olympedia istoriniais duomenimis (1992\u20132024), \u017einomu sportinink\u0173 pajegumo vertinimu ir koreliuotu Monte Carlo modeliu.`,
+    'hero-datasrc':       `Olympedia 1992\u20132020 \u2022 IOC Pary\u017eius 2024 \u2022 Bajeso susiaurimas \u2022 10\u00a0000 Monte Carlo band. \u2022 Gauso kopula \u03c1=0.15`,
+    'sec-forecast':       `2028 Prognoz\u0117`,
+    'sub-forecast':       `Bazinis scenarijus \u2014 naudokite simuliatoriumi \u017eemiau, kad keistum\u0117te finansavim\u0105, sportininkus ir s\u0105lygas`,
+    'lbl-expected':       `Tik\u0117tini medaliai`,
+    'lbl-range':          `Tik\u0117tinas diapazonas`,
+    'sub-range':          `P10 \u2013 P90`,
+    'lbl-zero':           `Nulio medali\u0173 rizika`,
+    'sub-zero-static':    `dabartiniai nustatymai`,
+    'lbl-athletics':      `Lengvoji atletika`,
+    'sub-athletics':      `Alekna \u2014 auksinio medalio favoritas`,
+    'lbl-paris':          `Pary\u017eius 2024 faktai`,
+    'sub-paris':          `\u012fskaitant Breaking sidabr\u0105`,
+    'lbl-beet':           `\u0160altibar\u0161\u010di\u0173 indeksas`,
+    'sub-beet':           `Tikimyb\u0117 po medalio ceremonijos`,
+    'tbl-title':          `Sporto \u0161ak\u0173 detalus pj\u016bvis`,
+    'sec-athletes':       `Pagrindiniai sportininkai \u2014 LA 2028 pretendentai`,
+    'sub-athletes':       `Pagrindiniai medalio pretendentai`,
+    'warn-breaking':      `<strong>Breaking N\u0116RA LA 2028 program\u0173.</strong> NICKA (Dominyka Banevi\u010d) laimejo silver\u0105 Pary\u017eiuje 2024, ta\u010diau TOK pa\u0161alino Breaking i\u0161 2028 \u017eaidyni\u0173. Lietuva 2028 prognoz\u0117 skai\u010diuojama be \u0161ios sporto \u0161akos.`,
+    'sec-simulator':      `Interaktyvus simuliatorius`,
+    'sub-simulator':      `Keiskite finansavim\u0105, sportinink\u0173 status\u0105 ir s\u0105lygas \u2014 diagramos atnaujinamos realiuoju laiku.`,
+    'ctrl-core':          `Pagrindiniai valdikliai`,
+    'lbl-funding':        `Finansavimo koeficientas`,
+    'lbl-sports':         `Sporto \u0161akos \u2014 spauskite nor\u0117dami \u012fjungti / i\u0161jungti`,
+    'adv-title':          `Papildomi veiksniai \u2014 sportinink\u0173 statusas, programa ir i\u0161orin\u0117s s\u0105lynos`,
+    'adv-ath-head':       `Sportinink\u0173 statusas`,
+    'adv-prog-head':      `Programa ir investicijos`,
+    'adv-ext-head':       `I\u0161orin\u0117s s\u0105lynos`,
+    'lbl-alekna':         `Mykolas Alekna`,
+    'lbl-meilutyte':      `R\u016bta Meilutyt\u0117`,
+    'lbl-bball':          `3x3 krep\u0161inio rinktin\u0117`,
+    'lbl-pipeline':       `Jaunimo programa`,
+    'lbl-focus':          `Focus re\u017eimas`,
+    'lbl-deleg':          `Delegacijos dydis`,
+    'lbl-coaching':       `Treniravimo ir aptarnavimo kokyb\u0117`,
+    'lbl-peaking':        `Var\u017eyb\u0173 forma`,
+    'lbl-host':           `Kini\u0173 efektas (LA 2028)`,
+    'lbl-gdp':            `BVP ir biud\u017eeto scenarijus`,
+    'lbl-rho':            `Sporto koreliacijos koeficientas \u03c1`,
+    'lbl-saltibarciai':   `\u0160altibar\u0161\u010di\u0173 protokolas (+\u221e%)`,
+    'chart-mc-title':     `Medali\u0173 skai\u010diaus pasiskirstymas`,
+    'chart-mc-cap':       `Tikslus Puasono-binominis pasiskirstymas esamomis s\u0105lynomis`,
+    'chart-hist-title':   `Istoriniai rezultatai 1992\u20132024`,
+    'chart-hist-cap':     `Raudona \u017evaigzd\u0117 = 2028 prognoz\u0117 su P10\u2013P90 paklaida`,
+    'chart-type-title':   `Medali\u0173 tip\u0173 pasiskirstymas`,
+    'chart-type-cap':     `Numatomas auksas / sidabras / bronza pagal sporto \u0161ak\u0105`,
+    'chart-scen-title':   `Scenarijaus palyginimas`,
+    'chart-scen-cap':     `Bazinis, 2x ir 3x finansavimas vs dabartiniai nustatymai`,
+    'chart-peers-title':  `\u0160ali\u0173 palyginimas \u2014 Pary\u017eius 2024`,
+    'chart-peers-cap':    `Lietuva vs pana\u0161ios ma\u017eosios Europos \u0161alys`,
+    'sec-analysis':       `Modelio analiz\u0117`,
+    'sub-analysis':       `Kaip kiekviena tikimyb\u0117 yra sukonstruota`,
+    'chart-decomp-title': `Sportinink\u0173 modelis vs. istorinis rodiklis`,
+    'chart-decomp-cap':   `Pilka = istorinis laimejimo rodiklis \u2022 M\u0117lyna = sportinink\u0173 modelis \u2022 Raudona = galutinis \u012fvertinimas`,
+    'pipe-title':         `Sportinink\u0173 programa ir pasaulio reitingai`,
+    'pipe-cap':           `Renginio medali\u0173 tikimyb\u0117 = rank_prob \u00d7 psych_factor \u00d7 age_factor.`,
+    'emerging-title':     `Kylantys sportininkai \u2014 n\u0117ra dabartiniame modelyje`,
+    'emerging-cap':       `Dalyvavo Pary\u017eiuje 2024, geriausi am\u017eiuje 2028, kol kas be medalio kelio.`,
+    'breaststroke-title': `50 m kr\u016btine \u2014 s\u0105lyginis scenarijus`,
+    'breaststroke-cap':   `Meilutyt\u0117 turi 50 m kr\u016btine pasaulio rekord\u0105 ir laimejo 2023 m. pasaulio \u010dempionat\u0105.`,
+    'footer-sources':     `Duomen\u0173 \u0161altiniai:`,
+    'footer-gen':         `Sugeneruota 2026-03-26`,
+  }
+};
+
+function setLang(l) {
+  LANG = l;
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var k = el.getAttribute('data-i18n');
+    if (T[l] && T[l][k] !== undefined) el.textContent = T[l][k];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+    var k = el.getAttribute('data-i18n-html');
+    if (T[l] && T[l][k] !== undefined) el.innerHTML = T[l][k];
+  });
+  var btn = document.getElementById('lang-btn');
+  if (btn) btn.textContent = (l === 'en') ? 'LT' : 'EN';
+}
+function toggleLang() { setLang(LANG === 'en' ? 'lt' : 'en'); }
+</script>
+"""
+
+CSS = """
 :root{
   --bg:#e8e3d8;
   --card:#ffffff;
@@ -350,14 +517,13 @@ tr:hover td{background:#faf9f6}
 .f-good{color:var(--green);font-size:.72rem}
 .f-disc{color:var(--gold);font-size:.72rem}
 .f-poor{color:var(--orange);font-size:.72rem}
-</style>
-</head>
-<body>
+"""
 
+BODY = f"""
 <!-- NAV -->
 <nav class="top-nav">
   <a href="#top" class="nav-brand">
-    <div class="oring sm"><span class="or"></span><span class="or"></span><span class="or"></span><span class="or"></span><span class="or"></span></div>
+    <div class="oring sm">{RINGS}</div>
     LT&nbsp;2028
   </a>
   <a href="#overview" data-i18n="nav-forecast">Forecast</a>
@@ -383,7 +549,7 @@ tr:hover td{background:#faf9f6}
     the known athlete pipeline, and a correlated Monte Carlo simulation.
   </p>
   <div class="hero-rings-row">
-    <div class="oring lg"><span class="or"></span><span class="or"></span><span class="or"></span><span class="or"></span><span class="or"></span></div>
+    <div class="oring lg">{RINGS}</div>
   </div>
   <p class="hero-datasrc" data-i18n="hero-datasrc">
     Olympedia 1992&ndash;2020 &bull; IOC Paris 2024 &bull; Bayesian shrinkage &bull;
@@ -854,7 +1020,7 @@ tr:hover td{background:#faf9f6}
 <!-- ═══ FOOTER ═══ -->
 <footer class="site-footer" id="data">
   <div class="footer-rings-row">
-    <div class="oring md"><span class="or"></span><span class="or"></span><span class="or"></span><span class="or"></span><span class="or"></span></div>
+    <div class="oring md">{RINGS}</div>
   </div>
   <strong style="color:var(--text)" data-i18n="footer-sources">Data sources:</strong>
   Olympedia historical results 1992&ndash;2020 (Kaggle) &bull;
@@ -872,457 +1038,61 @@ tr:hover td{background:#faf9f6}
 
 <script>
 // Mirror nav-expected counter from main metric ID
-(function(){
-  var obs = new MutationObserver(function(){
+(function(){{
+  var obs = new MutationObserver(function(){{
     var e = document.getElementById('val-expected');
-    if(e){ var ne=document.getElementById('nav-expected'); if(ne) ne.textContent=e.textContent; }
-  });
+    if(e){{ var ne=document.getElementById('nav-expected'); if(ne) ne.textContent=e.textContent; }}
+  }});
   var m = document.getElementById('metric-expected');
-  if(m) obs.observe(m, {subtree:true, characterData:true, childList:true});
-})();
+  if(m) obs.observe(m, {{subtree:true, characterData:true, childList:true}});
+}})();
 
 // Saltibarciai Easter egg
-function saltibarciai(cb) {
+function saltibarciai(cb) {{
   if (!cb.checked) return;
   var msg = LANG === 'lt'
-    ? 'Skanu! Deja, TOK dar nepripažįsta šaltibarščių kaip sportinės veiklos gerinimo priemonė. Tikimybė nesikeitė.'
-    : 'Delicious. However, the IOC has not yet classified šaltibarščiai as a performance-enhancing substance. Probability unchanged.';
+    ? 'Skanu! Deja, TOK dar nepripa\u017e\u012fsta \u0161altibar\u0161\u010di\u0173 kaip sportin\u0117s veiklos gerinimo priemon\u0117. Tikimyb\u0117 nesikeit\u0117.'
+    : 'Delicious. However, the IOC has not yet classified \u0161altibar\u0161\u010diai as a performance-enhancing substance. Probability unchanged.';
   var t = document.createElement('div');
   t.className = 'beet-toast';
   t.textContent = msg;
   document.body.appendChild(t);
-  setTimeout(function(){ t.style.opacity='0'; t.style.transition='opacity .4s'; }, 3600);
-  setTimeout(function(){ if(t.parentNode) t.parentNode.removeChild(t); cb.checked=false; }, 4100);
-}
+  setTimeout(function(){{ t.style.opacity='0'; t.style.transition='opacity .4s'; }}, 3600);
+  setTimeout(function(){{ if(t.parentNode) t.parentNode.removeChild(t); cb.checked=false; }}, 4100);
+}}
 </script>
+"""
 
-
-<script>
-var LANG = 'en';
-var T = {
-  en: {
-    'nav-forecast':       `Forecast`,
-    'nav-athletes':       `Athletes`,
-    'nav-simulator':      `Simulator`,
-    'nav-analysis':       `Analysis`,
-    'nav-data':           `Data`,
-    'nav-expected-lbl':   `Expected medals:`,
-    'hero-title':         `Lithuania <span class="edition">LA 2028</span><br>Olympic Medal Forecast`,
-    'hero-tagline':       `Sport-by-sport prediction built from Olympedia historical data (1992–2024), the known athlete pipeline, and a correlated Monte Carlo simulation.`,
-    'hero-datasrc':       `Olympedia 1992–2020 • IOC Paris 2024 • Bayesian shrinkage • 10,000-run Monte Carlo • Gaussian copula ρ=0.15`,
-    'sec-forecast':       `2028 Forecast`,
-    'sub-forecast':       `Baseline scenario — use the Simulator below to adjust funding, athletes, and conditions`,
-    'lbl-expected':       `Expected medals`,
-    'lbl-range':          `Likely range`,
-    'sub-range':          `P10 – P90`,
-    'lbl-zero':           `Zero-medal risk`,
-    'sub-zero-static':    `current settings`,
-    'lbl-athletics':      `Athletics`,
-    'sub-athletics':      `Alekna — gold favourite`,
-    'lbl-paris':          `Paris 2024 actual`,
-    'sub-paris':          `incl. Breaking silver`,
-    'lbl-beet':           `Šaltibarščiai Index`,
-    'sub-beet':           `Post-medal ceremony probability`,
-    'tbl-title':          `Sport-by-Sport Detail`,
-    'sec-athletes':       `Key Athletes — LA 2028 Contenders`,
-    'sub-athletes':       `Primary medal candidates driving the per-sport probabilities above`,
-    'warn-breaking':      `<strong>Breaking is NOT on the LA 2028 programme.</strong> NICKA (Dominyka Banevic) won Silver at Paris 2024, but the IOC removed Breaking from the 2028 Games. Lithuania's 2028 forecast is calculated without this sport. <em style="opacity:.7">&nbsp; Source: IOC Programme Commission, 2023.</em>`,
-    'sec-simulator':      `Interactive Simulator`,
-    'sub-simulator':      `Adjust funding, athlete status, and conditions — charts update live. The forecast table above also updates.`,
-    'ctrl-core':          `Core controls`,
-    'lbl-funding':        `Funding multiplier`,
-    'lbl-sports':         `Sports to include — click to toggle off / on`,
-    'adv-title':          `Advanced Factors — athlete status, programme & external conditions`,
-    'adv-ath-head':       `Athlete Status`,
-    'adv-prog-head':      `Programme & Investment`,
-    'adv-ext-head':       `External Conditions`,
-    'lbl-alekna':         `Mykolas Alekna`,
-    'lbl-meilutyte':      `Ruta Meilutyte`,
-    'lbl-bball':          `3x3 Basketball roster`,
-    'lbl-pipeline':       `Youth pipeline`,
-    'lbl-focus':          `Focus mode`,
-    'lbl-deleg':          `Delegation size`,
-    'lbl-coaching':       `Coaching & support quality`,
-    'lbl-peaking':        `Competition peaking`,
-    'lbl-host':           `Host nation effect (LA 2028)`,
-    'lbl-gdp':            `GDP & budget scenario`,
-    'lbl-rho':            `Cross-sport correlation ρ`,
-    'lbl-saltibarciai':   `Šaltibarščiai protocol (+∞%)`,
-    'chart-mc-title':     `Medal Count Distribution`,
-    'chart-mc-cap':       `Exact Poisson-binomial probability at current settings`,
-    'chart-hist-title':   `Historical Performance 1992–2024`,
-    'chart-hist-cap':     `Red star = 2028 forecast with P10–P90 error bar`,
-    'chart-type-title':   `Medal Type Breakdown`,
-    'chart-type-cap':     `Estimated gold / silver / bronze split per sport`,
-    'chart-scen-title':   `Scenario Comparison`,
-    'chart-scen-cap':     `Baseline, 2x & 3x funding vs current settings (red bar)`,
-    'chart-peers-title':  `Peer Country Comparison — Paris 2024`,
-    'chart-peers-cap':    `Lithuania vs similar small European nations`,
-    'sec-analysis':       `Model Analysis`,
-    'sub-analysis':       `How each probability is built — athlete decomposition and pipeline`,
-    'chart-decomp-title': `Athlete Model vs Historical Rate`,
-    'chart-decomp-cap':   `Grey = recency-weighted historical win rate • Blue = athlete ranking model • Red diamond = final blended estimate`,
-    'pipe-title':         `Athlete Pipeline & World Rankings`,
-    'pipe-cap':           `Event medal prob = rank_prob × psych_factor × age_factor. Union across contenders gives sport probability.`,
-    'emerging-title':     `Emerging Athletes — Not in Current Model`,
-    'emerging-cap':       `Competed at Paris 2024, prime age in 2028, no identified medal path yet.`,
-    'breaststroke-title': `50m Breaststroke — Conditional Scenario`,
-    'breaststroke-cap':   `Meilutyte holds the 50m breast world record and won the 2023 World Championship. If confirmed for LA 2028, her probability in that event alone is estimated at 42%.`,
-    'footer-sources':     `Data sources:`,
-    'footer-gen':         `Generated 2026-03-26`,
-  },
-  lt: {
-    'nav-forecast':       `Prognozė`,
-    'nav-athletes':       `Sportininkai`,
-    'nav-simulator':      `Simuliatorius`,
-    'nav-analysis':       `Analizė`,
-    'nav-data':           `Duomenys`,
-    'nav-expected-lbl':   `Tikėtini medaliai:`,
-    'hero-title':         `Lietuva <span class="edition">LA 2028</span><br>olimpinių medalių prognozė`,
-    'hero-tagline':       `Prognozė kiekvienai sporto šakai, pagrista Olympedia istoriniais duomenimis (1992–2024), žinomu sportininkų pajegumo vertinimu ir koreliuotu Monte Carlo modeliu.`,
-    'hero-datasrc':       `Olympedia 1992–2020 • IOC Paryžius 2024 • Bajeso susiaurimas • 10 000 Monte Carlo band. • Gauso kopula ρ=0.15`,
-    'sec-forecast':       `2028 Prognozė`,
-    'sub-forecast':       `Bazinis scenarijus — naudokite simuliatoriumi žemiau, kad keistumėte finansavimą, sportininkus ir sąlygas`,
-    'lbl-expected':       `Tikėtini medaliai`,
-    'lbl-range':          `Tikėtinas diapazonas`,
-    'sub-range':          `P10 – P90`,
-    'lbl-zero':           `Nulio medalių rizika`,
-    'sub-zero-static':    `dabartiniai nustatymai`,
-    'lbl-athletics':      `Lengvoji atletika`,
-    'sub-athletics':      `Alekna — auksinio medalio favoritas`,
-    'lbl-paris':          `Paryžius 2024 faktai`,
-    'sub-paris':          `įskaitant Breaking sidabrą`,
-    'lbl-beet':           `Šaltibarščių indeksas`,
-    'sub-beet':           `Tikimybė po medalio ceremonijos`,
-    'tbl-title':          `Sporto šakų detalus pjūvis`,
-    'sec-athletes':       `Pagrindiniai sportininkai — LA 2028 pretendentai`,
-    'sub-athletes':       `Pagrindiniai medalio pretendentai`,
-    'warn-breaking':      `<strong>Breaking NĖRA LA 2028 programų.</strong> NICKA (Dominyka Banevič) laimejo silverą Paryžiuje 2024, tačiau TOK pašalino Breaking iš 2028 žaidynių. Lietuva 2028 prognozė skaičiuojama be šios sporto šakos.`,
-    'sec-simulator':      `Interaktyvus simuliatorius`,
-    'sub-simulator':      `Keiskite finansavimą, sportininkų statusą ir sąlygas — diagramos atnaujinamos realiuoju laiku.`,
-    'ctrl-core':          `Pagrindiniai valdikliai`,
-    'lbl-funding':        `Finansavimo koeficientas`,
-    'lbl-sports':         `Sporto šakos — spauskite norėdami įjungti / išjungti`,
-    'adv-title':          `Papildomi veiksniai — sportininkų statusas, programa ir išorinės sąlynos`,
-    'adv-ath-head':       `Sportininkų statusas`,
-    'adv-prog-head':      `Programa ir investicijos`,
-    'adv-ext-head':       `Išorinės sąlynos`,
-    'lbl-alekna':         `Mykolas Alekna`,
-    'lbl-meilutyte':      `Rūta Meilutytė`,
-    'lbl-bball':          `3x3 krepšinio rinktinė`,
-    'lbl-pipeline':       `Jaunimo programa`,
-    'lbl-focus':          `Focus režimas`,
-    'lbl-deleg':          `Delegacijos dydis`,
-    'lbl-coaching':       `Treniravimo ir aptarnavimo kokybė`,
-    'lbl-peaking':        `Varžybų forma`,
-    'lbl-host':           `Kinių efektas (LA 2028)`,
-    'lbl-gdp':            `BVP ir biudžeto scenarijus`,
-    'lbl-rho':            `Sporto koreliacijos koeficientas ρ`,
-    'lbl-saltibarciai':   `Šaltibarščių protokolas (+∞%)`,
-    'chart-mc-title':     `Medalių skaičiaus pasiskirstymas`,
-    'chart-mc-cap':       `Tikslus Puasono-binominis pasiskirstymas esamomis sąlynomis`,
-    'chart-hist-title':   `Istoriniai rezultatai 1992–2024`,
-    'chart-hist-cap':     `Raudona žvaigzdė = 2028 prognozė su P10–P90 paklaida`,
-    'chart-type-title':   `Medalių tipų pasiskirstymas`,
-    'chart-type-cap':     `Numatomas auksas / sidabras / bronza pagal sporto šaką`,
-    'chart-scen-title':   `Scenarijaus palyginimas`,
-    'chart-scen-cap':     `Bazinis, 2x ir 3x finansavimas vs dabartiniai nustatymai`,
-    'chart-peers-title':  `Šalių palyginimas — Paryžius 2024`,
-    'chart-peers-cap':    `Lietuva vs panašios mažosios Europos šalys`,
-    'sec-analysis':       `Modelio analizė`,
-    'sub-analysis':       `Kaip kiekviena tikimybė yra sukonstruota`,
-    'chart-decomp-title': `Sportininkų modelis vs. istorinis rodiklis`,
-    'chart-decomp-cap':   `Pilka = istorinis laimejimo rodiklis • Mėlyna = sportininkų modelis • Raudona = galutinis įvertinimas`,
-    'pipe-title':         `Sportininkų programa ir pasaulio reitingai`,
-    'pipe-cap':           `Renginio medalių tikimybė = rank_prob × psych_factor × age_factor.`,
-    'emerging-title':     `Kylantys sportininkai — nėra dabartiniame modelyje`,
-    'emerging-cap':       `Dalyvavo Paryžiuje 2024, geriausi amžiuje 2028, kol kas be medalio kelio.`,
-    'breaststroke-title': `50 m krūtine — sąlyginis scenarijus`,
-    'breaststroke-cap':   `Meilutytė turi 50 m krūtine pasaulio rekordą ir laimejo 2023 m. pasaulio čempionatą.`,
-    'footer-sources':     `Duomenų šaltiniai:`,
-    'footer-gen':         `Sugeneruota 2026-03-26`,
-  }
-};
-
-function setLang(l) {
-  LANG = l;
-  document.querySelectorAll('[data-i18n]').forEach(function(el) {
-    var k = el.getAttribute('data-i18n');
-    if (T[l] && T[l][k] !== undefined) el.textContent = T[l][k];
-  });
-  document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
-    var k = el.getAttribute('data-i18n-html');
-    if (T[l] && T[l][k] !== undefined) el.innerHTML = T[l][k];
-  });
-  var btn = document.getElementById('lang-btn');
-  if (btn) btn.textContent = (l === 'en') ? 'LT' : 'EN';
-}
-function toggleLang() { setLang(LANG === 'en' ? 'lt' : 'en'); }
-</script>
-
-<script>
-// PRECOMPUTED DATA
-const PRE = {"0.5": {"expected": 2.042, "p10": 0.0, "p90": 4.0, "per_sport": {"Athletics": 0.5744, "Rowing": 0.3513, "Modern Pentathlon": 0.1818, "Swimming": 0.2427, "3x3 Basketball": 0.2359, "Canoe Sprint": 0.0853, "Shooting": 0.0973, "Weightlifting": 0.1313, "Wrestling": 0.1223}, "mc": {"0": 0.1508, "1": 0.259, "2": 0.2474, "3": 0.1775, "4": 0.1003, "5": 0.0421, "6": 0.0174, "7": 0.0045, "8": 0.0009, "9": 0.0001, "10": 0.0}}, "0.75": {"expected": 2.111, "p10": 0.0, "p90": 4.0, "per_sport": {"Athletics": 0.5785, "Rowing": 0.3608, "Modern Pentathlon": 0.19, "Swimming": 0.2537, "3x3 Basketball": 0.2413, "Canoe Sprint": 0.0948, "Shooting": 0.1042, "Weightlifting": 0.1382, "Wrestling": 0.1292}, "mc": {"0": 0.1435, "1": 0.2505, "2": 0.2428, "3": 0.1846, "4": 0.1049, "5": 0.0479, "6": 0.0195, "7": 0.0051, "8": 0.001, "9": 0.0002, "10": 0.0}}, "1.0": {"expected": 2.221, "p10": 0.0, "p90": 4.0, "per_sport": {"Athletics": 0.585, "Rowing": 0.376, "Modern Pentathlon": 0.203, "Swimming": 0.271, "3x3 Basketball": 0.25, "Canoe Sprint": 0.11, "Shooting": 0.115, "Weightlifting": 0.149, "Wrestling": 0.14}, "mc": {"0": 0.1318, "1": 0.241, "2": 0.2333, "3": 0.1926, "4": 0.113, "5": 0.0571, "6": 0.0225, "7": 0.0067, "8": 0.0018, "9": 0.0002, "10": 0.0}}, "1.25": {"expected": 2.356, "p10": 0.0, "p90": 5.0, "per_sport": {"Athletics": 0.5934, "Rowing": 0.3956, "Modern Pentathlon": 0.2198, "Swimming": 0.2934, "3x3 Basketball": 0.2612, "Canoe Sprint": 0.1296, "Shooting": 0.129, "Weightlifting": 0.163, "Wrestling": 0.154}, "mc": {"0": 0.1184, "1": 0.2238, "2": 0.2312, "3": 0.1951, "4": 0.1267, "5": 0.0655, "6": 0.0277, "7": 0.0088, "8": 0.0024, "9": 0.0004, "10": 0.0}}, "1.5": {"expected": 2.528, "p10": 0.0, "p90": 5.0, "per_sport": {"Athletics": 0.6034, "Rowing": 0.4189, "Modern Pentathlon": 0.2397, "Swimming": 0.32, "3x3 Basketball": 0.2745, "Canoe Sprint": 0.1529, "Shooting": 0.1456, "Weightlifting": 0.1796, "Wrestling": 0.1706}, "mc": {"0": 0.1021, "1": 0.2044, "2": 0.2253, "3": 0.2005, "4": 0.1391, "5": 0.077, "6": 0.0354, "7": 0.0124, "8": 0.0033, "9": 0.0005, "10": 0.0}}, "1.75": {"expected": 2.71, "p10": 1.0, "p90": 5.0, "per_sport": {"Athletics": 0.6148, "Rowing": 0.4455, "Modern Pentathlon": 0.2625, "Swimming": 0.3504, "3x3 Basketball": 0.2897, "Canoe Sprint": 0.1795, "Shooting": 0.1646, "Weightlifting": 0.1986, "Wrestling": 0.1896}, "mc": {"0": 0.0878, "1": 0.1852, "2": 0.2188, "3": 0.1996, "4": 0.15, "5": 0.0925, "6": 0.0434, "7": 0.0174, "8": 0.0042, "9": 0.0011, "10": 0.0}}, "2.0": {"expected": 2.917, "p10": 1.0, "p90": 5.0, "per_sport": {"Athletics": 0.6274, "Rowing": 0.475, "Modern Pentathlon": 0.2879, "Swimming": 0.3841, "3x3 Basketball": 0.3066, "Canoe Sprint": 0.209, "Shooting": 0.1857, "Weightlifting": 0.2197, "Wrestling": 0.2107}, "mc": {"0": 0.0749, "1": 0.1642, "2": 0.2077, "3": 0.1975, "4": 0.1606, "5": 0.11, "6": 0.0529, "7": 0.024, "8": 0.0065, "9": 0.0017, "10": 0.0}}, "2.5": {"expected": 3.389, "p10": 1.0, "p90": 6.0, "per_sport": {"Athletics": 0.6562, "Rowing": 0.542, "Modern Pentathlon": 0.3453, "Swimming": 0.4607, "3x3 Basketball": 0.3449, "Canoe Sprint": 0.276, "Shooting": 0.2336, "Weightlifting": 0.2676, "Wrestling": 0.2586}, "mc": {"0": 0.0507, "1": 0.1213, "2": 0.1781, "3": 0.1929, "4": 0.1759, "5": 0.1385, "6": 0.0821, "7": 0.0435, "8": 0.0137, "9": 0.0033, "10": 0.0}}, "3.0": {"expected": 3.954, "p10": 1.0, "p90": 7.0, "per_sport": {"Athletics": 0.6889, "Rowing": 0.6185, "Modern Pentathlon": 0.4108, "Swimming": 0.5481, "3x3 Basketball": 0.3886, "Canoe Sprint": 0.3525, "Shooting": 0.2882, "Weightlifting": 0.3222, "Wrestling": 0.3132}, "mc": {"0": 0.0333, "1": 0.0821, "2": 0.1376, "3": 0.1726, "4": 0.1814, "5": 0.1632, "6": 0.1192, "7": 0.071, "8": 0.0313, "9": 0.0083, "10": 0.0}}, "4.0": {"expected": 5.203, "p10": 2.0, "p90": 8.0, "per_sport": {"Athletics": 0.765, "Rowing": 0.796, "Modern Pentathlon": 0.563, "Swimming": 0.751, "3x3 Basketball": 0.49, "Canoe Sprint": 0.53, "Shooting": 0.415, "Weightlifting": 0.449, "Wrestling": 0.44}, "mc": {"0": 0.0107, "1": 0.032, "2": 0.0624, "3": 0.1105, "4": 0.1434, "5": 0.1732, "6": 0.1781, "7": 0.1499, "8": 0.1009, "9": 0.0389, "10": 0.0}}};
-const FUNDING_LEVELS = [0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.5, 3.0, 4.0];
-const SPORTS      = ["Athletics","Rowing","Swimming","3x3 Basketball","Modern Pentathlon","Weightlifting","Wrestling","Shooting","Canoe Sprint"];
-const HRATES      = [0.778, 0.333, 0.111, 0.5, 0.444, 0.167, 0.222, 0.143, 0.111];
-const TYPE_SPORTS = ["Athletics","Rowing","Swimming","3x3 Basketball","Modern Pentathlon","Weightlifting","Wrestling","Shooting","Canoe Sprint"];
-const GOLD_BASE   = [0.2925,0.06768,0.05962,0.03,0.05684,0.01788,0.014,0.04025,0.011];
-const SILVER_BASE = [0.1872,0.12032,0.10298,0.07,0.08526,0.05215,0.056,0.0345,0.033];
-const BRONZE_BASE = [0.1053,0.188,0.1084,0.15,0.0609,0.07897,0.07,0.04025,0.066];
-const HIST_YEARS  = [1992,1996,2000,2004,2008,2012,2016,2020,2024];
-const HIST_TOTAL  = [2,1,5,3,5,5,4,1,4];
-const HIST_GOLD   = [1,0,2,1,0,2,0,0,0];
-const HIST_SILVER = [0,0,0,2,3,0,1,1,2];
-const HIST_BRONZE = [1,1,3,0,2,3,3,0,2];
-const PEER_COUNTRIES = ["Lithuania","Estonia","Latvia","Slovenia","Slovakia","Croatia","Denmark"];
-const PEER_GOLD   = [0,1,0,0,0,1,2];
-const PEER_SILVER = [2,1,2,1,1,3,4];
-const PEER_BRONZE = [2,1,1,1,1,6,3];
-
-// ADVANCED FACTOR CONSTANTS
-const FUNDING_SENS = {Athletics:0.03,Rowing:0.07,Swimming:0.08,"3x3 Basketball":0.04,"Modern Pentathlon":0.06,Weightlifting:0.05,Wrestling:0.05,Shooting:0.05,"Canoe Sprint":0.07};
-const ALEKNA_SC   = {peak:1.0, uncertain:0.65, out:0.18};
-const MEIL_SC     = {normal:1.0, confirmed_50m:1.62, retired:0.55};
-const BBALL_SC    = {full:1.0, partial:0.85, new:0.56, dnq:0.09};
-const BUDGET_SC   = {recession:0.90, baseline:1.0, strong:1.12};
-const HOST_SC     = {negative:0.93, neutral:1.0, positive:1.05};
-const COACH_D     = {low:-0.04, normal:0.0, high:0.05, elite:0.10};
-const PEAK_D      = {poor:-0.05, normal:0.0, good:0.03};
-const PIPE_MAP    = {
-  "pipe-lukminas":{s:"Athletics",  d:0.020},
-  "pipe-dilyte":  {s:"Wrestling",  d:0.047},
-  "pipe-navikonis":{s:"Rowing",    d:0.019},
-  "pipe-unknown": {s:"Athletics",  d:0.025}
-};
-const TOP_SPORTS = new Set(["Athletics","Rowing","Swimming","3x3 Basketball","Modern Pentathlon"]);
-const FOCUS_TOP3 = new Set(["Athletics","Rowing","Swimming"]);
-const FOCUS_TOP2 = new Set(["Athletics","Rowing"]);
-
-// PRE key strings must match JSON keys exactly (String(1.0)==="1", not "1.0")
-var PRE_KEYS = ["0.5","0.75","1.0","1.25","1.5","1.75","2.0","2.5","3.0","4.0"];
-
-// STATE
-let currentFundingIdx = 2;
-const selectedSports = new Set(SPORTS);
-
-const BG  = {paper_bgcolor:"#f5f3ef",plot_bgcolor:"#ffffff",font:{color:"#1c1a2a",size:11},xaxis:{gridcolor:"#e0dcd6",zerolinecolor:"#c8c4bc"},yaxis:{gridcolor:"#e0dcd6",zerolinecolor:"#c8c4bc"}};
-const CFG = {responsive:true, displayModeBar:false};
-
-function g(id){ return document.getElementById(id); }
-
-function getFactors(){
-  return {
-    alekna:    g("adv-alekna")   ? g("adv-alekna").value    : "peak",
-    meilutyte: g("adv-meilutyte")? g("adv-meilutyte").value : "normal",
-    bball:     g("adv-bball")    ? g("adv-bball").value     : "full",
-    focus:     g("adv-focus")    ? g("adv-focus").value     : "broad",
-    deleg:   +(g("adv-deleg")    ? g("adv-deleg").value     : 50),
-    coaching:  g("adv-coaching") ? g("adv-coaching").value  : "normal",
-    peak:      g("adv-peak")     ? g("adv-peak").value      : "normal",
-    host:      g("adv-host")     ? g("adv-host").value      : "neutral",
-    gdp:       g("adv-gdp")      ? g("adv-gdp").value       : "baseline",
-    rho:      ({low:0.05,medium:0.15,high:0.30})[g("adv-rho") ? g("adv-rho").value : "medium"] || 0.15,
-    pipes: Object.keys(PIPE_MAP).filter(function(id){ var el=g(id); return el && el.checked; }),
-  };
-}
-
-function calcProbs(){
-  var d  = PRE[PRE_KEYS[currentFundingIdx]];
-  var f  = getFactors();
-  var fm = FUNDING_LEVELS[currentFundingIdx];
-  var bs = BUDGET_SC[f.gdp]  || 1.0;
-  var hs = HOST_SC[f.host]   || 1.0;
-
-  return SPORTS.map(function(s){
-    if (!selectedSports.has(s)) return 0;
-    var p = d.per_sport[s] || 0;
-
-    p += (FUNDING_SENS[s]||0.05) * (fm*bs - fm);
-
-    if (f.focus==="top3") p *= FOCUS_TOP3.has(s) ? 1.18 : 0.88;
-    if (f.focus==="top2") p *= FOCUS_TOP2.has(s) ? 1.30 : 0.75;
-
-    if (s==="Athletics")      p *= ALEKNA_SC[f.alekna]    || 1.0;
-    if (s==="Swimming")       p *= MEIL_SC[f.meilutyte]   || 1.0;
-    if (s==="3x3 Basketball") p *= BBALL_SC[f.bball]      || 1.0;
-
-    f.pipes.forEach(function(id){ if(PIPE_MAP[id] && PIPE_MAP[id].s===s) p += PIPE_MAP[id].d; });
-
-    if (TOP_SPORTS.has(s)){
-      p += COACH_D[f.coaching]||0;
-      p += PEAK_D[f.peak]||0;
-    }
-    if (s !== "3x3 Basketball") p *= 0.85 + 0.15*Math.min(f.deleg/50, 2.0);
-    p *= hs;
-    return Math.min(Math.max(p,0),0.95);
-  });
-}
-
-function mcDist(probs){
-  var d=[1.0];
-  for(var i=0;i<probs.length;i++){
-    var p=probs[i];
-    var n=new Array(d.length+1);
-    for(var j=0;j<n.length;j++) n[j]=0;
-    for(var k=0;k<d.length;k++){n[k]+=d[k]*(1-p);n[k+1]+=d[k]*p;}
-    d=n;
-  }
-  return d;
-}
-
-// Assigned to window so inline onchange="updateAll()" always finds it
-window.updateAll = function(){
-  var probs    = calcProbs();
-  var active   = probs.filter(function(p){return p>0;});
-  var expected = probs.reduce(function(a,b){return a+b;},0);
-  var dist     = mcDist(active);
-
-  var cum=0,p10=0,p90=0,f10=false,f90=false;
-  for(var k=0;k<dist.length;k++){
-    cum+=dist[k];
-    if(!f10&&cum>=0.10){p10=k;f10=true;}
-    if(!f90&&cum>=0.90){p90=k;f90=true;break;}
-  }
-
-  // Metrics
-  g("val-expected").textContent = expected.toFixed(2);
-  g("sub-expected").textContent = "P10–P90: "+p10+"–"+p90;
-  g("val-range").textContent    = p10+"–"+p90;
-  var ze=g("val-zero"); if(ze) ze.textContent=((dist[0]||0)*100).toFixed(1)+"%";
-  var ae=g("val-ath");  if(ae) ae.textContent=(probs[0]*100).toFixed(0)+"%";
-
-  // Table cells
-  document.querySelectorAll(".prob-cell").forEach(function(cell){
-    var idx=SPORTS.indexOf(cell.dataset.sport);
-    var p=idx>=0?probs[idx]:0;
-    cell.innerHTML="<strong>"+(p*100).toFixed(0)+"%</strong>";
-    cell.style.opacity=selectedSports.has(cell.dataset.sport)?"1":"0.3";
-  });
-
-  var colors=probs.map(function(p,i){
-    if(!selectedSports.has(SPORTS[i]))return"rgba(100,100,100,0.2)";
-    if(p>=0.55)return"#4f8ef7";
-    if(p>=0.25)return"#2ca02c";
-    if(p>=0.12)return"#ff7f0e";
-    return"#d62728";
-  });
-
-  Plotly.newPlot("chart-sports",[
-    {x:HRATES,y:SPORTS,type:"bar",orientation:"h",name:"Historical win rate",marker:{color:"rgba(150,150,150,0.2)"},width:0.5},
-    {x:probs, y:SPORTS,type:"bar",orientation:"h",name:"2028 probability",   marker:{color:colors},width:0.32,
-     text:probs.map(function(p){return p>0.01?(p*100).toFixed(0)+"%":"";}),textposition:"outside"}
-  ],Object.assign({},BG,{barmode:"overlay",
-    xaxis:Object.assign({},BG.xaxis,{title:"Medal probability",tickformat:".0%",range:[0,1.1]}),
-    yaxis:Object.assign({},BG.yaxis,{autorange:"reversed"}),
-    legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
-    height:320,margin:{t:10,b:40,l:140,r:72}}),CFG);
-
-  Plotly.newPlot("chart-mc",[
-    {x:dist.map(function(_,i){return i;}),y:dist,type:"bar",marker:{color:"#4f8ef7",opacity:0.82},
-     text:dist.map(function(v){return v>0.02?(v*100).toFixed(0)+"%":"";}),textposition:"outside"}
-  ],Object.assign({},BG,{
-    xaxis:Object.assign({},BG.xaxis,{title:"Total medals",dtick:1}),
-    yaxis:Object.assign({},BG.yaxis,{title:"Probability",tickformat:".0%"}),
-    shapes:[{type:"line",x0:expected,x1:expected,y0:0,y1:1,yref:"paper",line:{color:"#ff4444",dash:"dash",width:2}}],
-    annotations:[{x:expected,y:0.97,yref:"paper",text:"Mean "+expected.toFixed(1),showarrow:false,font:{color:"#ff4444",size:11}}],
-    height:300,margin:{t:20,b:40,l:50,r:20}}),CFG);
-
-  Plotly.newPlot("chart-hist",[
-    {x:HIST_YEARS,y:HIST_TOTAL, mode:"lines+markers",name:"Total", line:{color:"#4f8ef7",width:3},marker:{size:7}},
-    {x:HIST_YEARS,y:HIST_GOLD,  mode:"lines+markers",name:"Gold",  line:{color:"#ffd700",width:2}},
-    {x:HIST_YEARS,y:HIST_SILVER,mode:"lines+markers",name:"Silver",line:{color:"#c0c0c0",width:2}},
-    {x:HIST_YEARS,y:HIST_BRONZE,mode:"lines+markers",name:"Bronze",line:{color:"#cd7f32",width:2}},
-    {x:[2028],y:[expected],mode:"markers",name:"2028 Forecast",
-     marker:{size:16,color:"#ff4444",symbol:"star"},
-     error_y:{type:"data",array:[Math.max(0,p90-expected)],arrayminus:[Math.max(0,expected-p10)],visible:true,color:"#ff4444"}}
-  ],Object.assign({},BG,{
-    xaxis:Object.assign({},BG.xaxis,{title:"Year"}),
-    yaxis:Object.assign({},BG.yaxis,{title:"Medals",rangemode:"tozero"}),
-    legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
-    height:290,margin:{t:10,b:40,l:40,r:20}}),CFG);
-
-  var gP=TYPE_SPORTS.map(function(s,i){
-    var idx=SPORTS.indexOf(s);
-    var p=idx>=0?probs[idx]:0;
-    var tot=GOLD_BASE[i]+SILVER_BASE[i]+BRONZE_BASE[i];
-    return[p*GOLD_BASE[i]/tot,p*SILVER_BASE[i]/tot,p*BRONZE_BASE[i]/tot];
-  });
-  Plotly.newPlot("chart-type",[
-    {x:gP.map(function(x){return x[0];}),y:TYPE_SPORTS,type:"bar",orientation:"h",name:"Gold",  marker:{color:"#ffd700"},text:gP.map(function(x){return x[0]>0.02?(x[0]*100).toFixed(0)+"%":"";}),textposition:"outside"},
-    {x:gP.map(function(x){return x[1];}),y:TYPE_SPORTS,type:"bar",orientation:"h",name:"Silver",marker:{color:"#c0c0c0"}},
-    {x:gP.map(function(x){return x[2];}),y:TYPE_SPORTS,type:"bar",orientation:"h",name:"Bronze",marker:{color:"#cd7f32"}}
-  ],Object.assign({},BG,{barmode:"stack",
-    xaxis:Object.assign({},BG.xaxis,{title:"Medal probability",tickformat:".0%",range:[0,0.95]}),
-    yaxis:Object.assign({},BG.yaxis,{autorange:"reversed"}),
-    legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
-    height:290,margin:{t:10,b:40,l:140,r:80}}),CFG);
-
-  Plotly.newPlot("chart-scen",[
-    {x:["Baseline (1x)"],y:[PRE["1.0"].expected],type:"bar",marker:{color:"#4f8ef7"},text:[PRE["1.0"].expected.toFixed(1)],textposition:"outside",error_y:{type:"data",array:[PRE["1.0"].p90-PRE["1.0"].expected],arrayminus:[PRE["1.0"].expected-PRE["1.0"].p10],visible:true}},
-    {x:["2x Funding"],   y:[PRE["2.0"].expected],type:"bar",marker:{color:"#2ca02c"},text:[PRE["2.0"].expected.toFixed(1)],textposition:"outside",error_y:{type:"data",array:[PRE["2.0"].p90-PRE["2.0"].expected],arrayminus:[PRE["2.0"].expected-PRE["2.0"].p10],visible:true}},
-    {x:["Current"],      y:[expected],            type:"bar",marker:{color:"#EF553B"},text:[expected.toFixed(1)],            textposition:"outside",error_y:{type:"data",array:[Math.max(0,p90-expected)],arrayminus:[Math.max(0,expected-p10)],visible:true}},
-    {x:["3x Funding"],   y:[PRE["3.0"].expected],type:"bar",marker:{color:"#AB63FA"},text:[PRE["3.0"].expected.toFixed(1)],textposition:"outside",error_y:{type:"data",array:[PRE["3.0"].p90-PRE["3.0"].expected],arrayminus:[PRE["3.0"].expected-PRE["3.0"].p10],visible:true}}
-  ],Object.assign({},BG,{showlegend:false,
-    yaxis:Object.assign({},BG.yaxis,{title:"Expected medals",rangemode:"tozero"}),
-    height:280,margin:{t:20,b:60,l:50,r:20}}),CFG);
-};
-
-function buildToggles(){
-  var container=g("sport-toggles");
-  SPORTS.forEach(function(s){
-    var btn=document.createElement("div");
-    btn.className="sport-toggle active";
-    btn.textContent=s;
-    btn.dataset.sport=s;
-    btn.addEventListener("click",function(){
-      if(selectedSports.has(s)){
-        if(selectedSports.size>1){selectedSports.delete(s);btn.classList.remove("active");}
-      }else{selectedSports.add(s);btn.classList.add("active");}
-      updateAll();
-    });
-    container.appendChild(btn);
-  });
-}
-
-Plotly.newPlot("chart-peers",[
-  {x:PEER_COUNTRIES,y:PEER_GOLD,  type:"bar",name:"Gold",  marker:{color:"#c8a800"}},
-  {x:PEER_COUNTRIES,y:PEER_SILVER,type:"bar",name:"Silver",marker:{color:"#8898b8"}},
-  {x:PEER_COUNTRIES,y:PEER_BRONZE,type:"bar",name:"Bronze",marker:{color:"#b07840"}}
-],Object.assign({},BG,{
-  xaxis:Object.assign({},BG.xaxis),
-  yaxis:Object.assign({},BG.yaxis,{title:"Medals (Paris 2024)"}),
-  barmode:"stack",legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
-  height:280,margin:{t:10,b:50,l:50,r:20}}),CFG);
-
-g("funding-slider").addEventListener("input",function(){
-  currentFundingIdx=parseInt(this.value);
-  g("funding-display").textContent=FUNDING_LEVELS[currentFundingIdx].toFixed(2)+"x";
-  updateAll();
-});
-
-buildToggles();
-updateAll();
-
-// Static decomposition chart: 3 traces from computed model data
-// Order matches SPORTS array: Athletics, Rowing, Swimming, 3x3 Basketball,
-//   Modern Pentathlon, Weightlifting, Wrestling, Shooting, Canoe Sprint
-var DECOMP_HIST    = [0.556,0.313,0.142,0.305,0.364,0.195,0.209,0.140,0.151];
-var DECOMP_ATHLETE = [0.594,0.404,0.341,0.213,0.072,0.013,0.072,0.014,0.014];
-var DECOMP_FINAL   = [0.585,0.376,0.271,0.250,0.203,0.149,0.140,0.115,0.110];
-Plotly.newPlot("chart-decomp",[
-  {x:DECOMP_HIST,    y:SPORTS,type:"bar",orientation:"h",name:"Recency-weighted historical rate",
-   marker:{color:"rgba(140,140,170,0.35)"},width:0.55},
-  {x:DECOMP_ATHLETE, y:SPORTS,type:"bar",orientation:"h",name:"Athlete ranking model",
-   marker:{color:"rgba(79,142,247,0.55)"},width:0.35},
-  {x:DECOMP_FINAL,   y:SPORTS,type:"scatter",mode:"markers+text",name:"Final blended estimate",
-   marker:{color:"#ff4444",size:9,symbol:"diamond"},
-   text:DECOMP_FINAL.map(function(p){return (p*100).toFixed(0)+"%";}),textposition:"middle right"}
-],Object.assign({},BG,{barmode:"overlay",
-  xaxis:Object.assign({},BG.xaxis,{title:"Probability",tickformat:".0%",range:[0,0.85]}),
-  yaxis:Object.assign({},BG.yaxis,{autorange:"reversed"}),
-  legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
-  height:320,margin:{t:10,b:40,l:140,r:80}}),CFG);
-</script>
+FULL = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lithuania LA 2028 Olympic Medal Forecast</title>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<style>{CSS}</style>
+</head>
+<body>
+{BODY}
+{TRANS_JS}
+{JS}
 </body>
 </html>
+"""
+
+import re
+out = os.path.join(ROOT, "docs", "index.html")
+with open(out, "w", encoding="utf-8") as f:
+    f.write(FULL)
+print(f"Written {len(FULL):,} bytes")
+
+ids = re.findall(r'id="([\w-]+)"', FULL)
+required = ['val-expected','sub-expected','val-range','val-zero','val-ath',
+            'funding-slider','funding-display','sport-toggles',
+            'adv-alekna','adv-meilutyte','adv-bball','adv-focus','adv-deleg',
+            'adv-coaching','adv-peak','adv-host','adv-gdp','adv-rho',
+            'pipe-lukminas','pipe-dilyte','pipe-navikonis','pipe-unknown',
+            'chart-sports','chart-mc','chart-hist','chart-type','chart-scen',
+            'chart-peers','chart-decomp','deleg-display','metric-expected']
+missing = [r for r in required if r not in ids]
+print("Missing IDs:", missing if missing else "none")

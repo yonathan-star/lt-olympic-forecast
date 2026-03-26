@@ -154,7 +154,7 @@ window.updateAll = function(){
     xaxis:Object.assign({},BG.xaxis,{title:"Medal probability",tickformat:".0%",range:[0,1.1]}),
     yaxis:Object.assign({},BG.yaxis,{autorange:"reversed"}),
     legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
-    height:320,margin:{t:10,b:40,l:10,r:72}}),CFG);
+    height:320,margin:{t:10,b:40,l:140,r:72}}),CFG);
 
   Plotly.newPlot("chart-mc",[
     {x:dist.map(function(_,i){return i;}),y:dist,type:"bar",marker:{color:"#4f8ef7",opacity:0.82},
@@ -194,7 +194,7 @@ window.updateAll = function(){
     xaxis:Object.assign({},BG.xaxis,{title:"Medal probability",tickformat:".0%",range:[0,0.95]}),
     yaxis:Object.assign({},BG.yaxis,{autorange:"reversed"}),
     legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
-    height:290,margin:{t:10,b:40,l:10,r:80}}),CFG);
+    height:290,margin:{t:10,b:40,l:140,r:80}}),CFG);
 
   Plotly.newPlot("chart-scen",[
     {x:["Baseline (1x)"],y:[PRE["1.0"].expected],type:"bar",marker:{color:"#4f8ef7"},text:[PRE["1.0"].expected.toFixed(1)],textposition:"outside",error_y:{type:"data",array:[PRE["1.0"].p90-PRE["1.0"].expected],arrayminus:[PRE["1.0"].expected-PRE["1.0"].p10],visible:true}},
@@ -224,13 +224,14 @@ function buildToggles(){
 }
 
 Plotly.newPlot("chart-peers",[
-  {x:PEER_COUNTRIES,y:PEER_GOLD,  type:"bar",name:"Gold",  marker:{color:"#ffd700"}},
-  {x:PEER_COUNTRIES,y:PEER_SILVER,type:"bar",name:"Silver",marker:{color:"#c0c0c0"}},
-  {x:PEER_COUNTRIES,y:PEER_BRONZE,type:"bar",name:"Bronze",marker:{color:"#cd7f32"}}
-],{paper_bgcolor:"#1a1d27",plot_bgcolor:"#1a1d27",font:{color:"#e8eaf0",size:11},
-  xaxis:{gridcolor:"#2d3148"},yaxis:{gridcolor:"#2d3148",title:"Medals (Paris 2024)"},
+  {x:PEER_COUNTRIES,y:PEER_GOLD,  type:"bar",name:"Gold",  marker:{color:"#c8a800"}},
+  {x:PEER_COUNTRIES,y:PEER_SILVER,type:"bar",name:"Silver",marker:{color:"#8898b8"}},
+  {x:PEER_COUNTRIES,y:PEER_BRONZE,type:"bar",name:"Bronze",marker:{color:"#b07840"}}
+],Object.assign({},BG,{
+  xaxis:Object.assign({},BG.xaxis),
+  yaxis:Object.assign({},BG.yaxis,{title:"Medals (Paris 2024)"}),
   barmode:"stack",legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
-  height:280,margin:{t:10,b:50,l:50,r:20}},{responsive:true,displayModeBar:false});
+  height:280,margin:{t:10,b:50,l:50,r:20}}),CFG);
 
 g("funding-slider").addEventListener("input",function(){
   currentFundingIdx=parseInt(this.value);
@@ -259,5 +260,5 @@ Plotly.newPlot("chart-decomp",[
   xaxis:Object.assign({},BG.xaxis,{title:"Probability",tickformat:".0%",range:[0,0.85]}),
   yaxis:Object.assign({},BG.yaxis,{autorange:"reversed"}),
   legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
-  height:320,margin:{t:10,b:40,l:10,r:80}}),CFG);
+  height:320,margin:{t:10,b:40,l:140,r:80}}),CFG);
 </script>
