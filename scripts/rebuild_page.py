@@ -81,6 +81,58 @@ var T = {
     'breaststroke-cap':   `Meilutyte holds the 50m breast world record and won the 2023 World Championship. If confirmed for LA 2028, her probability in that event alone is estimated at 42%.`,
     'footer-sources':     `Data sources:`,
     'footer-gen':         `Generated 2026-03-26`,
+    'chart-sports-title': `Per-Sport Medal Probability`,
+    'chart-sports-cap':   `Grey = historical win rate \u2022 Coloured = 2028 estimate \u2022 Updates with all simulator controls`,
+    'th-sport':           `Sport`,
+    'th-prob':            `2028 Prob`,
+    'th-hist':            `Historical`,
+    'th-years':           `Medal years`,
+    'th-outlook':         `Outlook`,
+    'th-notes':           `Notes`,
+    'th-athlete':         `Athlete`,
+    'th-event':           `Event`,
+    'th-rank':            `Rank`,
+    'th-age2028':         `Age 2028`,
+    'th-factor':          `Factor`,
+    'th-born':            `Born`,
+    'th-status':          `Status`,
+    'pill-gold':          `Gold contender`,
+    'pill-realistic':     `Realistic`,
+    'pill-possible':      `Possible`,
+    'pill-darkhorse':     `Dark horse`,
+    'sport-athletics':    `Athletics`,
+    'sport-rowing':       `Rowing`,
+    'sport-swimming':     `Swimming`,
+    'sport-bball':        `3x3 Basketball`,
+    'sport-pentathlon':   `Modern Pentathlon`,
+    'sport-weightlifting':`Weightlifting`,
+    'sport-wrestling':    `Wrestling`,
+    'sport-shooting':     `Shooting`,
+    'sport-canoe':        `Canoe Sprint`,
+    'note-athletics':     `Mykolas Alekna (25 in 2028): Olympic silver 2024, world lead 74.35m. Top global gold favourite. Gudzius may also compete (Rio 2016 gold).`,
+    'note-rowing':        `Viktorija Senkute (32 in 2028): Olympic bronze 2024 (W Single Sculls). Born 1996, near peak sculling age.`,
+    'note-swimming':      `Ruta Meilutyte (31 in 2028): WR holder 50m breast, Olympic gold 2012, psych factor applied. Danas Rapsys (33): multiple Olympic A-finals.`,
+    'note-bball':         `Olympic bronze 2024. Core roster ages 31\u201341 in 2028 \u2014 roster continuity uncertain.`,
+    'note-pentathlon':    `Asadauskaite (44 in 2028): virtually certain to have retired. Venckauskaite (35\u201336) is the only pipeline.`,
+    'note-weightlifting': `Aurimas Didzbalis bronze 2016. Programme affected by IWF sanctions era. No confirmed 2028 contender.`,
+    'note-wrestling':     `Two medals in 2008 and 2012. Gabija Dilyte (25 in 2028) is a developing prospect.`,
+    'note-shooting':      `Last medal: Daina Gudzineviciute, Trap Gold 2000. No current ISSF top-20 Lithuanian shooter identified.`,
+    'note-canoe':         `2016 bronze (K2-200m). No confirmed 2028 contender identified yet.`,
+    'acard1-sport':       `Athletics \u2014 Discus Throw`,
+    'acard1-desc':        `Top global gold favourite. Olympic silver Paris 2024 aged 21. World lead 74.35m in 2024. Father Virgilijus won discus gold 2000 & 2004. Born Sept 2002 \u2014 will be 25 at LA 2028, absolute prime.`,
+    'acard1-stat':        `Paris 2024: Silver \u2022 74.35m WL \u2022 Age in 2028: 25`,
+    'acard2-sport':       `Rowing \u2014 Women's Single Sculls`,
+    'acard2-desc':        `Olympic bronze Paris 2024. Born 1996, age 32 in 2028 \u2014 near peak sculling age. Consistent top-3 on World Cup circuit. Psych factor: normal (consistent Olympic performer).`,
+    'acard2-stat':        `Paris 2024: Bronze \u2022 Born 1996 \u2022 Age in 2028: 32`,
+    'acard3-sport':       `Swimming`,
+    'acard3-desc':        `Meilutyte: 50m breast world record holder, Olympic gold 2012, still active at 31 in 2028. Psych discount applied (Olympic underperformer). Rapsys: 3 Olympic A-finals, age 33 in 2028.`,
+    'acard3-stat':        `Meilutyte age: 31 \u2022 Rapsys age: 33 \u2022 Two podium paths`,
+    'acard4-sport':       `3x3 Basketball \u2014 Men's Team`,
+    'acard4-desc':        `Olympic bronze 2024. Core roster ages 31\u201341 in 2028 \u2014 roster continuity is the key uncertainty. Basketball is Lithuania's structural sport; FIBA 3x3 consistent global top-10.`,
+    'acard4-stat':        `Paris 2024: Bronze \u2022 FIBA 3x3 World Ranking: top-10`,
+    'acard5-sport':       `Modern Pentathlon`,
+    'acard5-desc':        `Born 1992, age 35\u201336 in 2028 \u2014 late career. Same generation as Asadauskaite (born 1984, age 44, retired). No confirmed next-generation pentathlete identified.`,
+    'acard5-stat':        `Born 1992 \u2022 Age in 2028: 35\u201336 \u2022 Asadauskaite: retired`,
   },
   lt: {
     'nav-forecast':       `Prognoz\u0117`,
@@ -152,6 +204,58 @@ var T = {
     'breaststroke-cap':   `Meilutyt\u0117 turi 50 m kr\u016btine pasaulio rekord\u0105 ir laimejo 2023 m. pasaulio \u010dempionat\u0105.`,
     'footer-sources':     `Duomen\u0173 \u0161altiniai:`,
     'footer-gen':         `Sugeneruota 2026-03-26`,
+    'chart-sports-title': `Medal\u0173 tikimyb\u0117 pagal sporto \u0161ak\u0105`,
+    'chart-sports-cap':   `Pilka = istorinis laim\u0117jim\u0173 rodiklis \u2022 Spalvota = 2028 \u012fvertinimas \u2022 Atnaujinama pagal simuliatoriaus nustatymus`,
+    'th-sport':           `Sporto \u0161aka`,
+    'th-prob':            `2028 Tikimyb\u0117`,
+    'th-hist':            `Istorinis`,
+    'th-years':           `Medal\u0173 metai`,
+    'th-outlook':         `Perspektyva`,
+    'th-notes':           `Pastabos`,
+    'th-athlete':         `Sportininkas`,
+    'th-event':           `Renginys`,
+    'th-rank':            `Reitingas`,
+    'th-age2028':         `Am\u017eius 2028`,
+    'th-factor':          `Veiksnys`,
+    'th-born':            `Gim\u0117`,
+    'th-status':          `Statusas`,
+    'pill-gold':          `Aukso pretendentas`,
+    'pill-realistic':     `Realus`,
+    'pill-possible':      `\u012emanoma`,
+    'pill-darkhorse':     `Tamsus arklys`,
+    'sport-athletics':    `Lengvoji atletika`,
+    'sport-rowing':       `Irklavimas`,
+    'sport-swimming':     `Plaukimas`,
+    'sport-bball':        `3x3 krep\u0161inis`,
+    'sport-pentathlon':   `\u0160iuolaikin\u0117 penkiakov\u0117`,
+    'sport-weightlifting':`Sunkioji atletika`,
+    'sport-wrestling':    `Imtyni\u0173 sportas`,
+    'sport-shooting':     `\u0160audyba`,
+    'sport-canoe':        `Baidar\u0117i\u0173 sportas`,
+    'note-athletics':     `Mykolas Alekna (25 m. 2028): olimpinis sidabras 2024, pasaulio rekordas 74,35 m. Pagrindinis auksinio medalio favoritas pasaulyje. Gudzius taip pat gali dalyvauti (Rio 2016 auksas).`,
+    'note-rowing':        `Viktorija Senkut\u0117 (32 m. 2028): olimpin\u0117 bronza 2024 (moter\u0173 vienviet\u0117 irklelė). Gimusi 1996 m., artimas piko am\u017eius.`,
+    'note-swimming':      `R\u016bta Meilutyt\u0117 (31 m. 2028): 50 m kr\u016btine pasaulio rekordinink\u0117, olimpinis auksas 2012, taikytas psichologinis diskonto koeficientas. Danas Rapšys (33 m.): 3 olimpiniai A finalai.`,
+    'note-bball':         `Olimpin\u0117 bronza 2024. Pagrindinio sudėties narių am\u017eius 31\u201341 m. 2028 \u2014 sudėties tęstinumas neaiškus.`,
+    'note-pentathlon':    `Asadauskait\u0117 (44 m. 2028): beveik tikrai bus pasitraukusi. Venckauskaite (35\u201336 m.) yra vienintelis rezervas.`,
+    'note-weightlifting': `Aurimas Didzbalis bronza 2016. Programa nukentėjo dėl TSF sankcijų eros. N\u0117ra patvirtinto 2028 pretendento.`,
+    'note-wrestling':     `Du medaliai 2008 ir 2012 m. Gabija Dilyt\u0117 (25 m. 2028) yra perspektyvus jaunasis sportininkas.`,
+    'note-shooting':      `Paskutinis medalis: Daina Gudzinevičiūtė, Trap auksas 2000 m. N\u0117ra identifikuoto dabartinio ISSF top-20 lietuvi\u0173 šaulio.`,
+    'note-canoe':         `2016 bronza (K2-200 m). Kol kas n\u0117ra patvirtinto 2028 pretendento.`,
+    'acard1-sport':       `Lengvoji atletika \u2014 disko metimas`,
+    'acard1-desc':        `Pagrindinis auksinio medalio favoritas pasaulyje. Olimpinis sidabras Paryžiuje 2024 sulaukęs 21 metų. Pasaulio rekordas 74,35 m 2024 m. T\u0117vas Virgilijus laimojo disko auksą 2000 ir 2004 m. Gimęs 2002 rugsėjį \u2014 LA 2028 bus 25 metų, absoliutus piko amžius.`,
+    'acard1-stat':        `Paryžius 2024: Sidabras \u2022 74,35 m PLR \u2022 Amžius 2028: 25`,
+    'acard2-sport':       `Irklavimas \u2014 moter\u0173 vienviet\u0117 irklelė`,
+    'acard2-desc':        `Olimpin\u0117 bronza Paryžiuje 2024. Gimusi 1996 m., 32 metų 2028 m. \u2014 artimas piko amžius irklavime. Nuoseklus top-3 Pasaulio taurės etapuose. Psichologinis veiksnys: normalus (nuoseklus olimpinis dalyvis).`,
+    'acard2-stat':        `Paryžius 2024: Bronza \u2022 Gimusi 1996 \u2022 Amžius 2028: 32`,
+    'acard3-sport':       `Plaukimas`,
+    'acard3-desc':        `Meilutytė: 50 m krūtine pasaulio rekordininkė, olimpinis auksas 2012, vis dar aktyviai sportuoja, 31 metų 2028 m. Taikytas psichologinis diskonto koeficientas (olimpinis nepasirodė gerai). Rapšys: 3 olimpiniai A finalai, 33 metų 2028 m.`,
+    'acard3-stat':        `Meilutytės amžius: 31 \u2022 Rapšio amžius: 33 \u2022 Du medalio keliai`,
+    'acard4-sport':       `3x3 krep\u0161inis \u2014 vyrų komanda`,
+    'acard4-desc':        `Olimpin\u0117 bronza 2024. Pagrindinio sudėties narių amžius 31\u201341 m. 2028 m. \u2014 sudėties tęstinumas yra pagrindinė neapibrėžtybė. Krepšinis yra Lietuvos struktūrinis sportas; FIBA 3x3 nuolat pasauliniame top-10.`,
+    'acard4-stat':        `Paryžius 2024: Bronza \u2022 FIBA 3x3 pasaulio reitingas: top-10`,
+    'acard5-sport':       `\u0160iuolaikin\u0117 penkiakovė`,
+    'acard5-desc':        `Gimusi 1992 m., 35\u201336 metų 2028 m. \u2014 vėlyvoji karjera. Ta pati karta kaip Asadauskaitė (gimusi 1984 m., 44 metų, pasitraukusi). N\u0117ra patvirtinto kitos kartos penkiakovininkės.`,
+    'acard5-stat':        `Gimusi 1992 \u2022 Amžius 2028: 35\u201336 \u2022 Asadauskaitė: pasitraukusi`,
   }
 };
 
@@ -598,8 +702,8 @@ BODY = f"""
       </div>
     </div>
     <div class="card">
-      <h2>Per-Sport Medal Probability</h2>
-      <p class="caption">Grey = historical win rate &bull; Coloured = 2028 estimate &bull; Updates with all simulator controls</p>
+      <h2 data-i18n="chart-sports-title">Per-Sport Medal Probability</h2>
+      <p class="caption" data-i18n="chart-sports-cap">Grey = historical win rate &bull; Coloured = 2028 estimate &bull; Updates with all simulator controls</p>
       <div id="chart-sports"></div>
     </div>
   </div>
@@ -609,78 +713,78 @@ BODY = f"""
       <h2 style="margin-bottom:12px" data-i18n="tbl-title">Sport-by-Sport Detail</h2>
       <div style="overflow-x:auto">
       <table>
-        <tr><th>Sport</th><th>2028 Prob</th><th>Historical</th><th>Medal years</th><th>Outlook</th><th>Notes</th></tr>
+        <tr><th data-i18n="th-sport">Sport</th><th data-i18n="th-prob">2028 Prob</th><th data-i18n="th-hist">Historical</th><th data-i18n="th-years">Medal years</th><th data-i18n="th-outlook">Outlook</th><th data-i18n="th-notes">Notes</th></tr>
         <tr>
-          <td><strong>Athletics</strong></td>
+          <td><strong data-i18n="sport-athletics">Athletics</strong></td>
           <td class="prob-cell" data-sport="Athletics"><strong>58%</strong></td>
           <td class="muted small">7/9 Games (78%)</td>
           <td class="muted small">1992, 2000, 2004, 2008, 2012, 2016, 2024</td>
-          <td><span class="pill high">Gold contender</span></td>
-          <td class="muted small">Mykolas Alekna (25 in 2028): Olympic silver 2024, world lead 74.35m. Top global gold favourite. Gudzius may also compete (Rio 2016 gold).</td>
+          <td><span class="pill high" data-i18n="pill-gold">Gold contender</span></td>
+          <td class="muted small" data-i18n="note-athletics">Mykolas Alekna (25 in 2028): Olympic silver 2024, world lead 74.35m. Top global gold favourite. Gudzius may also compete (Rio 2016 gold).</td>
         </tr>
         <tr>
-          <td><strong>Rowing</strong></td>
+          <td><strong data-i18n="sport-rowing">Rowing</strong></td>
           <td class="prob-cell" data-sport="Rowing"><strong>38%</strong></td>
           <td class="muted small">3/9 Games (33%)</td>
           <td class="muted small">2000, 2016, 2024</td>
-          <td><span class="pill med">Realistic</span></td>
-          <td class="muted small">Viktorija Senkute (32 in 2028): Olympic bronze 2024 (W Single Sculls). Born 1996, near peak sculling age.</td>
+          <td><span class="pill med" data-i18n="pill-realistic">Realistic</span></td>
+          <td class="muted small" data-i18n="note-rowing">Viktorija Senkute (32 in 2028): Olympic bronze 2024 (W Single Sculls). Born 1996, near peak sculling age.</td>
         </tr>
         <tr>
-          <td><strong>Swimming</strong></td>
+          <td><strong data-i18n="sport-swimming">Swimming</strong></td>
           <td class="prob-cell" data-sport="Swimming"><strong>27%</strong></td>
           <td class="muted small">1/9 Games (11%)</td>
           <td class="muted small">2012</td>
-          <td><span class="pill med">Realistic</span></td>
-          <td class="muted small">Ruta Meilutyte (31 in 2028): WR holder 50m breast, Olympic gold 2012, psych factor applied. Danas Rapsys (33): multiple Olympic A-finals.</td>
+          <td><span class="pill med" data-i18n="pill-realistic">Realistic</span></td>
+          <td class="muted small" data-i18n="note-swimming">Ruta Meilutyte (31 in 2028): WR holder 50m breast, Olympic gold 2012, psych factor applied. Danas Rapsys (33): multiple Olympic A-finals.</td>
         </tr>
         <tr>
-          <td><strong>3x3 Basketball</strong></td>
+          <td><strong data-i18n="sport-bball">3x3 Basketball</strong></td>
           <td class="prob-cell" data-sport="3x3 Basketball"><strong>25%</strong></td>
           <td class="muted small">1/2 Games (50%)</td>
           <td class="muted small">2024</td>
-          <td><span class="pill med">Realistic</span></td>
-          <td class="muted small">Olympic bronze 2024. Core roster ages 31&ndash;41 in 2028 &mdash; roster continuity uncertain.</td>
+          <td><span class="pill med" data-i18n="pill-realistic">Realistic</span></td>
+          <td class="muted small" data-i18n="note-bball">Olympic bronze 2024. Core roster ages 31&ndash;41 in 2028 &mdash; roster continuity uncertain.</td>
         </tr>
         <tr>
-          <td><strong>Modern Pentathlon</strong></td>
+          <td><strong data-i18n="sport-pentathlon">Modern Pentathlon</strong></td>
           <td class="prob-cell" data-sport="Modern Pentathlon"><strong>20%</strong></td>
           <td class="muted small">4/9 Games (44%)</td>
           <td class="muted small">2004, 2008, 2012, 2020</td>
-          <td><span class="pill low">Possible</span></td>
-          <td class="muted small">Asadauskaite (44 in 2028): virtually certain to have retired. Venckauskaite (35&ndash;36) is the only pipeline.</td>
+          <td><span class="pill low" data-i18n="pill-possible">Possible</span></td>
+          <td class="muted small" data-i18n="note-pentathlon">Asadauskaite (44 in 2028): virtually certain to have retired. Venckauskaite (35&ndash;36) is the only pipeline.</td>
         </tr>
         <tr>
-          <td><strong>Weightlifting</strong></td>
+          <td><strong data-i18n="sport-weightlifting">Weightlifting</strong></td>
           <td class="prob-cell" data-sport="Weightlifting"><strong>15%</strong></td>
           <td class="muted small">1/6 Games (17%)</td>
           <td class="muted small">2016</td>
-          <td><span class="pill low">Possible</span></td>
-          <td class="muted small">Aurimas Didzbalis bronze 2016. Programme affected by IWF sanctions era. No confirmed 2028 contender.</td>
+          <td><span class="pill low" data-i18n="pill-possible">Possible</span></td>
+          <td class="muted small" data-i18n="note-weightlifting">Aurimas Didzbalis bronze 2016. Programme affected by IWF sanctions era. No confirmed 2028 contender.</td>
         </tr>
         <tr>
-          <td><strong>Wrestling</strong></td>
+          <td><strong data-i18n="sport-wrestling">Wrestling</strong></td>
           <td class="prob-cell" data-sport="Wrestling"><strong>14%</strong></td>
           <td class="muted small">2/9 Games (22%)</td>
           <td class="muted small">2008, 2012</td>
-          <td><span class="pill low">Possible</span></td>
-          <td class="muted small">Two medals in 2008 and 2012. Gabija Dilyte (25 in 2028) is a developing prospect.</td>
+          <td><span class="pill low" data-i18n="pill-possible">Possible</span></td>
+          <td class="muted small" data-i18n="note-wrestling">Two medals in 2008 and 2012. Gabija Dilyte (25 in 2028) is a developing prospect.</td>
         </tr>
         <tr>
-          <td><strong>Shooting</strong></td>
+          <td><strong data-i18n="sport-shooting">Shooting</strong></td>
           <td class="prob-cell" data-sport="Shooting"><strong>12%</strong></td>
           <td class="muted small">1/7 Games (14%)</td>
           <td class="muted small">2000</td>
-          <td><span class="pill dark">Dark horse</span></td>
-          <td class="muted small">Last medal: Daina Gudzineviciute, Trap Gold 2000. No current ISSF top-20 Lithuanian shooter identified.</td>
+          <td><span class="pill dark" data-i18n="pill-darkhorse">Dark horse</span></td>
+          <td class="muted small" data-i18n="note-shooting">Last medal: Daina Gudzineviciute, Trap Gold 2000. No current ISSF top-20 Lithuanian shooter identified.</td>
         </tr>
         <tr>
-          <td><strong>Canoe Sprint</strong></td>
+          <td><strong data-i18n="sport-canoe">Canoe Sprint</strong></td>
           <td class="prob-cell" data-sport="Canoe Sprint"><strong>11%</strong></td>
           <td class="muted small">1/9 Games (11%)</td>
           <td class="muted small">2016</td>
-          <td><span class="pill dark">Dark horse</span></td>
-          <td class="muted small">2016 bronze (K2-200m). No confirmed 2028 contender identified yet.</td>
+          <td><span class="pill dark" data-i18n="pill-darkhorse">Dark horse</span></td>
+          <td class="muted small" data-i18n="note-canoe">2016 bronze (K2-200m). No confirmed 2028 contender identified yet.</td>
         </tr>
       </table>
       </div>
@@ -702,37 +806,37 @@ BODY = f"""
       <div class="acard gold-tier">
         <span class="abadge">58%</span>
         <div class="aname">Mykolas Alekna</div>
-        <div class="asport">Athletics &mdash; Discus Throw</div>
-        <p>Top global gold favourite. Olympic silver Paris 2024 aged 21. World lead 74.35m in 2024. Father Virgilijus won discus gold 2000 &amp; 2004. Born Sept 2002 &mdash; will be 25 at LA 2028, absolute prime.</p>
-        <div class="astat">Paris 2024: Silver &bull; 74.35m WL &bull; Age in 2028: <strong>25</strong></div>
+        <div class="asport" data-i18n="acard1-sport">Athletics &mdash; Discus Throw</div>
+        <p data-i18n="acard1-desc">Top global gold favourite. Olympic silver Paris 2024 aged 21. World lead 74.35m in 2024. Father Virgilijus won discus gold 2000 &amp; 2004. Born Sept 2002 &mdash; will be 25 at LA 2028, absolute prime.</p>
+        <div class="astat" data-i18n="acard1-stat">Paris 2024: Silver &bull; 74.35m WL &bull; Age in 2028: 25</div>
       </div>
       <div class="acard silver-tier">
         <span class="abadge">38%</span>
         <div class="aname">Viktorija Senkute</div>
-        <div class="asport">Rowing &mdash; Women's Single Sculls</div>
-        <p>Olympic bronze Paris 2024. Born 1996, age 32 in 2028 &mdash; near peak sculling age. Consistent top-3 on World Cup circuit. Psych factor: normal (consistent Olympic performer).</p>
-        <div class="astat">Paris 2024: Bronze &bull; Born 1996 &bull; Age in 2028: <strong>32</strong></div>
+        <div class="asport" data-i18n="acard2-sport">Rowing &mdash; Women's Single Sculls</div>
+        <p data-i18n="acard2-desc">Olympic bronze Paris 2024. Born 1996, age 32 in 2028 &mdash; near peak sculling age. Consistent top-3 on World Cup circuit. Psych factor: normal (consistent Olympic performer).</p>
+        <div class="astat" data-i18n="acard2-stat">Paris 2024: Bronze &bull; Born 1996 &bull; Age in 2028: 32</div>
       </div>
       <div class="acard bronze-tier">
         <span class="abadge">27%</span>
         <div class="aname">Ruta Meilutyte &amp; Danas Rapsys</div>
-        <div class="asport">Swimming</div>
-        <p>Meilutyte: 50m breast world record holder, Olympic gold 2012, still active at 31 in 2028. Psych discount applied (Olympic underperformer). Rapsys: 3 Olympic A-finals, age 33 in 2028.</p>
-        <div class="astat">Meilutyte age: 31 &bull; Rapsys age: 33 &bull; Two podium paths</div>
+        <div class="asport" data-i18n="acard3-sport">Swimming</div>
+        <p data-i18n="acard3-desc">Meilutyte: 50m breast world record holder, Olympic gold 2012, still active at 31 in 2028. Psych discount applied (Olympic underperformer). Rapsys: 3 Olympic A-finals, age 33 in 2028.</p>
+        <div class="astat" data-i18n="acard3-stat">Meilutyte age: 31 &bull; Rapsys age: 33 &bull; Two podium paths</div>
       </div>
       <div class="acard bronze-tier">
         <span class="abadge">25%</span>
         <div class="aname">Lithuania 3x3 Basketball</div>
-        <div class="asport">3x3 Basketball &mdash; Men's Team</div>
-        <p>Olympic bronze 2024. Core roster ages 31&ndash;41 in 2028 &mdash; roster continuity is the key uncertainty. Basketball is Lithuania's structural sport; FIBA 3x3 consistent global top-10.</p>
-        <div class="astat">Paris 2024: Bronze &bull; FIBA 3x3 World Ranking: top-10</div>
+        <div class="asport" data-i18n="acard4-sport">3x3 Basketball &mdash; Men's Team</div>
+        <p data-i18n="acard4-desc">Olympic bronze 2024. Core roster ages 31-41 in 2028 -- roster continuity is the key uncertainty. Basketball is Lithuania's structural sport; FIBA 3x3 consistent global top-10.</p>
+        <div class="astat" data-i18n="acard4-stat">Paris 2024: Bronze &bull; FIBA 3x3 World Ranking: top-10</div>
       </div>
       <div class="acard bronze-tier">
         <span class="abadge">20%</span>
         <div class="aname">Gintare Venckauskaite</div>
-        <div class="asport">Modern Pentathlon</div>
-        <p>Born 1992, age 35&ndash;36 in 2028 &mdash; late career. Same generation as Asadauskaite (born 1984, age 44, retired). No confirmed next-generation pentathlete identified.</p>
-        <div class="astat">Born 1992 &bull; Age in 2028: 35&ndash;36 &bull; Asadauskaite: retired</div>
+        <div class="asport" data-i18n="acard5-sport">Modern Pentathlon</div>
+        <p data-i18n="acard5-desc">Born 1992, age 35-36 in 2028 -- late career. Same generation as Asadauskaite (born 1984, age 44, retired). No confirmed next-generation pentathlete identified.</p>
+        <div class="astat" data-i18n="acard5-stat">Born 1992 &bull; Age in 2028: 35-36 &bull; Asadauskaite: retired</div>
       </div>
     </div>
   </div>
@@ -928,7 +1032,7 @@ BODY = f"""
       <p class="caption" data-i18n="pipe-cap">Event medal prob = rank_prob &times; psych_factor &times; age_factor. Union across contenders gives sport probability.</p>
       <div style="overflow-x:auto">
         <table>
-          <tr><th>Athlete</th><th>Event</th><th>Rank</th><th>Age 2028</th><th>Prob</th><th>Factor</th><th>Notes</th></tr>
+          <tr><th data-i18n="th-athlete">Athlete</th><th data-i18n="th-event">Event</th><th data-i18n="th-rank">Rank</th><th data-i18n="th-age2028">Age 2028</th><th data-i18n="th-prob">Prob</th><th data-i18n="th-factor">Factor</th><th data-i18n="th-notes">Notes</th></tr>
           <tr>
             <td><strong>Mykolas Alekna</strong></td><td class="muted small">Discus Men</td>
             <td><strong>#1</strong></td><td>25</td><td><strong>58%</strong></td>
@@ -987,7 +1091,7 @@ BODY = f"""
       <h2 data-i18n="emerging-title">Emerging Athletes &mdash; Not in Current Model</h2>
       <p class="caption" data-i18n="emerging-cap">Competed at Paris 2024, prime age in 2028, no identified medal path yet. Worth tracking as 2028 approaches.</p>
       <table>
-        <tr><th>Athlete</th><th>Sport</th><th>Age 2028</th><th>Born</th><th>Status</th></tr>
+        <tr><th data-i18n="th-athlete">Athlete</th><th data-i18n="th-sport">Sport</th><th data-i18n="th-age2028">Age 2028</th><th data-i18n="th-born">Born</th><th data-i18n="th-status">Status</th></tr>
         <tr><td><strong>SAVICKAS Aleksas</strong></td><td>Swimming</td><td>25</td><td>2003</td><td><span class="pill med">Prime 2028</span></td></tr>
         <tr><td><strong>TETEREVKOVA Kotryna</strong></td><td>Swimming</td><td>26</td><td>2002</td><td><span class="pill med">Prime 2028</span></td></tr>
         <tr><td><strong>RIMKUTE Dovile</strong></td><td>Rowing</td><td>27</td><td>2001</td><td><span class="pill med">Prime 2028</span></td></tr>
