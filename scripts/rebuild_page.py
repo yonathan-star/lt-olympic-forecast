@@ -77,8 +77,8 @@ var T = {
     'pipe-cap':           `Event medal prob = rank_prob \u00d7 psych_factor \u00d7 age_factor. Union across contenders gives sport probability.`,
     'emerging-title':     `Emerging Athletes \u2014 Not in Current Model`,
     'emerging-cap':       `Competed at Paris 2024, prime age in 2028, no identified medal path yet.`,
-    'breaststroke-title': `50m Breaststroke \u2014 Conditional Scenario`,
-    'breaststroke-cap':   `Meilutyte holds the 50m breast world record and won the 2023 World Championship. If confirmed for LA 2028, her probability in that event alone is estimated at 42%.`,
+    'breaststroke-title': `50m Breaststroke \u2014 Confirmed for LA 2028`,
+    'breaststroke-cap':   `World Aquatics confirmed 50m breaststroke (+ backstroke + butterfly) for LA 2028 (Apr 2025). Meilutyte is the world record holder and 2023 World Champion. Her probability in this event alone is estimated at 42%.`,
     'footer-sources':     `Data sources:`,
     'footer-gen':         `Generated 2026-03-26`,
     'chart-sports-title': `Per-Sport Medal Probability`,
@@ -155,8 +155,8 @@ var T = {
     'pill-prime2028':     `Prime 2028`,
     'sport-bvolley':      `Beach Volleyball`,
     'sport-cycling':      `Cycling Track`,
-    'scenario-box':       `<strong>Current model (100m breast only):</strong> Swimming = 27%<br><strong>If 50m breast confirmed for LA 2028:</strong> Swimming \u224844\u201350%<br><strong>Source:</strong> World Aquatics Programme Commission lobbying, 2024<br><strong>Status:</strong> Pending IOC confirmation`,
-    'scenario-note':      `Psych factor 0.85 applied in current model (Olympic underperformer vs world ranking). Last Olympic medal: gold 2012. Use the Meilutyte dropdown in Advanced Factors to model the 50m confirmation scenario.`,
+    'scenario-box':       `<strong>Default model (50m breast confirmed):</strong> Swimming \u2248 44%<br><strong>100m breast only scenario:</strong> Swimming = 27%<br><strong>Source:</strong> World Aquatics confirmed Apr 2025<br><strong>Status:</strong> <span style="color:var(--green);font-weight:700">\u2713 CONFIRMED for LA 2028</span>`,
+    'scenario-note':      `Psych factor 0.85 applied (Olympic underperformer vs world ranking). Last Olympic medal: gold 2012. Use the Meilutyte dropdown in Advanced Factors to switch back to 100m breast only scenario.`,
   },
   lt: {
     'nav-forecast':       `Prognoz\u0117`,
@@ -224,8 +224,8 @@ var T = {
     'pipe-cap':           `Renginio medali\u0173 tikimyb\u0117 = rank_prob \u00d7 psych_factor \u00d7 age_factor.`,
     'emerging-title':     `Kylantys sportininkai \u2014 n\u0117ra dabartiniame modelyje`,
     'emerging-cap':       `Dalyvavo Pary\u017eiuje 2024, geriausi am\u017eiuje 2028, kol kas be medalio kelio.`,
-    'breaststroke-title': `50 m kr\u016btine \u2014 s\u0105lyginis scenarijus`,
-    'breaststroke-cap':   `Meilutyt\u0117 turi 50 m kr\u016btine pasaulio rekord\u0105 ir laimejo 2023 m. pasaulio \u010dempionat\u0105.`,
+    'breaststroke-title': `50 m kr\u016btine \u2014 patvirtinta LA 2028`,
+    'breaststroke-cap':   `Pasaulio vandens sportas patvirtino 50 m kr\u016btine (+ nugaros, drugelio) LA 2028 (2025 bal.). Meilutyt\u0117 turi pasaulio rekord\u0105 ir laimejo 2023 m. pasaulio \u010dempionat\u0105. Tikimyb\u0117 \u0161iame renginyje atskirai \u2248 42%.`,
     'footer-sources':     `Duomen\u0173 \u0161altiniai:`,
     'footer-gen':         `Sugeneruota 2026-03-26`,
     'chart-sports-title': `Medal\u0173 tikimyb\u0117 pagal sporto \u0161ak\u0105`,
@@ -300,10 +300,10 @@ var T = {
     'pn-venckauskaite':   `Gimusi 1992, 35\u201336 m. 2028 \u2014 v\u0117lyvoji karjera.`,
     'pn-dilyte':          `Gimusi 2003, 25 m. 2028. Pary\u017eiaus 2024 dalyv\u0117, tobul\u0117janti.`,
     'pill-prime2028':     `Pikas 2028`,
-    'sport-bvolley':      `Pap\u013b dimio tinklinis`,
+    'sport-bvolley':      `Pap\u016bdimio tinklinis`,
     'sport-cycling':      `Dviratininkyst\u0117 (treko)`,
-    'scenario-box':       `<strong>Dabartinis modelis (tik 100 m kr\u016btine):</strong> Plaukimas = 27%<br><strong>Jei 50 m kr\u016btine patvirtinama LA 2028:</strong> Plaukimas \u224844\u201350%<br><strong>\u0160altinis:</strong> Pasaulio vandens sport\u0173 programos komisija, 2024<br><strong>Statusas:</strong> Laukiama TOK patvirtinimo`,
-    'scenario-note':      `Dabartiniame modelyje taikytas psichologinis diskonto koef. 0,85 (olimpi\u0161kai nepasirod\u0117 gerai). Paskutinis olimpinis medalis: auksas 2012. Naudokite Meilutyt\u0117s i\u0161skleidim\u0105 Papildomuose veiksniuose 50 m scenarijui.`,
+    'scenario-box':       `<strong>Numatytasis modelis (50 m kr\u016btine patvirtinta):</strong> Plaukimas \u2248 44%<br><strong>Tik 100 m kr\u016btine scenarijus:</strong> Plaukimas = 27%<br><strong>\u0160altinis:</strong> Pasaulio vandens sportas patvirtino 2025 bal.<br><strong>Statusas:</strong> <span style="color:var(--green);font-weight:700">\u2713 PATVIRTINTA LA 2028</span>`,
+    'scenario-note':      `Taikytas psichologinis diskonto koef. 0,85 (olimpi\u0161kai nepasirod\u0117 gerai). Paskutinis olimpinis medalis: auksas 2012. Naudokite Meilutyt\u0117s i\u0161skleidim\u0105 Papildomuose veiksniuose nor\u0117dami gr\u012f\u017eti prie tik 100 m kr\u016btine scenarijaus.`,
   }
 };
 
@@ -941,8 +941,8 @@ BODY = f"""
         <div class="adv-row">
           <label data-i18n="lbl-meilutyte">Ruta Meilutyte</label>
           <select id="adv-meilutyte" onchange="updateAll()">
-            <option value="normal" selected>Active (100m breast only)</option>
-            <option value="confirmed_50m">50m breast confirmed for LA 2028</option>
+            <option value="normal">Active (100m breast only)</option>
+            <option value="confirmed_50m" selected>50m breast confirmed for LA 2028</option>
             <option value="retired">Retired by 2028</option>
           </select>
         </div>

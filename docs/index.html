@@ -621,8 +621,8 @@ tr:hover td{background:#faf9f6}
         <div class="adv-row">
           <label data-i18n="lbl-meilutyte">Ruta Meilutyte</label>
           <select id="adv-meilutyte" onchange="updateAll()">
-            <option value="normal" selected>Active (100m breast only)</option>
-            <option value="confirmed_50m">50m breast confirmed for LA 2028</option>
+            <option value="normal">Active (100m breast only)</option>
+            <option value="confirmed_50m" selected>50m breast confirmed for LA 2028</option>
             <option value="retired">Retired by 2028</option>
           </select>
         </div>
@@ -966,8 +966,8 @@ var T = {
     'pipe-cap':           `Event medal prob = rank_prob × psych_factor × age_factor. Union across contenders gives sport probability.`,
     'emerging-title':     `Emerging Athletes — Not in Current Model`,
     'emerging-cap':       `Competed at Paris 2024, prime age in 2028, no identified medal path yet.`,
-    'breaststroke-title': `50m Breaststroke — Conditional Scenario`,
-    'breaststroke-cap':   `Meilutyte holds the 50m breast world record and won the 2023 World Championship. If confirmed for LA 2028, her probability in that event alone is estimated at 42%.`,
+    'breaststroke-title': `50m Breaststroke — Confirmed for LA 2028`,
+    'breaststroke-cap':   `World Aquatics confirmed 50m breaststroke (+ backstroke + butterfly) for LA 2028 (Apr 2025). Meilutyte is the world record holder and 2023 World Champion. Her probability in this event alone is estimated at 42%.`,
     'footer-sources':     `Data sources:`,
     'footer-gen':         `Generated 2026-03-26`,
     'chart-sports-title': `Per-Sport Medal Probability`,
@@ -1044,8 +1044,8 @@ var T = {
     'pill-prime2028':     `Prime 2028`,
     'sport-bvolley':      `Beach Volleyball`,
     'sport-cycling':      `Cycling Track`,
-    'scenario-box':       `<strong>Current model (100m breast only):</strong> Swimming = 27%<br><strong>If 50m breast confirmed for LA 2028:</strong> Swimming ≈44–50%<br><strong>Source:</strong> World Aquatics Programme Commission lobbying, 2024<br><strong>Status:</strong> Pending IOC confirmation`,
-    'scenario-note':      `Psych factor 0.85 applied in current model (Olympic underperformer vs world ranking). Last Olympic medal: gold 2012. Use the Meilutyte dropdown in Advanced Factors to model the 50m confirmation scenario.`,
+    'scenario-box':       `<strong>Default model (50m breast confirmed):</strong> Swimming ≈ 44%<br><strong>100m breast only scenario:</strong> Swimming = 27%<br><strong>Source:</strong> World Aquatics confirmed Apr 2025<br><strong>Status:</strong> <span style="color:var(--green);font-weight:700">✓ CONFIRMED for LA 2028</span>`,
+    'scenario-note':      `Psych factor 0.85 applied (Olympic underperformer vs world ranking). Last Olympic medal: gold 2012. Use the Meilutyte dropdown in Advanced Factors to switch back to 100m breast only scenario.`,
   },
   lt: {
     'nav-forecast':       `Prognozė`,
@@ -1113,8 +1113,8 @@ var T = {
     'pipe-cap':           `Renginio medalių tikimybė = rank_prob × psych_factor × age_factor.`,
     'emerging-title':     `Kylantys sportininkai — nėra dabartiniame modelyje`,
     'emerging-cap':       `Dalyvavo Paryžiuje 2024, geriausi amžiuje 2028, kol kas be medalio kelio.`,
-    'breaststroke-title': `50 m krūtine — sąlyginis scenarijus`,
-    'breaststroke-cap':   `Meilutytė turi 50 m krūtine pasaulio rekordą ir laimejo 2023 m. pasaulio čempionatą.`,
+    'breaststroke-title': `50 m krūtine — patvirtinta LA 2028`,
+    'breaststroke-cap':   `Pasaulio vandens sportas patvirtino 50 m krūtine (+ nugaros, drugelio) LA 2028 (2025 bal.). Meilutytė turi pasaulio rekordą ir laimejo 2023 m. pasaulio čempionatą. Tikimybė šiame renginyje atskirai ≈ 42%.`,
     'footer-sources':     `Duomenų šaltiniai:`,
     'footer-gen':         `Sugeneruota 2026-03-26`,
     'chart-sports-title': `Medalų tikimybė pagal sporto šaką`,
@@ -1189,10 +1189,10 @@ var T = {
     'pn-venckauskaite':   `Gimusi 1992, 35–36 m. 2028 — vėlyvoji karjera.`,
     'pn-dilyte':          `Gimusi 2003, 25 m. 2028. Paryžiaus 2024 dalyvė, tobulėjanti.`,
     'pill-prime2028':     `Pikas 2028`,
-    'sport-bvolley':      `PapĻ dimio tinklinis`,
+    'sport-bvolley':      `Papūdimio tinklinis`,
     'sport-cycling':      `Dviratininkystė (treko)`,
-    'scenario-box':       `<strong>Dabartinis modelis (tik 100 m krūtine):</strong> Plaukimas = 27%<br><strong>Jei 50 m krūtine patvirtinama LA 2028:</strong> Plaukimas ≈44–50%<br><strong>Šaltinis:</strong> Pasaulio vandens sportų programos komisija, 2024<br><strong>Statusas:</strong> Laukiama TOK patvirtinimo`,
-    'scenario-note':      `Dabartiniame modelyje taikytas psichologinis diskonto koef. 0,85 (olimpiškai nepasirodė gerai). Paskutinis olimpinis medalis: auksas 2012. Naudokite Meilutytės išskleidimą Papildomuose veiksniuose 50 m scenarijui.`,
+    'scenario-box':       `<strong>Numatytasis modelis (50 m krūtine patvirtinta):</strong> Plaukimas ≈ 44%<br><strong>Tik 100 m krūtine scenarijus:</strong> Plaukimas = 27%<br><strong>Šaltinis:</strong> Pasaulio vandens sportas patvirtino 2025 bal.<br><strong>Statusas:</strong> <span style="color:var(--green);font-weight:700">✓ PATVIRTINTA LA 2028</span>`,
+    'scenario-note':      `Taikytas psichologinis diskonto koef. 0,85 (olimpiškai nepasirodė gerai). Paskutinis olimpinis medalis: auksas 2012. Naudokite Meilutytės išskleidimą Papildomuose veiksniuose norėdami grįžti prie tik 100 m krūtine scenarijaus.`,
   }
 };
 
