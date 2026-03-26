@@ -47,6 +47,39 @@ const selectedSports = new Set(SPORTS);
 const BG  = {paper_bgcolor:"#f5f3ef",plot_bgcolor:"#ffffff",font:{color:"#1c1a2a",size:11},xaxis:{gridcolor:"#e0dcd6",zerolinecolor:"#c8c4bc"},yaxis:{gridcolor:"#e0dcd6",zerolinecolor:"#c8c4bc"}};
 const CFG = {responsive:true, displayModeBar:false};
 
+window.CL = {
+  en: {
+    hist_rate:   "Historical win rate",
+    prob_2028:   "2028 probability",
+    total:       "Total",
+    gold:        "Gold",  silver:      "Silver",  bronze:      "Bronze",
+    forecast:    "2028 Forecast",
+    baseline:    "Baseline (1x)",  funding_2x:  "2x Funding",  funding_3x:  "3x Funding",
+    current:     "Current",
+    rec_hist:    "Recency-weighted historical rate",
+    ath_model:   "Athlete ranking model",
+    final_blend: "Final blended estimate",
+    ax_medal_prob:"Medal probability",  ax_total:"Total medals",  ax_prob:"Probability",
+    ax_year:"Year",  ax_medals:"Medals",  ax_exp:"Expected medals",  ax_paris:"Medals (Paris 2024)",
+    mean_lbl:    "Mean "
+  },
+  lt: {
+    hist_rate:   "Istorinis laimėjimų rodiklis",
+    prob_2028:   "2028 tikimybė",
+    total:       "Iš viso",
+    gold:        "Auksas",  silver:      "Sidabras",  bronze:      "Bronza",
+    forecast:    "2028 Prognozė",
+    baseline:    "Bazinis (1x)",  funding_2x:  "2x finansavimas",  funding_3x:  "3x finansavimas",
+    current:     "Dabartinis",
+    rec_hist:    "Istorinis laimėjimų rodiklis",
+    ath_model:   "Sportininkų reitingo modelis",
+    final_blend: "Galutinis įvertinimas",
+    ax_medal_prob:"Medalio tikimybė",  ax_total:"Medaliai iš viso",  ax_prob:"Tikimybė",
+    ax_year:"Metai",  ax_medals:"Medaliai",  ax_exp:"Tikėtini medaliai",  ax_paris:"Medaliai (Paryžius 2024)",
+    mean_lbl:    "Vidurkis "
+  }
+};
+
 function g(id){ return document.getElementById(id); }
 
 function getFactors(){
@@ -111,6 +144,7 @@ function mcDist(probs){
 
 // Assigned to window so inline onchange="updateAll()" always finds it
 window.updateAll = function(){
+  var L = window.CL[window.LANG||'en'];
   var probs    = calcProbs();
   var active   = probs.filter(function(p){return p>0;});
   var expected = probs.reduce(function(a,b){return a+b;},0);
@@ -147,11 +181,11 @@ window.updateAll = function(){
   });
 
   Plotly.newPlot("chart-sports",[
-    {x:HRATES,y:SPORTS,type:"bar",orientation:"h",name:"Historical win rate",marker:{color:"rgba(150,150,150,0.2)"},width:0.5},
-    {x:probs, y:SPORTS,type:"bar",orientation:"h",name:"2028 probability",   marker:{color:colors},width:0.32,
+    {x:HRATES,y:SPORTS,type:"bar",orientation:"h",name:L.hist_rate,marker:{color:"rgba(150,150,150,0.2)"},width:0.5},
+    {x:probs, y:SPORTS,type:"bar",orientation:"h",name:L.prob_2028,marker:{color:colors},width:0.32,
      text:probs.map(function(p){return p>0.01?(p*100).toFixed(0)+"%":"";}),textposition:"outside"}
   ],Object.assign({},BG,{barmode:"overlay",
-    xaxis:Object.assign({},BG.xaxis,{title:"Medal probability",tickformat:".0%",range:[0,1.1]}),
+    xaxis:Object.assign({},BG.xaxis,{title:L.ax_medal_prob,tickformat:".0%",range:[0,1.1]}),
     yaxis:Object.assign({},BG.yaxis,{autorange:"reversed"}),
     legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
     height:320,margin:{t:10,b:40,l:140,r:72}}),CFG);
@@ -160,23 +194,23 @@ window.updateAll = function(){
     {x:dist.map(function(_,i){return i;}),y:dist,type:"bar",marker:{color:"#4f8ef7",opacity:0.82},
      text:dist.map(function(v){return v>0.02?(v*100).toFixed(0)+"%":"";}),textposition:"outside"}
   ],Object.assign({},BG,{
-    xaxis:Object.assign({},BG.xaxis,{title:"Total medals",dtick:1}),
-    yaxis:Object.assign({},BG.yaxis,{title:"Probability",tickformat:".0%"}),
+    xaxis:Object.assign({},BG.xaxis,{title:L.ax_total,dtick:1}),
+    yaxis:Object.assign({},BG.yaxis,{title:L.ax_prob,tickformat:".0%"}),
     shapes:[{type:"line",x0:expected,x1:expected,y0:0,y1:1,yref:"paper",line:{color:"#ff4444",dash:"dash",width:2}}],
-    annotations:[{x:expected,y:0.97,yref:"paper",text:"Mean "+expected.toFixed(1),showarrow:false,font:{color:"#ff4444",size:11}}],
+    annotations:[{x:expected,y:0.97,yref:"paper",text:L.mean_lbl+expected.toFixed(1),showarrow:false,font:{color:"#ff4444",size:11}}],
     height:300,margin:{t:20,b:40,l:50,r:20}}),CFG);
 
   Plotly.newPlot("chart-hist",[
-    {x:HIST_YEARS,y:HIST_TOTAL, mode:"lines+markers",name:"Total", line:{color:"#4f8ef7",width:3},marker:{size:7}},
-    {x:HIST_YEARS,y:HIST_GOLD,  mode:"lines+markers",name:"Gold",  line:{color:"#ffd700",width:2}},
-    {x:HIST_YEARS,y:HIST_SILVER,mode:"lines+markers",name:"Silver",line:{color:"#c0c0c0",width:2}},
-    {x:HIST_YEARS,y:HIST_BRONZE,mode:"lines+markers",name:"Bronze",line:{color:"#cd7f32",width:2}},
-    {x:[2028],y:[expected],mode:"markers",name:"2028 Forecast",
+    {x:HIST_YEARS,y:HIST_TOTAL, mode:"lines+markers",name:L.total,  line:{color:"#4f8ef7",width:3},marker:{size:7}},
+    {x:HIST_YEARS,y:HIST_GOLD,  mode:"lines+markers",name:L.gold,   line:{color:"#ffd700",width:2}},
+    {x:HIST_YEARS,y:HIST_SILVER,mode:"lines+markers",name:L.silver, line:{color:"#c0c0c0",width:2}},
+    {x:HIST_YEARS,y:HIST_BRONZE,mode:"lines+markers",name:L.bronze, line:{color:"#cd7f32",width:2}},
+    {x:[2028],y:[expected],mode:"markers",name:L.forecast,
      marker:{size:16,color:"#ff4444",symbol:"star"},
      error_y:{type:"data",array:[Math.max(0,p90-expected)],arrayminus:[Math.max(0,expected-p10)],visible:true,color:"#ff4444"}}
   ],Object.assign({},BG,{
-    xaxis:Object.assign({},BG.xaxis,{title:"Year"}),
-    yaxis:Object.assign({},BG.yaxis,{title:"Medals",rangemode:"tozero"}),
+    xaxis:Object.assign({},BG.xaxis,{title:L.ax_year}),
+    yaxis:Object.assign({},BG.yaxis,{title:L.ax_medals,rangemode:"tozero"}),
     legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
     height:290,margin:{t:10,b:40,l:40,r:20}}),CFG);
 
@@ -187,22 +221,22 @@ window.updateAll = function(){
     return[p*GOLD_BASE[i]/tot,p*SILVER_BASE[i]/tot,p*BRONZE_BASE[i]/tot];
   });
   Plotly.newPlot("chart-type",[
-    {x:gP.map(function(x){return x[0];}),y:TYPE_SPORTS,type:"bar",orientation:"h",name:"Gold",  marker:{color:"#ffd700"},text:gP.map(function(x){return x[0]>0.02?(x[0]*100).toFixed(0)+"%":"";}),textposition:"outside"},
-    {x:gP.map(function(x){return x[1];}),y:TYPE_SPORTS,type:"bar",orientation:"h",name:"Silver",marker:{color:"#c0c0c0"}},
-    {x:gP.map(function(x){return x[2];}),y:TYPE_SPORTS,type:"bar",orientation:"h",name:"Bronze",marker:{color:"#cd7f32"}}
+    {x:gP.map(function(x){return x[0];}),y:TYPE_SPORTS,type:"bar",orientation:"h",name:L.gold,  marker:{color:"#ffd700"},text:gP.map(function(x){return x[0]>0.02?(x[0]*100).toFixed(0)+"%":"";}),textposition:"outside"},
+    {x:gP.map(function(x){return x[1];}),y:TYPE_SPORTS,type:"bar",orientation:"h",name:L.silver,marker:{color:"#c0c0c0"}},
+    {x:gP.map(function(x){return x[2];}),y:TYPE_SPORTS,type:"bar",orientation:"h",name:L.bronze,marker:{color:"#cd7f32"}}
   ],Object.assign({},BG,{barmode:"stack",
-    xaxis:Object.assign({},BG.xaxis,{title:"Medal probability",tickformat:".0%",range:[0,0.95]}),
+    xaxis:Object.assign({},BG.xaxis,{title:L.ax_medal_prob,tickformat:".0%",range:[0,0.95]}),
     yaxis:Object.assign({},BG.yaxis,{autorange:"reversed"}),
     legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
     height:290,margin:{t:10,b:40,l:140,r:80}}),CFG);
 
   Plotly.newPlot("chart-scen",[
-    {x:["Baseline (1x)"],y:[PRE["1.0"].expected],type:"bar",marker:{color:"#4f8ef7"},text:[PRE["1.0"].expected.toFixed(1)],textposition:"outside",error_y:{type:"data",array:[PRE["1.0"].p90-PRE["1.0"].expected],arrayminus:[PRE["1.0"].expected-PRE["1.0"].p10],visible:true}},
-    {x:["2x Funding"],   y:[PRE["2.0"].expected],type:"bar",marker:{color:"#2ca02c"},text:[PRE["2.0"].expected.toFixed(1)],textposition:"outside",error_y:{type:"data",array:[PRE["2.0"].p90-PRE["2.0"].expected],arrayminus:[PRE["2.0"].expected-PRE["2.0"].p10],visible:true}},
-    {x:["Current"],      y:[expected],            type:"bar",marker:{color:"#EF553B"},text:[expected.toFixed(1)],            textposition:"outside",error_y:{type:"data",array:[Math.max(0,p90-expected)],arrayminus:[Math.max(0,expected-p10)],visible:true}},
-    {x:["3x Funding"],   y:[PRE["3.0"].expected],type:"bar",marker:{color:"#AB63FA"},text:[PRE["3.0"].expected.toFixed(1)],textposition:"outside",error_y:{type:"data",array:[PRE["3.0"].p90-PRE["3.0"].expected],arrayminus:[PRE["3.0"].expected-PRE["3.0"].p10],visible:true}}
+    {x:[L.baseline],  y:[PRE["1.0"].expected],type:"bar",marker:{color:"#4f8ef7"},text:[PRE["1.0"].expected.toFixed(1)],textposition:"outside",error_y:{type:"data",array:[PRE["1.0"].p90-PRE["1.0"].expected],arrayminus:[PRE["1.0"].expected-PRE["1.0"].p10],visible:true}},
+    {x:[L.funding_2x],y:[PRE["2.0"].expected],type:"bar",marker:{color:"#2ca02c"},text:[PRE["2.0"].expected.toFixed(1)],textposition:"outside",error_y:{type:"data",array:[PRE["2.0"].p90-PRE["2.0"].expected],arrayminus:[PRE["2.0"].expected-PRE["2.0"].p10],visible:true}},
+    {x:[L.current],   y:[expected],            type:"bar",marker:{color:"#EF553B"},text:[expected.toFixed(1)],            textposition:"outside",error_y:{type:"data",array:[Math.max(0,p90-expected)],arrayminus:[Math.max(0,expected-p10)],visible:true}},
+    {x:[L.funding_3x],y:[PRE["3.0"].expected],type:"bar",marker:{color:"#AB63FA"},text:[PRE["3.0"].expected.toFixed(1)],textposition:"outside",error_y:{type:"data",array:[PRE["3.0"].p90-PRE["3.0"].expected],arrayminus:[PRE["3.0"].expected-PRE["3.0"].p10],visible:true}}
   ],Object.assign({},BG,{showlegend:false,
-    yaxis:Object.assign({},BG.yaxis,{title:"Expected medals",rangemode:"tozero"}),
+    yaxis:Object.assign({},BG.yaxis,{title:L.ax_exp,rangemode:"tozero"}),
     height:280,margin:{t:20,b:60,l:50,r:20}}),CFG);
 };
 
@@ -223,15 +257,36 @@ function buildToggles(){
   });
 }
 
-Plotly.newPlot("chart-peers",[
-  {x:PEER_COUNTRIES,y:PEER_GOLD,  type:"bar",name:"Gold",  marker:{color:"#c8a800"}},
-  {x:PEER_COUNTRIES,y:PEER_SILVER,type:"bar",name:"Silver",marker:{color:"#8898b8"}},
-  {x:PEER_COUNTRIES,y:PEER_BRONZE,type:"bar",name:"Bronze",marker:{color:"#b07840"}}
-],Object.assign({},BG,{
-  xaxis:Object.assign({},BG.xaxis),
-  yaxis:Object.assign({},BG.yaxis,{title:"Medals (Paris 2024)"}),
-  barmode:"stack",legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
-  height:280,margin:{t:10,b:50,l:50,r:20}}),CFG);
+var DECOMP_HIST    = [0.556,0.313,0.142,0.305,0.364,0.195,0.209,0.140,0.151];
+var DECOMP_ATHLETE = [0.594,0.404,0.341,0.213,0.072,0.013,0.072,0.014,0.014];
+var DECOMP_FINAL   = [0.585,0.376,0.271,0.250,0.203,0.149,0.140,0.115,0.110];
+
+window.renderStaticCharts = function(){
+  var L = window.CL[window.LANG||'en'];
+  Plotly.newPlot("chart-peers",[
+    {x:PEER_COUNTRIES,y:PEER_GOLD,  type:"bar",name:L.gold,  marker:{color:"#c8a800"}},
+    {x:PEER_COUNTRIES,y:PEER_SILVER,type:"bar",name:L.silver,marker:{color:"#8898b8"}},
+    {x:PEER_COUNTRIES,y:PEER_BRONZE,type:"bar",name:L.bronze,marker:{color:"#b07840"}}
+  ],Object.assign({},BG,{
+    xaxis:Object.assign({},BG.xaxis),
+    yaxis:Object.assign({},BG.yaxis,{title:L.ax_paris}),
+    barmode:"stack",legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
+    height:280,margin:{t:10,b:50,l:50,r:20}}),CFG);
+
+  Plotly.newPlot("chart-decomp",[
+    {x:DECOMP_HIST,    y:SPORTS,type:"bar",orientation:"h",name:L.rec_hist,
+     marker:{color:"rgba(140,140,170,0.35)"},width:0.55},
+    {x:DECOMP_ATHLETE, y:SPORTS,type:"bar",orientation:"h",name:L.ath_model,
+     marker:{color:"rgba(79,142,247,0.55)"},width:0.35},
+    {x:DECOMP_FINAL,   y:SPORTS,type:"scatter",mode:"markers+text",name:L.final_blend,
+     marker:{color:"#ff4444",size:9,symbol:"diamond"},
+     text:DECOMP_FINAL.map(function(p){return (p*100).toFixed(0)+"%";}),textposition:"middle right"}
+  ],Object.assign({},BG,{barmode:"overlay",
+    xaxis:Object.assign({},BG.xaxis,{title:L.ax_prob,tickformat:".0%",range:[0,0.85]}),
+    yaxis:Object.assign({},BG.yaxis,{autorange:"reversed"}),
+    legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
+    height:320,margin:{t:10,b:40,l:140,r:80}}),CFG);
+};
 
 g("funding-slider").addEventListener("input",function(){
   currentFundingIdx=parseInt(this.value);
@@ -241,24 +296,5 @@ g("funding-slider").addEventListener("input",function(){
 
 buildToggles();
 updateAll();
-
-// Static decomposition chart: 3 traces from computed model data
-// Order matches SPORTS array: Athletics, Rowing, Swimming, 3x3 Basketball,
-//   Modern Pentathlon, Weightlifting, Wrestling, Shooting, Canoe Sprint
-var DECOMP_HIST    = [0.556,0.313,0.142,0.305,0.364,0.195,0.209,0.140,0.151];
-var DECOMP_ATHLETE = [0.594,0.404,0.341,0.213,0.072,0.013,0.072,0.014,0.014];
-var DECOMP_FINAL   = [0.585,0.376,0.271,0.250,0.203,0.149,0.140,0.115,0.110];
-Plotly.newPlot("chart-decomp",[
-  {x:DECOMP_HIST,    y:SPORTS,type:"bar",orientation:"h",name:"Recency-weighted historical rate",
-   marker:{color:"rgba(140,140,170,0.35)"},width:0.55},
-  {x:DECOMP_ATHLETE, y:SPORTS,type:"bar",orientation:"h",name:"Athlete ranking model",
-   marker:{color:"rgba(79,142,247,0.55)"},width:0.35},
-  {x:DECOMP_FINAL,   y:SPORTS,type:"scatter",mode:"markers+text",name:"Final blended estimate",
-   marker:{color:"#ff4444",size:9,symbol:"diamond"},
-   text:DECOMP_FINAL.map(function(p){return (p*100).toFixed(0)+"%";}),textposition:"middle right"}
-],Object.assign({},BG,{barmode:"overlay",
-  xaxis:Object.assign({},BG.xaxis,{title:"Probability",tickformat:".0%",range:[0,0.85]}),
-  yaxis:Object.assign({},BG.yaxis,{autorange:"reversed"}),
-  legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
-  height:320,margin:{t:10,b:40,l:140,r:80}}),CFG);
+renderStaticCharts();
 </script>

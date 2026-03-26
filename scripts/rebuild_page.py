@@ -133,6 +133,30 @@ var T = {
     'acard5-sport':       `Modern Pentathlon`,
     'acard5-desc':        `Born 1992, age 35\u201336 in 2028 \u2014 late career. Same generation as Asadauskaite (born 1984, age 44, retired). No confirmed next-generation pentathlete identified.`,
     'acard5-stat':        `Born 1992 \u2022 Age in 2028: 35\u201336 \u2022 Asadauskaite: retired`,
+    'factor-normal':      `Normal`,
+    'factor-disc':        `Slight discount`,
+    'factor-poor':        `Olympic underperformer`,
+    'pe-discus':          `Discus Men`,
+    'pe-sculls':          `W Single Sculls`,
+    'pe-dsculls':         `M Double Sculls`,
+    'pe-100breast':       `100m Breaststroke`,
+    'pe-200free':         `200m Freestyle Men`,
+    'pe-3x3':             `3x3 Basketball`,
+    'pe-wpentathlon':     `Women's Pentathlon`,
+    'pe-wwrestling':      `Women's Wrestling`,
+    'pn-alekna':          `World #1 2024, 74.35m WL, Olympic silver 2024 (aged 21).`,
+    'pn-senkute':         `Olympic bronze 2024, born 1996, age 32 in 2028.`,
+    'pn-stankunas':       `Domantas & Dovydas, Paris 2024 participants.`,
+    'pn-meilutyte':       `WR holder 50m breast, top-5 100m. Last medal: gold 2012.`,
+    'pn-rapsys':          `European champion, 3 Olympic A-finals. Age 33 in 2028.`,
+    'pn-bball':           `Olympic bronze 2024. Roster continuity uncertain.`,
+    'pn-venckauskaite':   `Born 1992, age 35-36 in 2028 -- late career.`,
+    'pn-dilyte':          `Born 2003, age 25 in 2028. Paris 2024 participant, developing.`,
+    'pill-prime2028':     `Prime 2028`,
+    'sport-bvolley':      `Beach Volleyball`,
+    'sport-cycling':      `Cycling Track`,
+    'scenario-box':       `<strong>Current model (100m breast only):</strong> Swimming = 27%<br><strong>If 50m breast confirmed for LA 2028:</strong> Swimming \u224844\u201350%<br><strong>Source:</strong> World Aquatics Programme Commission lobbying, 2024<br><strong>Status:</strong> Pending IOC confirmation`,
+    'scenario-note':      `Psych factor 0.85 applied in current model (Olympic underperformer vs world ranking). Last Olympic medal: gold 2012. Use the Meilutyte dropdown in Advanced Factors to model the 50m confirmation scenario.`,
   },
   lt: {
     'nav-forecast':       `Prognoz\u0117`,
@@ -255,7 +279,31 @@ var T = {
     'acard4-stat':        `Paryžius 2024: Bronza \u2022 FIBA 3x3 pasaulio reitingas: top-10`,
     'acard5-sport':       `\u0160iuolaikin\u0117 penkiakovė`,
     'acard5-desc':        `Gimusi 1992 m., 35\u201336 metų 2028 m. \u2014 vėlyvoji karjera. Ta pati karta kaip Asadauskaitė (gimusi 1984 m., 44 metų, pasitraukusi). N\u0117ra patvirtinto kitos kartos penkiakovininkės.`,
-    'acard5-stat':        `Gimusi 1992 \u2022 Amžius 2028: 35\u201336 \u2022 Asadauskaitė: pasitraukusi`,
+    'acard5-stat':        `Gimusi 1992 \u2022 Am\u017eius 2028: 35\u201336 \u2022 Asadauskait\u0117: pasitraukusi`,
+    'factor-normal':      `Normalus`,
+    'factor-disc':        `Nedidelis diskonto koef.`,
+    'factor-poor':        `Olimpi\u0161kai nepasirod\u0117 gerai`,
+    'pe-discus':          `Disko metimas (vyrai)`,
+    'pe-sculls':          `Mot. vienviet\u0117 irklelė`,
+    'pe-dsculls':         `Vyr. dviviet\u0117 irklelė`,
+    'pe-100breast':       `100 m kr\u016btine`,
+    'pe-200free':         `200 m laisvuoju stiliumi (vyrai)`,
+    'pe-3x3':             `3x3 krep\u0161inis`,
+    'pe-wpentathlon':     `Mot. penkiakov\u0117`,
+    'pe-wwrestling':      `Mot. imtyn\u0117s`,
+    'pn-alekna':          `Pasaulio #1 2024, 74,35 m PLR, olimpinis sidabras 2024 (21 m.).`,
+    'pn-senkute':         `Olimpin\u0117 bronza 2024, gimusi 1996, 32 m. 2028-aisiais.`,
+    'pn-stankunas':       `Domantas ir Dovydas, Pary\u017eiaus 2024 dalyviai.`,
+    'pn-meilutyte':       `50 m kr\u016btine pasaulio rekordinink\u0117, top-5 100 m. Paskutinis medalis: auksas 2012.`,
+    'pn-rapsys':          `Europos \u010dempionas, 3 olimpiniai A finalai. 33 m. 2028-aisiais.`,
+    'pn-bball':           `Olimpin\u0117 bronza 2024. Sud\u0117ties t\u0119stinumas neai\u0161kus.`,
+    'pn-venckauskaite':   `Gimusi 1992, 35\u201336 m. 2028 \u2014 v\u0117lyvoji karjera.`,
+    'pn-dilyte':          `Gimusi 2003, 25 m. 2028. Pary\u017eiaus 2024 dalyv\u0117, tobul\u0117janti.`,
+    'pill-prime2028':     `Pikas 2028`,
+    'sport-bvolley':      `Pap\u013b dimio tinklinis`,
+    'sport-cycling':      `Dviratininkyst\u0117 (treko)`,
+    'scenario-box':       `<strong>Dabartinis modelis (tik 100 m kr\u016btine):</strong> Plaukimas = 27%<br><strong>Jei 50 m kr\u016btine patvirtinama LA 2028:</strong> Plaukimas \u224844\u201350%<br><strong>\u0160altinis:</strong> Pasaulio vandens sport\u0173 programos komisija, 2024<br><strong>Statusas:</strong> Laukiama TOK patvirtinimo`,
+    'scenario-note':      `Dabartiniame modelyje taikytas psichologinis diskonto koef. 0,85 (olimpi\u0161kai nepasirod\u0117 gerai). Paskutinis olimpinis medalis: auksas 2012. Naudokite Meilutyt\u0117s i\u0161skleidim\u0105 Papildomuose veiksniuose 50 m scenarijui.`,
   }
 };
 
@@ -271,6 +319,8 @@ function setLang(l) {
   });
   var btn = document.getElementById('lang-btn');
   if (btn) btn.textContent = (l === 'en') ? 'LT' : 'EN';
+  if (typeof updateAll === 'function') updateAll();
+  if (typeof renderStaticCharts === 'function') renderStaticCharts();
 }
 function toggleLang() { setLang(LANG === 'en' ? 'lt' : 'en'); }
 </script>
@@ -1034,52 +1084,52 @@ BODY = f"""
         <table>
           <tr><th data-i18n="th-athlete">Athlete</th><th data-i18n="th-event">Event</th><th data-i18n="th-rank">Rank</th><th data-i18n="th-age2028">Age 2028</th><th data-i18n="th-prob">Prob</th><th data-i18n="th-factor">Factor</th><th data-i18n="th-notes">Notes</th></tr>
           <tr>
-            <td><strong>Mykolas Alekna</strong></td><td class="muted small">Discus Men</td>
+            <td><strong>Mykolas Alekna</strong></td><td class="muted small" data-i18n="pe-discus">Discus Men</td>
             <td><strong>#1</strong></td><td>25</td><td><strong>58%</strong></td>
-            <td class="f-disc">Slight discount</td>
-            <td class="muted small">World #1 2024, 74.35m WL, Olympic silver 2024 (aged 21).</td>
+            <td class="f-disc" data-i18n="factor-disc">Slight discount</td>
+            <td class="muted small" data-i18n="pn-alekna">World #1 2024, 74.35m WL, Olympic silver 2024 (aged 21).</td>
           </tr>
           <tr>
-            <td><strong>Viktorija Senkute</strong></td><td class="muted small">W Single Sculls</td>
+            <td><strong>Viktorija Senkute</strong></td><td class="muted small" data-i18n="pe-sculls">W Single Sculls</td>
             <td><strong>#3</strong></td><td>32</td><td><strong>37%</strong></td>
-            <td class="f-good">Normal</td>
-            <td class="muted small">Olympic bronze 2024, born 1996, age 32 in 2028.</td>
+            <td class="f-good" data-i18n="factor-normal">Normal</td>
+            <td class="muted small" data-i18n="pn-senkute">Olympic bronze 2024, born 1996, age 32 in 2028.</td>
           </tr>
           <tr>
-            <td><strong>Stankunas twins</strong></td><td class="muted small">M Double Sculls</td>
+            <td><strong>Stankunas twins</strong></td><td class="muted small" data-i18n="pe-dsculls">M Double Sculls</td>
             <td><strong>#14</strong></td><td>28</td><td><strong>6%</strong></td>
-            <td class="f-good">Normal</td>
-            <td class="muted small">Domantas &amp; Dovydas, Paris 2024 participants.</td>
+            <td class="f-good" data-i18n="factor-normal">Normal</td>
+            <td class="muted small" data-i18n="pn-stankunas">Domantas &amp; Dovydas, Paris 2024 participants.</td>
           </tr>
           <tr>
-            <td><strong>Ruta Meilutyte</strong></td><td class="muted small">100m Breaststroke</td>
+            <td><strong>Ruta Meilutyte</strong></td><td class="muted small" data-i18n="pe-100breast">100m Breaststroke</td>
             <td><strong>#4</strong></td><td>31</td><td><strong>22%</strong></td>
-            <td class="f-poor">Olympic underperformer</td>
-            <td class="muted small">WR holder 50m breast, top-5 100m. Last medal: gold 2012.</td>
+            <td class="f-poor" data-i18n="factor-poor">Olympic underperformer</td>
+            <td class="muted small" data-i18n="pn-meilutyte">WR holder 50m breast, top-5 100m. Last medal: gold 2012.</td>
           </tr>
           <tr>
-            <td><strong>Danas Rapsys</strong></td><td class="muted small">200m Freestyle Men</td>
+            <td><strong>Danas Rapsys</strong></td><td class="muted small" data-i18n="pe-200free">200m Freestyle Men</td>
             <td><strong>#7</strong></td><td>33</td><td><strong>13%</strong></td>
-            <td class="f-disc">Slight discount</td>
-            <td class="muted small">European champion, 3 Olympic A-finals. Age 33 in 2028.</td>
+            <td class="f-disc" data-i18n="factor-disc">Slight discount</td>
+            <td class="muted small" data-i18n="pn-rapsys">European champion, 3 Olympic A-finals. Age 33 in 2028.</td>
           </tr>
           <tr>
-            <td><strong>Lithuania 3x3 Men</strong></td><td class="muted small">3x3 Basketball</td>
+            <td><strong>Lithuania 3x3 Men</strong></td><td class="muted small" data-i18n="pe-3x3">3x3 Basketball</td>
             <td><strong>#5</strong></td><td>35</td><td><strong>21%</strong></td>
-            <td class="f-good">Normal</td>
-            <td class="muted small">Olympic bronze 2024. Roster continuity uncertain.</td>
+            <td class="f-good" data-i18n="factor-normal">Normal</td>
+            <td class="muted small" data-i18n="pn-bball">Olympic bronze 2024. Roster continuity uncertain.</td>
           </tr>
           <tr>
-            <td><strong>Gintare Venckauskaite</strong></td><td class="muted small">Women's Pentathlon</td>
+            <td><strong>Gintare Venckauskaite</strong></td><td class="muted small" data-i18n="pe-wpentathlon">Women's Pentathlon</td>
             <td><strong>#10</strong></td><td>36</td><td><strong>7%</strong></td>
-            <td class="f-poor">Olympic underperformer</td>
-            <td class="muted small">Born 1992, age 35&ndash;36 in 2028 &mdash; late career.</td>
+            <td class="f-poor" data-i18n="factor-poor">Olympic underperformer</td>
+            <td class="muted small" data-i18n="pn-venckauskaite">Born 1992, age 35-36 in 2028 -- late career.</td>
           </tr>
           <tr>
-            <td><strong>Gabija Dilyte</strong></td><td class="muted small">Women's Wrestling</td>
+            <td><strong>Gabija Dilyte</strong></td><td class="muted small" data-i18n="pe-wwrestling">Women's Wrestling</td>
             <td><strong>#15</strong></td><td>25</td><td><strong>5%</strong></td>
-            <td class="f-good">Normal</td>
-            <td class="muted small">Born 2003, age 25 in 2028. Paris 2024 participant, developing.</td>
+            <td class="f-good" data-i18n="factor-normal">Normal</td>
+            <td class="muted small" data-i18n="pn-dilyte">Born 2003, age 25 in 2028. Paris 2024 participant, developing.</td>
           </tr>
         </table>
       </div>
@@ -1092,27 +1142,27 @@ BODY = f"""
       <p class="caption" data-i18n="emerging-cap">Competed at Paris 2024, prime age in 2028, no identified medal path yet. Worth tracking as 2028 approaches.</p>
       <table>
         <tr><th data-i18n="th-athlete">Athlete</th><th data-i18n="th-sport">Sport</th><th data-i18n="th-age2028">Age 2028</th><th data-i18n="th-born">Born</th><th data-i18n="th-status">Status</th></tr>
-        <tr><td><strong>SAVICKAS Aleksas</strong></td><td>Swimming</td><td>25</td><td>2003</td><td><span class="pill med">Prime 2028</span></td></tr>
-        <tr><td><strong>TETEREVKOVA Kotryna</strong></td><td>Swimming</td><td>26</td><td>2002</td><td><span class="pill med">Prime 2028</span></td></tr>
-        <tr><td><strong>RIMKUTE Dovile</strong></td><td>Rowing</td><td>27</td><td>2001</td><td><span class="pill med">Prime 2028</span></td></tr>
-        <tr><td><strong>KRALIKAITE Kamile</strong></td><td>Rowing</td><td>27</td><td>2001</td><td><span class="pill med">Prime 2028</span></td></tr>
-        <tr><td><strong>RAUPELYTE Aine</strong></td><td>Beach Volleyball</td><td>28</td><td>2000</td><td><span class="pill med">Prime 2028</span></td></tr>
-        <tr><td><strong>BALEISYTE Olivija</strong></td><td>Cycling Track</td><td>30</td><td>1998</td><td><span class="pill med">Prime 2028</span></td></tr>
-        <tr><td><strong>ZAGAINOVA Diana</strong></td><td>Athletics</td><td>31</td><td>1997</td><td><span class="pill med">Prime 2028</span></td></tr>
-        <tr><td><strong>BIELIAUSKAS Giedrius</strong></td><td>Rowing</td><td>31</td><td>1997</td><td><span class="pill med">Prime 2028</span></td></tr>
-        <tr><td><strong>MATUSEVICIUS Edis</strong></td><td>Athletics</td><td>32</td><td>1996</td><td><span class="pill med">Prime 2028</span></td></tr>
+        <tr><td><strong>SAVICKAS Aleksas</strong></td><td data-i18n="sport-swimming">Swimming</td><td>25</td><td>2003</td><td><span class="pill med" data-i18n="pill-prime2028">Prime 2028</span></td></tr>
+        <tr><td><strong>TETEREVKOVA Kotryna</strong></td><td data-i18n="sport-swimming">Swimming</td><td>26</td><td>2002</td><td><span class="pill med" data-i18n="pill-prime2028">Prime 2028</span></td></tr>
+        <tr><td><strong>RIMKUTE Dovile</strong></td><td data-i18n="sport-rowing">Rowing</td><td>27</td><td>2001</td><td><span class="pill med" data-i18n="pill-prime2028">Prime 2028</span></td></tr>
+        <tr><td><strong>KRALIKAITE Kamile</strong></td><td data-i18n="sport-rowing">Rowing</td><td>27</td><td>2001</td><td><span class="pill med" data-i18n="pill-prime2028">Prime 2028</span></td></tr>
+        <tr><td><strong>RAUPELYTE Aine</strong></td><td data-i18n="sport-bvolley">Beach Volleyball</td><td>28</td><td>2000</td><td><span class="pill med" data-i18n="pill-prime2028">Prime 2028</span></td></tr>
+        <tr><td><strong>BALEISYTE Olivija</strong></td><td data-i18n="sport-cycling">Cycling Track</td><td>30</td><td>1998</td><td><span class="pill med" data-i18n="pill-prime2028">Prime 2028</span></td></tr>
+        <tr><td><strong>ZAGAINOVA Diana</strong></td><td data-i18n="sport-athletics">Athletics</td><td>31</td><td>1997</td><td><span class="pill med" data-i18n="pill-prime2028">Prime 2028</span></td></tr>
+        <tr><td><strong>BIELIAUSKAS Giedrius</strong></td><td data-i18n="sport-rowing">Rowing</td><td>31</td><td>1997</td><td><span class="pill med" data-i18n="pill-prime2028">Prime 2028</span></td></tr>
+        <tr><td><strong>MATUSEVICIUS Edis</strong></td><td data-i18n="sport-athletics">Athletics</td><td>32</td><td>1996</td><td><span class="pill med" data-i18n="pill-prime2028">Prime 2028</span></td></tr>
       </table>
     </div>
     <div class="card">
       <h2 data-i18n="breaststroke-title">50m Breaststroke &mdash; Conditional Scenario</h2>
       <p class="caption" data-i18n="breaststroke-cap">Meilutyte holds the 50m breast world record and won the 2023 World Championship. If confirmed for LA 2028, her probability in that event alone is estimated at 42%.</p>
-      <div class="scenario-box">
+      <div class="scenario-box" data-i18n-html="scenario-box">
         <strong>Current model (100m breast only):</strong> Swimming = 27%<br>
         <strong>If 50m breast confirmed for LA 2028:</strong> Swimming &asymp; 44&ndash;50%<br>
         <strong>Source:</strong> World Aquatics Programme Commission lobbying, 2024<br>
         <strong>Status:</strong> Pending IOC confirmation
       </div>
-      <div style="margin-top:14px;font-size:.76rem;color:var(--muted);line-height:1.65">
+      <div style="margin-top:14px;font-size:.76rem;color:var(--muted);line-height:1.65" data-i18n="scenario-note">
         Psych factor 0.85 applied in current model (Olympic underperformer vs world ranking).
         Last Olympic medal: gold 2012. Use the Meilutyte dropdown in Advanced Factors
         to model the 50m confirmation scenario.
