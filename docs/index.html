@@ -194,7 +194,7 @@ details[open] summary::before{transform:rotate(90deg)}
       <h4>Athletes</h4>
       <div class="adv-row">
         <label>Mykolas Alekna status</label>
-        <select id="adv-alekna">
+        <select id="adv-alekna" onchange="updateAll()">
           <option value="peak" selected>Peak form (world #1)</option>
           <option value="uncertain">Minor injury / uncertain</option>
           <option value="out">Out / retired</option>
@@ -202,7 +202,7 @@ details[open] summary::before{transform:rotate(90deg)}
       </div>
       <div class="adv-row">
         <label>Ruta Meilutyte status</label>
-        <select id="adv-meilutyte">
+        <select id="adv-meilutyte" onchange="updateAll()">
           <option value="normal" selected>Active (100m breast only)</option>
           <option value="confirmed_50m">50m breast confirmed for LA 2028</option>
           <option value="retired">Retired by 2028</option>
@@ -210,7 +210,7 @@ details[open] summary::before{transform:rotate(90deg)}
       </div>
       <div class="adv-row">
         <label>3x3 Basketball roster</label>
-        <select id="adv-bball">
+        <select id="adv-bball" onchange="updateAll()">
           <option value="full" selected>Full core roster (Paris 2024 squad)</option>
           <option value="partial">2&ndash;3 core players remain</option>
           <option value="new">Mostly new/young squad</option>
@@ -219,10 +219,10 @@ details[open] summary::before{transform:rotate(90deg)}
       </div>
       <div class="adv-row" style="margin-top:10px">
         <label style="margin-bottom:6px">Youth pipeline (add emerging contenders)</label>
-        <label class="checkbox-row"><input type="checkbox" id="pipe-lukminas"> Lukminas (Athletics, +2%)</label>
-        <label class="checkbox-row"><input type="checkbox" id="pipe-dilyte"> Dilyte (Wrestling, +5%)</label>
-        <label class="checkbox-row"><input type="checkbox" id="pipe-navikonis"> Navikonis (Rowing, +2%)</label>
-        <label class="checkbox-row"><input type="checkbox" id="pipe-unknown"> Unknown breakout (+2.5%)</label>
+        <label class="checkbox-row"><input type="checkbox" id="pipe-lukminas" onchange="updateAll()"> Lukminas (Athletics, +2%)</label>
+        <label class="checkbox-row"><input type="checkbox" id="pipe-dilyte" onchange="updateAll()"> Dilyte (Wrestling, +5%)</label>
+        <label class="checkbox-row"><input type="checkbox" id="pipe-navikonis" onchange="updateAll()"> Navikonis (Rowing, +2%)</label>
+        <label class="checkbox-row"><input type="checkbox" id="pipe-unknown" onchange="updateAll()"> Unknown breakout (+2.5%)</label>
       </div>
     </div>
 
@@ -230,7 +230,7 @@ details[open] summary::before{transform:rotate(90deg)}
       <h4>Program &amp; Investment</h4>
       <div class="adv-row">
         <label>Focus mode</label>
-        <select id="adv-focus">
+        <select id="adv-focus" onchange="updateAll()">
           <option value="broad" selected>Broad (spread across all sports)</option>
           <option value="top3">Focused &mdash; top 3 sports</option>
           <option value="top2">Elite &mdash; top 2 sports only</option>
@@ -238,11 +238,11 @@ details[open] summary::before{transform:rotate(90deg)}
       </div>
       <div class="adv-row">
         <label>Delegation size <span class="val-disp" id="deleg-display">50</span></label>
-        <input type="range" id="adv-deleg" min="25" max="80" value="50" step="5">
+        <input type="range" id="adv-deleg" min="25" max="80" value="50" step="5" oninput="document.getElementById('deleg-display').textContent=this.value; updateAll()">
       </div>
       <div class="adv-row">
         <label>Coaching &amp; support quality</label>
-        <select id="adv-coaching">
+        <select id="adv-coaching" onchange="updateAll()">
           <option value="low">Below average</option>
           <option value="normal" selected>Average (current)</option>
           <option value="high">Above average (+5% top sports)</option>
@@ -251,7 +251,7 @@ details[open] summary::before{transform:rotate(90deg)}
       </div>
       <div class="adv-row">
         <label>Competition peaking &amp; timing</label>
-        <select id="adv-peak">
+        <select id="adv-peak" onchange="updateAll()">
           <option value="poor">Poor peaking (off-form at Games)</option>
           <option value="normal" selected>Normal</option>
           <option value="good">Good peaking (+3% top sports)</option>
@@ -263,7 +263,7 @@ details[open] summary::before{transform:rotate(90deg)}
       <h4>External Conditions</h4>
       <div class="adv-row">
         <label>Host nation effect (LA 2028)</label>
-        <select id="adv-host">
+        <select id="adv-host" onchange="updateAll()">
           <option value="negative">Negative (crowd disadvantage)</option>
           <option value="neutral" selected>Neutral</option>
           <option value="positive">Positive (Lithuanian diaspora boost)</option>
@@ -271,7 +271,7 @@ details[open] summary::before{transform:rotate(90deg)}
       </div>
       <div class="adv-row">
         <label>GDP &amp; budget growth scenario</label>
-        <select id="adv-gdp">
+        <select id="adv-gdp" onchange="updateAll()">
           <option value="recession">Recession (budget cut -10%)</option>
           <option value="baseline" selected>Baseline (modest growth)</option>
           <option value="strong">Strong growth (+15%)</option>
@@ -279,7 +279,7 @@ details[open] summary::before{transform:rotate(90deg)}
       </div>
       <div class="adv-row">
         <label>Cross-sport correlation &rho;</label>
-        <select id="adv-rho">
+        <select id="adv-rho" onchange="updateAll()">
           <option value="low">Low (0.05 &mdash; sports independent)</option>
           <option value="medium" selected>Medium (0.15 &mdash; default)</option>
           <option value="high">High (0.30 &mdash; shared luck)</option>
@@ -976,29 +976,6 @@ slider.addEventListener('input', () => {
 });
 
 // =========================================================
-// ADVANCED CONTROLS WIRING
-// =========================================================
-function wireAdvanced() {
-  const adv = ['adv-alekna','adv-meilutyte','adv-bball','adv-focus','adv-coaching','adv-peak','adv-host','adv-gdp','adv-rho'];
-  adv.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('change', updateAll);
-  });
-  Object.keys(PIPELINE_DELTAS).forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('change', updateAll);
-  });
-  const delegSlider = document.getElementById('adv-deleg');
-  const delegDisplay = document.getElementById('deleg-display');
-  if (delegSlider) {
-    delegSlider.addEventListener('input', () => {
-      if (delegDisplay) delegDisplay.textContent = delegSlider.value;
-      updateAll();
-    });
-  }
-}
-
-// =========================================================
 // INIT
 // =========================================================
 buildToggles();
@@ -1006,7 +983,6 @@ initHistChart();
 initTypeChart();
 initScenChart();
 initPeersChart();
-wireAdvanced();
 updateAll();
 </script>
 
