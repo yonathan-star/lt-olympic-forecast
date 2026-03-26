@@ -604,6 +604,9 @@ const TOP_SPORTS = new Set(["Athletics","Rowing","Swimming","3x3 Basketball","Mo
 const FOCUS_TOP3 = new Set(["Athletics","Rowing","Swimming"]);
 const FOCUS_TOP2 = new Set(["Athletics","Rowing"]);
 
+// PRE key strings must match JSON keys exactly (String(1.0)==="1", not "1.0")
+var PRE_KEYS = ["0.5","0.75","1.0","1.25","1.5","1.75","2.0","2.5","3.0","4.0"];
+
 // STATE
 let currentFundingIdx = 2;
 const selectedSports = new Set(SPORTS);
@@ -630,7 +633,7 @@ function getFactors(){
 }
 
 function calcProbs(){
-  var d  = PRE[String(FUNDING_LEVELS[currentFundingIdx])];
+  var d  = PRE[PRE_KEYS[currentFundingIdx]];
   var f  = getFactors();
   var fm = FUNDING_LEVELS[currentFundingIdx];
   var bs = BUDGET_SC[f.gdp]  || 1.0;
