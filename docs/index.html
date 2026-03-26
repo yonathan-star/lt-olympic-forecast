@@ -469,522 +469,7 @@ details[open] summary::before{transform:rotate(90deg)}
   <a href="https://github.com/yonathan-star/lt-olympic-forecast" style="color:var(--accent)">GitHub</a>
 </div>
 
-<script>
-// =========================================================
-// PRECOMPUTED DATA
-// =========================================================
-const PRE = {"0.5": {"expected": 2.042, "p10": 0.0, "p90": 4.0, "per_sport": {"Athletics": 0.5744, "Rowing": 0.3513, "Modern Pentathlon": 0.1818, "Swimming": 0.2427, "3x3 Basketball": 0.2359, "Canoe Sprint": 0.0853, "Shooting": 0.0973, "Weightlifting": 0.1313, "Wrestling": 0.1223}, "mc": {"0": 0.1508, "1": 0.259, "2": 0.2474, "3": 0.1775, "4": 0.1003, "5": 0.0421, "6": 0.0174, "7": 0.0045, "8": 0.0009, "9": 0.0001, "10": 0.0}}, "0.75": {"expected": 2.111, "p10": 0.0, "p90": 4.0, "per_sport": {"Athletics": 0.5785, "Rowing": 0.3608, "Modern Pentathlon": 0.19, "Swimming": 0.2537, "3x3 Basketball": 0.2413, "Canoe Sprint": 0.0948, "Shooting": 0.1042, "Weightlifting": 0.1382, "Wrestling": 0.1292}, "mc": {"0": 0.1435, "1": 0.2505, "2": 0.2428, "3": 0.1846, "4": 0.1049, "5": 0.0479, "6": 0.0195, "7": 0.0051, "8": 0.001, "9": 0.0002, "10": 0.0}}, "1.0": {"expected": 2.221, "p10": 0.0, "p90": 4.0, "per_sport": {"Athletics": 0.585, "Rowing": 0.376, "Modern Pentathlon": 0.203, "Swimming": 0.271, "3x3 Basketball": 0.25, "Canoe Sprint": 0.11, "Shooting": 0.115, "Weightlifting": 0.149, "Wrestling": 0.14}, "mc": {"0": 0.1318, "1": 0.241, "2": 0.2333, "3": 0.1926, "4": 0.113, "5": 0.0571, "6": 0.0225, "7": 0.0067, "8": 0.0018, "9": 0.0002, "10": 0.0}}, "1.25": {"expected": 2.356, "p10": 0.0, "p90": 5.0, "per_sport": {"Athletics": 0.5934, "Rowing": 0.3956, "Modern Pentathlon": 0.2198, "Swimming": 0.2934, "3x3 Basketball": 0.2612, "Canoe Sprint": 0.1296, "Shooting": 0.129, "Weightlifting": 0.163, "Wrestling": 0.154}, "mc": {"0": 0.1184, "1": 0.2238, "2": 0.2312, "3": 0.1951, "4": 0.1267, "5": 0.0655, "6": 0.0277, "7": 0.0088, "8": 0.0024, "9": 0.0004, "10": 0.0}}, "1.5": {"expected": 2.528, "p10": 0.0, "p90": 5.0, "per_sport": {"Athletics": 0.6034, "Rowing": 0.4189, "Modern Pentathlon": 0.2397, "Swimming": 0.32, "3x3 Basketball": 0.2745, "Canoe Sprint": 0.1529, "Shooting": 0.1456, "Weightlifting": 0.1796, "Wrestling": 0.1706}, "mc": {"0": 0.1021, "1": 0.2044, "2": 0.2253, "3": 0.2005, "4": 0.1391, "5": 0.077, "6": 0.0354, "7": 0.0124, "8": 0.0033, "9": 0.0005, "10": 0.0}}, "1.75": {"expected": 2.71, "p10": 1.0, "p90": 5.0, "per_sport": {"Athletics": 0.6148, "Rowing": 0.4455, "Modern Pentathlon": 0.2625, "Swimming": 0.3504, "3x3 Basketball": 0.2897, "Canoe Sprint": 0.1795, "Shooting": 0.1646, "Weightlifting": 0.1986, "Wrestling": 0.1896}, "mc": {"0": 0.0878, "1": 0.1852, "2": 0.2188, "3": 0.1996, "4": 0.15, "5": 0.0925, "6": 0.0434, "7": 0.0174, "8": 0.0042, "9": 0.0011, "10": 0.0}}, "2.0": {"expected": 2.917, "p10": 1.0, "p90": 5.0, "per_sport": {"Athletics": 0.6274, "Rowing": 0.475, "Modern Pentathlon": 0.2879, "Swimming": 0.3841, "3x3 Basketball": 0.3066, "Canoe Sprint": 0.209, "Shooting": 0.1857, "Weightlifting": 0.2197, "Wrestling": 0.2107}, "mc": {"0": 0.0749, "1": 0.1642, "2": 0.2077, "3": 0.1975, "4": 0.1606, "5": 0.11, "6": 0.0529, "7": 0.024, "8": 0.0065, "9": 0.0017, "10": 0.0}}, "2.5": {"expected": 3.389, "p10": 1.0, "p90": 6.0, "per_sport": {"Athletics": 0.6562, "Rowing": 0.542, "Modern Pentathlon": 0.3453, "Swimming": 0.4607, "3x3 Basketball": 0.3449, "Canoe Sprint": 0.276, "Shooting": 0.2336, "Weightlifting": 0.2676, "Wrestling": 0.2586}, "mc": {"0": 0.0507, "1": 0.1213, "2": 0.1781, "3": 0.1929, "4": 0.1759, "5": 0.1385, "6": 0.0821, "7": 0.0435, "8": 0.0137, "9": 0.0033, "10": 0.0}}, "3.0": {"expected": 3.954, "p10": 1.0, "p90": 7.0, "per_sport": {"Athletics": 0.6889, "Rowing": 0.6185, "Modern Pentathlon": 0.4108, "Swimming": 0.5481, "3x3 Basketball": 0.3886, "Canoe Sprint": 0.3525, "Shooting": 0.2882, "Weightlifting": 0.3222, "Wrestling": 0.3132}, "mc": {"0": 0.0333, "1": 0.0821, "2": 0.1376, "3": 0.1726, "4": 0.1814, "5": 0.1632, "6": 0.1192, "7": 0.071, "8": 0.0313, "9": 0.0083, "10": 0.0}}, "4.0": {"expected": 5.203, "p10": 2.0, "p90": 8.0, "per_sport": {"Athletics": 0.765, "Rowing": 0.796, "Modern Pentathlon": 0.563, "Swimming": 0.751, "3x3 Basketball": 0.49, "Canoe Sprint": 0.53, "Shooting": 0.415, "Weightlifting": 0.449, "Wrestling": 0.44}, "mc": {"0": 0.0107, "1": 0.032, "2": 0.0624, "3": 0.1105, "4": 0.1434, "5": 0.1732, "6": 0.1781, "7": 0.1499, "8": 0.1009, "9": 0.0389, "10": 0.0}}};
-const FUNDING_LEVELS = [0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.5, 3.0, 4.0];
-const SPORTS = ["Athletics", "Rowing", "Swimming", "3x3 Basketball", "Modern Pentathlon", "Weightlifting", "Wrestling", "Shooting", "Canoe Sprint"];
-const HRATES = [0.778, 0.333, 0.111, 0.5, 0.444, 0.167, 0.222, 0.143, 0.111];
-const TYPE_SPORTS = ["Athletics", "Rowing", "Swimming", "3x3 Basketball", "Modern Pentathlon", "Weightlifting", "Wrestling", "Shooting", "Canoe Sprint"];
-const GOLD_BASE   = [0.2925, 0.06768, 0.059620000000000006, 0.03, 0.05684000000000001, 0.01788, 0.014000000000000002, 0.04025, 0.011000000000000001];
-const SILVER_BASE = [0.1872, 0.12032, 0.10298, 0.07, 0.08526, 0.052149999999999995, 0.05600000000000001, 0.0345, 0.033];
-const BRONZE_BASE = [0.10529999999999999, 0.188, 0.10840000000000001, 0.15, 0.0609, 0.07897, 0.07, 0.04025, 0.066];
 
-const HIST_YEARS  = [1992, 1996, 2000, 2004, 2008, 2012, 2016, 2020, 2024];
-const HIST_TOTAL  = [2, 1, 5, 3, 5, 5, 4, 1, 4];
-const HIST_GOLD   = [1, 0, 2, 1, 0, 2, 0, 0, 0];
-const HIST_SILVER = [0, 0, 0, 2, 3, 0, 1, 1, 2];
-const HIST_BRONZE = [1, 1, 3, 0, 2, 3, 3, 0, 2];
-
-const PEER_COUNTRIES = ["Lithuania", "Estonia", "Latvia", "Slovenia", "Slovakia", "Croatia", "Denmark"];
-const PEER_MEDALS    = [4, 3, 3, 2, 2, 10, 9];
-const PEER_GOLD      = [0, 1, 0, 0, 0, 1, 2];
-const PEER_SILVER    = [2, 1, 2, 1, 1, 3, 4];
-const PEER_BRONZE    = [2, 1, 1, 1, 1, 6, 3];
-const PEER_PER_POP   = [1.4, 2.3, 1.7, 1.0, 0.4, 2.6, 1.5];
-
-// =========================================================
-// ADVANCED FACTOR CONSTANTS
-// =========================================================
-// Per-sport funding sensitivity (mirrors Python model)
-const FUNDING_SENS = {Athletics:0.03,Rowing:0.07,Swimming:0.08,'3x3 Basketball':0.04,'Modern Pentathlon':0.06,Weightlifting:0.05,Wrestling:0.05,Shooting:0.05,'Canoe Sprint':0.07};
-const IS_TEAM = {'3x3 Basketball':true};
-// Alekna scalars applied to Athletics probability
-const ALEKNA_SCALARS = {peak:1.0, uncertain:0.65, out:0.18};
-// Meilutyte scalars applied to Swimming probability
-const MEILUTYTE_SCALARS = {normal:1.0, confirmed_50m:1.62, retired:0.55};
-// 3x3 Basketball roster scalars (full = same Paris 2024 squad = model baseline = 1.0)
-const BBALL_SCALARS = {full:1.0, partial:0.85, new:0.56, dnq:0.09};
-// Youth pipeline additive deltas per sport
-const PIPELINE_DELTAS = {
-  'pipe-lukminas':  {sport:'Athletics',   delta:0.020},
-  'pipe-dilyte':    {sport:'Wrestling',   delta:0.047},
-  'pipe-navikonis': {sport:'Rowing',      delta:0.019},
-  'pipe-unknown':   {sport:null,          delta:0.025}  // spread across top sport
-};
-// Host nation scalars
-const HOST_SCALARS = {negative:0.93, neutral:1.0, positive:1.05};
-// GDP / budget scalars (baseline = model baseline = 1.0, no extra effect)
-const BUDGET_SCALARS = {recession:0.90, baseline:1.0, strong:1.12};
-// Coaching quality additive delta on top sports (Athletics, Rowing, Swimming)
-const COACHING_SPORTS = new Set(['Athletics','Rowing','Swimming','3x3 Basketball','Modern Pentathlon']);
-const COACHING_DELTAS = {low:-0.04, normal:0.0, high:0.05, elite:0.10};
-// Peaking deltas on top sports
-const PEAK_DELTAS = {poor:-0.05, normal:0.0, good:0.03};
-// Focus mode: which sports get bonus and multiplier
-const FOCUS_TOP3 = ['Athletics','Rowing','Swimming'];
-const FOCUS_TOP2 = ['Athletics','Rowing'];
-const FOCUS_BONUS = {broad:1.0, top3:1.18, top2:1.30};
-
-// =========================================================
-// STATE
-// =========================================================
-let currentFundingIdx = 2; // 1.0x
-let selectedSports = new Set(SPORTS);
-
-const DARK = {
-  paper_bgcolor:'#1a1d27', plot_bgcolor:'#1a1d27',
-  font:{color:'#e8eaf0', size:11},
-  xaxis:{gridcolor:'#2d3148', zerolinecolor:'#2d3148'},
-  yaxis:{gridcolor:'#2d3148', zerolinecolor:'#2d3148'}
-};
-const CFG = {responsive:true, displayModeBar:false};
-
-// =========================================================
-// HELPERS
-// =========================================================
-function getPreData() {
-  return PRE[String(FUNDING_LEVELS[currentFundingIdx])];
-}
-
-function getAdvancedFactors() {
-  return {
-    alekna:   document.getElementById('adv-alekna')?.value   || 'peak',
-    meilutyte:document.getElementById('adv-meilutyte')?.value|| 'normal',
-    bball:    document.getElementById('adv-bball')?.value    || 'full',
-    focus:    document.getElementById('adv-focus')?.value    || 'broad',
-    deleg:    parseInt(document.getElementById('adv-deleg')?.value || '50'),
-    coaching: document.getElementById('adv-coaching')?.value || 'normal',
-    peak:     document.getElementById('adv-peak')?.value     || 'normal',
-    host:     document.getElementById('adv-host')?.value     || 'neutral',
-    gdp:      document.getElementById('adv-gdp')?.value      || 'baseline',
-    pipelines: Object.keys(PIPELINE_DELTAS).filter(id => document.getElementById(id)?.checked),
-  };
-}
-
-function getActiveSportProbs() {
-  const d = getPreData();
-  const f = getAdvancedFactors();
-  const budgetScale = BUDGET_SCALARS[f.gdp] || 1.0;
-  const hostScale   = HOST_SCALARS[f.host]   || 1.0;
-
-  return SPORTS.map(s => {
-    if (!selectedSports.has(s)) return 0;
-    let p = d.per_sport[s] || 0;
-
-    // GDP/budget scenario: apply extra funding delta on top of base slider level
-    const fundingDelta = (FUNDING_LEVELS[currentFundingIdx] * budgetScale) - FUNDING_LEVELS[currentFundingIdx];
-    p += (FUNDING_SENS[s] || 0.05) * fundingDelta;
-
-    // Focus mode: concentrated funding boosts priority sports, penalises others
-    if (f.focus === 'top3') p *= FOCUS_TOP3.includes(s) ? FOCUS_BONUS.top3 : 0.88;
-    if (f.focus === 'top2') p *= FOCUS_TOP2.includes(s) ? FOCUS_BONUS.top2 : 0.75;
-
-    // Athlete status scalars
-    if (s === 'Athletics')     p *= ALEKNA_SCALARS[f.alekna]    || 1.0;
-    if (s === 'Swimming')      p *= MEILUTYTE_SCALARS[f.meilutyte] || 1.0;
-    if (s === '3x3 Basketball') p *= BBALL_SCALARS[f.bball]    || 1.0;
-
-    // Youth pipeline (additive)
-    f.pipelines.forEach(id => {
-      const entry = PIPELINE_DELTAS[id];
-      if (!entry) return;
-      if (entry.sport === s) p += entry.delta;
-      if (entry.sport === null && s === 'Athletics') p += entry.delta; // unknown breakout counted toward top sport
-    });
-
-    // Coaching quality (top sports only)
-    if (COACHING_SPORTS.has(s)) p += COACHING_DELTAS[f.coaching] || 0;
-
-    // Peaking (top sports only)
-    if (COACHING_SPORTS.has(s)) p += PEAK_DELTAS[f.peak] || 0;
-
-    // Delegation size (non-team sports)
-    if (!IS_TEAM[s]) {
-      const athRatio = Math.min(f.deleg / 50.0, 2.0);
-      p *= (0.85 + 0.15 * athRatio);
-    }
-
-    // Host nation
-    p *= hostScale;
-
-    return Math.min(Math.max(p, 0), 0.95);
-  });
-}
-
-function getExpected() {
-  const probs = getActiveSportProbs();
-  return probs.reduce((a,b)=>a+b, 0);
-}
-
-// Approximate MC dist from sum of independent Bernoullis (exact for rho=0)
-function approxMCDist(probs) {
-  let dist = [1.0];
-  for (const p of probs) {
-    const newDist = new Array(dist.length + 1).fill(0);
-    for (let k = 0; k < dist.length; k++) {
-      newDist[k]   += dist[k] * (1-p);
-      newDist[k+1] += dist[k] * p;
-    }
-    dist = newDist;
-  }
-  return dist;
-}
-
-// Box-Muller normal sample
-function randn() {
-  let u, v;
-  do { u = Math.random(); } while (u === 0);
-  do { v = Math.random(); } while (v === 0);
-  return Math.sqrt(-2*Math.log(u)) * Math.cos(2*Math.PI*v);
-}
-
-// Rational approximation to Phi^{-1}(p) (Acklam 2000, |error| < 4.5e-4)
-function normInv(p) {
-  if (p <= 0) return -6; if (p >= 1) return 6;
-  const a = [-3.969683028665376e+01,2.209460984245205e+02,-2.759285104469687e+02,1.383577518672690e+02,-3.066479806614716e+01,2.506628277459239e+00];
-  const b = [-5.447609879822406e+01,1.615858368580409e+02,-1.556989798598866e+02,6.680131188771972e+01,-1.328068155288572e+01];
-  const c = [-7.784894002430293e-03,-3.223964580411365e-01,-2.400758277161838e+00,-2.549732539343734e+00,4.374664141464968e+00,2.938163982698783e+00];
-  const d = [7.784695709041462e-03,3.224671290700398e-01,2.445134137142996e+00,3.754408661907416e+00];
-  const pLow = 0.02425, pHigh = 1 - pLow;
-  let q, r;
-  if (p < pLow) {
-    q = Math.sqrt(-2*Math.log(p));
-    return (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5]) / ((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);
-  } else if (p <= pHigh) {
-    q = p - 0.5; r = q*q;
-    return (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q / (((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1);
-  } else {
-    q = Math.sqrt(-2*Math.log(1-p));
-    return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5]) / ((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);
-  }
-}
-
-// Correlated MC using Gaussian copula factor model (n_sim simulations)
-// rho = cross-sport correlation coefficient
-function correlatedMCDist(probs, rho, nSim) {
-  const n = probs.length;
-  const sqrtRho = Math.sqrt(rho);
-  const sqrtOne = Math.sqrt(1 - rho);
-  const thresh = probs.map(p => normInv(p));
-  const counts = new Array(n + 1).fill(0);
-  for (let i = 0; i < nSim; i++) {
-    const Z = randn(); // shared factor
-    let medals = 0;
-    for (let j = 0; j < n; j++) {
-      const x = sqrtRho * Z + sqrtOne * randn();
-      if (x < thresh[j]) medals++;
-    }
-    counts[medals]++;
-  }
-  return counts.map(c => c / nSim);
-}
-
-// Get rho value from adv-rho control
-function getRho() {
-  const val = document.getElementById('adv-rho')?.value || 'medium';
-  return {low: 0.05, medium: 0.15, high: 0.30}[val] || 0.15;
-}
-
-// =========================================================
-// SPORT TOGGLES
-// =========================================================
-function buildToggles() {
-  const container = document.getElementById('sport-toggles');
-  SPORTS.forEach(s => {
-    const btn = document.createElement('div');
-    btn.className = 'sport-toggle active';
-    btn.textContent = s;
-    btn.dataset.sport = s;
-    btn.addEventListener('click', () => {
-      if (selectedSports.has(s)) {
-        if (selectedSports.size > 1) { // keep at least 1
-          selectedSports.delete(s);
-          btn.classList.remove('active');
-        }
-      } else {
-        selectedSports.add(s);
-        btn.classList.add('active');
-      }
-      updateAll();
-    });
-    container.appendChild(btn);
-  });
-}
-
-// =========================================================
-// UPDATE METRICS
-// =========================================================
-function updateMetrics() {
-  const d = getPreData();
-  const allProbs = getActiveSportProbs(); // index-aligned with SPORTS
-  const activeProbs = allProbs.filter(p => p > 0);
-  const expected = allProbs.reduce((a,b)=>a+b,0);
-  const ratio = expected / Math.max(d.expected, 0.01);
-  const p10 = Math.max(0, Math.round(d.p10 * ratio));
-  const p90 = Math.round(d.p90 * ratio);
-  document.getElementById('val-expected').textContent = expected.toFixed(2);
-  document.getElementById('sub-expected').textContent = `P10–P90: ${p10}–${p90}`;
-  document.getElementById('val-range').textContent = `${p10}–${p90}`;
-  // Zero medal risk: use correlated dist if rho > 0
-  const rho = getRho();
-  const dist = rho > 0 ? correlatedMCDist(activeProbs, rho, 2000) : approxMCDist(activeProbs);
-  const zeroEl = document.getElementById('val-zero');
-  if (zeroEl) zeroEl.textContent = ((dist[0] || 0) * 100).toFixed(1) + '%';
-  // Athletics current prob (use index-aligned array)
-  const athIdx = SPORTS.indexOf('Athletics');
-  const athEl = document.getElementById('val-ath');
-  if (athEl && athIdx >= 0) athEl.textContent = (allProbs[athIdx] * 100).toFixed(0) + '%';
-}
-
-// =========================================================
-// CHART: PER-SPORT BARS
-// =========================================================
-let sportsChartInit = false;
-function updateSportsChart() {
-  const probs = getActiveSportProbs(); // includes all advanced factors
-  const colors = probs.map((p,i) => {
-    if (!selectedSports.has(SPORTS[i])) return 'rgba(100,100,100,0.2)';
-    return p>=0.6?'#4f8ef7': p>=0.25?'#2ca02c': p>=0.12?'#ff7f0e':'#d62728';
-  });
-
-  const traces = [
-    {x:HRATES, y:SPORTS, type:'bar', orientation:'h', name:'Historical win rate',
-      marker:{color:'rgba(150,150,150,0.2)'}, width:0.5},
-    {x:probs, y:SPORTS, type:'bar', orientation:'h', name:'2028 probability',
-      marker:{color:colors}, width:0.32,
-      text:probs.map(p=>p>0.01?(p*100).toFixed(0)+'%':''), textposition:'outside'}
-  ];
-  const layout = {...DARK, barmode:'overlay',
-    xaxis:{...DARK.xaxis, title:'Medal probability', tickformat:'.0%', range:[0,1.1]},
-    yaxis:{...DARK.yaxis, autorange:'reversed'},
-    legend:{orientation:'h', yanchor:'bottom', y:1.02, bgcolor:'rgba(0,0,0,0)'},
-    height:320, margin:{t:10,b:40,l:10,r:72}
-  };
-  if (!sportsChartInit) {
-    Plotly.newPlot('chart-sports', traces, layout, CFG);
-    sportsChartInit = true;
-  } else {
-    Plotly.react('chart-sports', traces, layout);
-  }
-  // Update table cells with factor-adjusted probabilities
-  document.querySelectorAll('.prob-cell').forEach(cell => {
-    const s = cell.dataset.sport;
-    const idx = SPORTS.indexOf(s);
-    const p = idx >= 0 ? probs[idx] : 0;
-    cell.innerHTML = `<strong>${(p*100).toFixed(0)}%</strong>`;
-    cell.style.opacity = selectedSports.has(s) ? '1' : '0.3';
-  });
-}
-
-// =========================================================
-// CHART: MONTE CARLO DISTRIBUTION
-// =========================================================
-let mcChartInit = false;
-function updateMCChart() {
-  const probs = getActiveSportProbs().filter(p=>p>0);
-  const rho   = getRho();
-  const dist  = rho > 0 ? correlatedMCDist(probs, rho, 4000) : approxMCDist(probs);
-  const mcX   = dist.map((_,i)=>i);
-  const mcY   = dist;
-  const exp   = getExpected();
-
-  const trace = {x:mcX, y:mcY, type:'bar', marker:{color:'#4f8ef7',opacity:0.82},
-    text:mcY.map(v=>v>0.02?(v*100).toFixed(0)+'%':''), textposition:'outside'};
-  const layout = {...DARK,
-    xaxis:{...DARK.xaxis, title:'Total medals', dtick:1},
-    yaxis:{...DARK.yaxis, title:'Probability', tickformat:'.0%'},
-    shapes:[{type:'line',x0:exp,x1:exp,y0:0,y1:1,yref:'paper',
-              line:{color:'#ff4444',dash:'dash',width:2}}],
-    annotations:[{x:exp,y:0.97,yref:'paper',text:`Mean ${exp.toFixed(1)}`,
-                   showarrow:false,font:{color:'#ff4444',size:11}}],
-    height:300, margin:{t:20,b:40,l:50,r:20}
-  };
-  if (!mcChartInit) {
-    Plotly.newPlot('chart-mc', [trace], layout, CFG);
-    mcChartInit = true;
-  } else {
-    Plotly.react('chart-mc', [trace], layout);
-  }
-}
-
-// =========================================================
-// CHART: HISTORICAL
-// =========================================================
-function initHistChart() {
-  const d = getPreData();
-  const exp = getExpected();
-  const ratio = exp / d.expected;
-  const p10 = Math.max(0, d.p10 * ratio);
-  const p90 = d.p90 * ratio;
-
-  Plotly.newPlot('chart-hist', [
-    {x:HIST_YEARS, y:HIST_TOTAL, mode:'lines+markers', name:'Total',
-      line:{color:'#4f8ef7',width:3}, marker:{size:7}},
-    {x:HIST_YEARS, y:HIST_GOLD, mode:'lines+markers', name:'Gold',
-      line:{color:'#ffd700',width:2}},
-    {x:HIST_YEARS, y:HIST_SILVER, mode:'lines+markers', name:'Silver',
-      line:{color:'#c0c0c0',width:2}},
-    {x:HIST_YEARS, y:HIST_BRONZE, mode:'lines+markers', name:'Bronze',
-      line:{color:'#cd7f32',width:2}},
-    {x:[2028], y:[exp], mode:'markers', name:'2028 Forecast',
-      marker:{size:16,color:'#ff4444',symbol:'star'},
-      error_y:{type:'data',array:[p90-exp],arrayminus:[exp-p10],visible:true,color:'#ff4444'}}
-  ], {...DARK,
-    xaxis:{...DARK.xaxis,title:'Year'},
-    yaxis:{...DARK.yaxis,title:'Medals',rangemode:'tozero'},
-    legend:{orientation:'h',yanchor:'bottom',y:1.02,bgcolor:'rgba(0,0,0,0)'},
-    height:290,margin:{t:10,b:40,l:40,r:20}
-  }, CFG);
-}
-function updateHistChart() {
-  const d = getPreData();
-  const exp = getExpected();
-  const activeProbs = getActiveSportProbs().filter(p => p > 0);
-  const dist = approxMCDist(activeProbs);
-  let cum = 0, p10 = 0, p90 = 0, p10f = false, p90f = false;
-  for (let k = 0; k < dist.length; k++) {
-    cum += dist[k];
-    if (!p10f && cum >= 0.10) { p10 = k; p10f = true; }
-    if (!p90f && cum >= 0.90) { p90 = k; p90f = true; break; }
-  }
-  Plotly.restyle('chart-hist', {
-    x: [[2028]],
-    y: [[exp]],
-    'error_y.array':      [[Math.max(0, p90 - exp)]],
-    'error_y.arrayminus': [[Math.max(0, exp - p10)]]
-  }, [4]);
-}
-
-// =========================================================
-// CHART: MEDAL TYPE BREAKDOWN
-// =========================================================
-function initTypeChart() {
-  const allProbs = getActiveSportProbs();
-  const gP = TYPE_SPORTS.map((s,i) => {
-    const idx = SPORTS.indexOf(s);
-    const p = idx >= 0 ? allProbs[idx] : 0;
-    const tot = GOLD_BASE[i]+SILVER_BASE[i]+BRONZE_BASE[i];
-    return [p*GOLD_BASE[i]/tot, p*SILVER_BASE[i]/tot, p*BRONZE_BASE[i]/tot];
-  });
-  Plotly.newPlot('chart-type', [
-    {x:gP.map(x=>x[0]), y:TYPE_SPORTS, type:'bar', orientation:'h', name:'Gold',
-      marker:{color:'#ffd700'}, text:gP.map(x=>x[0]>0.02?(x[0]*100).toFixed(0)+'%':''), textposition:'outside'},
-    {x:gP.map(x=>x[1]), y:TYPE_SPORTS, type:'bar', orientation:'h', name:'Silver',
-      marker:{color:'#c0c0c0'}},
-    {x:gP.map(x=>x[2]), y:TYPE_SPORTS, type:'bar', orientation:'h', name:'Bronze',
-      marker:{color:'#cd7f32'}}
-  ], {...DARK, barmode:'stack',
-    xaxis:{...DARK.xaxis,title:'Medal probability',tickformat:'.0%',range:[0,0.95]},
-    yaxis:{...DARK.yaxis,autorange:'reversed'},
-    legend:{orientation:'h',yanchor:'bottom',y:1.02,bgcolor:'rgba(0,0,0,0)'},
-    height:290, margin:{t:10,b:40,l:10,r:80}
-  }, CFG);
-}
-function updateTypeChart() {
-  const allProbs = getActiveSportProbs();
-  const gP = TYPE_SPORTS.map((s,i) => {
-    const idx = SPORTS.indexOf(s);
-    const p = idx >= 0 ? allProbs[idx] : 0;
-    const tot = GOLD_BASE[i]+SILVER_BASE[i]+BRONZE_BASE[i];
-    return [p*GOLD_BASE[i]/tot, p*SILVER_BASE[i]/tot, p*BRONZE_BASE[i]/tot];
-  });
-  Plotly.restyle('chart-type', {x:[gP.map(x=>x[0])]}, [0]);
-  Plotly.restyle('chart-type', {x:[gP.map(x=>x[1])]}, [1]);
-  Plotly.restyle('chart-type', {x:[gP.map(x=>x[2])]}, [2]);
-}
-
-// =========================================================
-// CHART: SCENARIOS
-// =========================================================
-function initScenChart() {
-  const scens = [
-    ['Baseline\n(1x)',  PRE['1.0']],
-    ['2x Funding',       PRE['2.0']],
-    ['Current',         getPreData()],
-    ['3x Funding',      PRE['3.0']],
-  ];
-  Plotly.newPlot('chart-scen',
-    scens.map(([lbl,d],i) => ({
-      x:[lbl], y:[d.expected], type:'bar',
-      name:lbl, marker:{color:['#4f8ef7','#2ca02c','#EF553B','#AB63FA'][i]},
-      text:[d.expected.toFixed(1)], textposition:'outside',
-      error_y:{type:'data',array:[d.p90-d.expected],arrayminus:[d.expected-d.p10],visible:true}
-    })),
-  {...DARK, barmode:'group', showlegend:false,
-    yaxis:{...DARK.yaxis,title:'Expected medals',rangemode:'tozero'},
-    height:280, margin:{t:20,b:60,l:50,r:20}
-  }, CFG);
-}
-function updateScenChart() {
-  const exp = getExpected();
-  const activeProbs = getActiveSportProbs().filter(p => p > 0);
-  const dist = approxMCDist(activeProbs);
-  // Derive P10/P90 from the approximated distribution
-  let cum = 0, p10 = 0, p90 = 0, p10f = false, p90f = false;
-  for (let k = 0; k < dist.length; k++) {
-    cum += dist[k];
-    if (!p10f && cum >= 0.10) { p10 = k; p10f = true; }
-    if (!p90f && cum >= 0.90) { p90 = k; p90f = true; break; }
-  }
-  Plotly.restyle('chart-scen', {
-    y:[[exp]],
-    text:[[exp.toFixed(1)]],
-    'error_y.array':[[Math.max(0, p90 - exp)]],
-    'error_y.arrayminus':[[Math.max(0, exp - p10)]]
-  }, [2]);
-}
-
-// =========================================================
-// CHART: PEERS (static, init once)
-// =========================================================
-function initPeersChart() {
-  Plotly.newPlot('chart-peers', [
-    {x:PEER_COUNTRIES, y:PEER_GOLD,   type:'bar', name:'Gold',   marker:{color:'#ffd700'}},
-    {x:PEER_COUNTRIES, y:PEER_SILVER, type:'bar', name:'Silver', marker:{color:'#c0c0c0'}},
-    {x:PEER_COUNTRIES, y:PEER_BRONZE, type:'bar', name:'Bronze', marker:{color:'#cd7f32'}},
-  ], {...DARK, barmode:'stack',
-    yaxis:{...DARK.yaxis, title:'Medals (Paris 2024)'},
-    legend:{orientation:'h',yanchor:'bottom',y:1.02,bgcolor:'rgba(0,0,0,0)'},
-    height:280, margin:{t:10,b:50,l:50,r:20}
-  }, CFG);
-}
-
-// =========================================================
-// MAIN UPDATE
-// =========================================================
-function updateAll() {
-  updateMetrics();
-  updateSportsChart();
-  updateMCChart();
-  updateHistChart();
-  updateTypeChart();
-  updateScenChart();
-}
-
-// =========================================================
-// FUNDING SLIDER
-// =========================================================
-const slider = document.getElementById('funding-slider');
-const fundingDisplay = document.getElementById('funding-display');
-slider.addEventListener('input', () => {
-  currentFundingIdx = parseInt(slider.value);
-  fundingDisplay.textContent = FUNDING_LEVELS[currentFundingIdx].toFixed(2) + 'x';
-  updateAll();
-});
-
-// =========================================================
-// INIT
-// =========================================================
-buildToggles();
-initHistChart();
-initTypeChart();
-initScenChart();
-initPeersChart();
-updateAll();
-</script>
 
 <!-- PROBABILITY DECOMPOSITION -->
 <section>
@@ -1081,23 +566,244 @@ updateAll();
 </section>
 
 <script>
-Plotly.newPlot('chart-decomp', [
-  {x:[0.556, 0.313, 0.142, 0.305, 0.364, 0.195, 0.209, 0.14, 0.151],    y:["Athletics", "Rowing", "Swimming", "3x3 Basketball", "Modern Pentathlon", "Weightlifting", "Wrestling", "Shooting", "Canoe Sprint"], type:'bar', orientation:'h', name:'Historical (recency-weighted)',
-    marker:{color:'rgba(140,140,170,0.35)'}, width:0.55},
-  {x:[0.594, 0.404, 0.341, 0.213, 0.072, 0.013, 0.072, 0.014, 0.014], y:["Athletics", "Rowing", "Swimming", "3x3 Basketball", "Modern Pentathlon", "Weightlifting", "Wrestling", "Shooting", "Canoe Sprint"], type:'bar', orientation:'h', name:'Athlete model (rankings)',
-    marker:{color:'rgba(79,142,247,0.55)'}, width:0.35},
-  {x:[0.585, 0.376, 0.271, 0.25, 0.203, 0.149, 0.14, 0.115, 0.11],   y:["Athletics", "Rowing", "Swimming", "3x3 Basketball", "Modern Pentathlon", "Weightlifting", "Wrestling", "Shooting", "Canoe Sprint"], type:'scatter', mode:'markers+text', name:'Final blended',
-    marker:{color:'#ff4444', size:9, symbol:'diamond'},
-    text:[0.585, 0.376, 0.271, 0.25, 0.203, 0.149, 0.14, 0.115, 0.11].map(p=>(p*100).toFixed(0)+'%'), textposition:'middle right'}
-], {
-  paper_bgcolor:'#1a1d27', plot_bgcolor:'#1a1d27',
-  font:{color:'#e8eaf0', size:11},
-  barmode:'overlay',
-  xaxis:{gridcolor:'#2d3148', title:'Probability', tickformat:'.0%', range:[0,0.85]},
-  yaxis:{gridcolor:'#2d3148', autorange:'reversed'},
-  legend:{orientation:'h', yanchor:'bottom', y:1.02, bgcolor:'rgba(0,0,0,0)'},
-  height:320, margin:{t:10, b:40, l:10, r:80}
-}, {responsive:true, displayModeBar:false});
+// PRECOMPUTED DATA
+const PRE = {"0.5": {"expected": 2.042, "p10": 0.0, "p90": 4.0, "per_sport": {"Athletics": 0.5744, "Rowing": 0.3513, "Modern Pentathlon": 0.1818, "Swimming": 0.2427, "3x3 Basketball": 0.2359, "Canoe Sprint": 0.0853, "Shooting": 0.0973, "Weightlifting": 0.1313, "Wrestling": 0.1223}, "mc": {"0": 0.1508, "1": 0.259, "2": 0.2474, "3": 0.1775, "4": 0.1003, "5": 0.0421, "6": 0.0174, "7": 0.0045, "8": 0.0009, "9": 0.0001, "10": 0.0}}, "0.75": {"expected": 2.111, "p10": 0.0, "p90": 4.0, "per_sport": {"Athletics": 0.5785, "Rowing": 0.3608, "Modern Pentathlon": 0.19, "Swimming": 0.2537, "3x3 Basketball": 0.2413, "Canoe Sprint": 0.0948, "Shooting": 0.1042, "Weightlifting": 0.1382, "Wrestling": 0.1292}, "mc": {"0": 0.1435, "1": 0.2505, "2": 0.2428, "3": 0.1846, "4": 0.1049, "5": 0.0479, "6": 0.0195, "7": 0.0051, "8": 0.001, "9": 0.0002, "10": 0.0}}, "1.0": {"expected": 2.221, "p10": 0.0, "p90": 4.0, "per_sport": {"Athletics": 0.585, "Rowing": 0.376, "Modern Pentathlon": 0.203, "Swimming": 0.271, "3x3 Basketball": 0.25, "Canoe Sprint": 0.11, "Shooting": 0.115, "Weightlifting": 0.149, "Wrestling": 0.14}, "mc": {"0": 0.1318, "1": 0.241, "2": 0.2333, "3": 0.1926, "4": 0.113, "5": 0.0571, "6": 0.0225, "7": 0.0067, "8": 0.0018, "9": 0.0002, "10": 0.0}}, "1.25": {"expected": 2.356, "p10": 0.0, "p90": 5.0, "per_sport": {"Athletics": 0.5934, "Rowing": 0.3956, "Modern Pentathlon": 0.2198, "Swimming": 0.2934, "3x3 Basketball": 0.2612, "Canoe Sprint": 0.1296, "Shooting": 0.129, "Weightlifting": 0.163, "Wrestling": 0.154}, "mc": {"0": 0.1184, "1": 0.2238, "2": 0.2312, "3": 0.1951, "4": 0.1267, "5": 0.0655, "6": 0.0277, "7": 0.0088, "8": 0.0024, "9": 0.0004, "10": 0.0}}, "1.5": {"expected": 2.528, "p10": 0.0, "p90": 5.0, "per_sport": {"Athletics": 0.6034, "Rowing": 0.4189, "Modern Pentathlon": 0.2397, "Swimming": 0.32, "3x3 Basketball": 0.2745, "Canoe Sprint": 0.1529, "Shooting": 0.1456, "Weightlifting": 0.1796, "Wrestling": 0.1706}, "mc": {"0": 0.1021, "1": 0.2044, "2": 0.2253, "3": 0.2005, "4": 0.1391, "5": 0.077, "6": 0.0354, "7": 0.0124, "8": 0.0033, "9": 0.0005, "10": 0.0}}, "1.75": {"expected": 2.71, "p10": 1.0, "p90": 5.0, "per_sport": {"Athletics": 0.6148, "Rowing": 0.4455, "Modern Pentathlon": 0.2625, "Swimming": 0.3504, "3x3 Basketball": 0.2897, "Canoe Sprint": 0.1795, "Shooting": 0.1646, "Weightlifting": 0.1986, "Wrestling": 0.1896}, "mc": {"0": 0.0878, "1": 0.1852, "2": 0.2188, "3": 0.1996, "4": 0.15, "5": 0.0925, "6": 0.0434, "7": 0.0174, "8": 0.0042, "9": 0.0011, "10": 0.0}}, "2.0": {"expected": 2.917, "p10": 1.0, "p90": 5.0, "per_sport": {"Athletics": 0.6274, "Rowing": 0.475, "Modern Pentathlon": 0.2879, "Swimming": 0.3841, "3x3 Basketball": 0.3066, "Canoe Sprint": 0.209, "Shooting": 0.1857, "Weightlifting": 0.2197, "Wrestling": 0.2107}, "mc": {"0": 0.0749, "1": 0.1642, "2": 0.2077, "3": 0.1975, "4": 0.1606, "5": 0.11, "6": 0.0529, "7": 0.024, "8": 0.0065, "9": 0.0017, "10": 0.0}}, "2.5": {"expected": 3.389, "p10": 1.0, "p90": 6.0, "per_sport": {"Athletics": 0.6562, "Rowing": 0.542, "Modern Pentathlon": 0.3453, "Swimming": 0.4607, "3x3 Basketball": 0.3449, "Canoe Sprint": 0.276, "Shooting": 0.2336, "Weightlifting": 0.2676, "Wrestling": 0.2586}, "mc": {"0": 0.0507, "1": 0.1213, "2": 0.1781, "3": 0.1929, "4": 0.1759, "5": 0.1385, "6": 0.0821, "7": 0.0435, "8": 0.0137, "9": 0.0033, "10": 0.0}}, "3.0": {"expected": 3.954, "p10": 1.0, "p90": 7.0, "per_sport": {"Athletics": 0.6889, "Rowing": 0.6185, "Modern Pentathlon": 0.4108, "Swimming": 0.5481, "3x3 Basketball": 0.3886, "Canoe Sprint": 0.3525, "Shooting": 0.2882, "Weightlifting": 0.3222, "Wrestling": 0.3132}, "mc": {"0": 0.0333, "1": 0.0821, "2": 0.1376, "3": 0.1726, "4": 0.1814, "5": 0.1632, "6": 0.1192, "7": 0.071, "8": 0.0313, "9": 0.0083, "10": 0.0}}, "4.0": {"expected": 5.203, "p10": 2.0, "p90": 8.0, "per_sport": {"Athletics": 0.765, "Rowing": 0.796, "Modern Pentathlon": 0.563, "Swimming": 0.751, "3x3 Basketball": 0.49, "Canoe Sprint": 0.53, "Shooting": 0.415, "Weightlifting": 0.449, "Wrestling": 0.44}, "mc": {"0": 0.0107, "1": 0.032, "2": 0.0624, "3": 0.1105, "4": 0.1434, "5": 0.1732, "6": 0.1781, "7": 0.1499, "8": 0.1009, "9": 0.0389, "10": 0.0}}};
+const FUNDING_LEVELS = [0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.5, 3.0, 4.0];
+const SPORTS      = ["Athletics","Rowing","Swimming","3x3 Basketball","Modern Pentathlon","Weightlifting","Wrestling","Shooting","Canoe Sprint"];
+const HRATES      = [0.778, 0.333, 0.111, 0.5, 0.444, 0.167, 0.222, 0.143, 0.111];
+const TYPE_SPORTS = ["Athletics","Rowing","Swimming","3x3 Basketball","Modern Pentathlon","Weightlifting","Wrestling","Shooting","Canoe Sprint"];
+const GOLD_BASE   = [0.2925,0.06768,0.05962,0.03,0.05684,0.01788,0.014,0.04025,0.011];
+const SILVER_BASE = [0.1872,0.12032,0.10298,0.07,0.08526,0.05215,0.056,0.0345,0.033];
+const BRONZE_BASE = [0.1053,0.188,0.1084,0.15,0.0609,0.07897,0.07,0.04025,0.066];
+const HIST_YEARS  = [1992,1996,2000,2004,2008,2012,2016,2020,2024];
+const HIST_TOTAL  = [2,1,5,3,5,5,4,1,4];
+const HIST_GOLD   = [1,0,2,1,0,2,0,0,0];
+const HIST_SILVER = [0,0,0,2,3,0,1,1,2];
+const HIST_BRONZE = [1,1,3,0,2,3,3,0,2];
+const PEER_COUNTRIES = ["Lithuania","Estonia","Latvia","Slovenia","Slovakia","Croatia","Denmark"];
+const PEER_GOLD   = [0,1,0,0,0,1,2];
+const PEER_SILVER = [2,1,2,1,1,3,4];
+const PEER_BRONZE = [2,1,1,1,1,6,3];
+
+// ADVANCED FACTOR CONSTANTS
+const FUNDING_SENS = {Athletics:0.03,Rowing:0.07,Swimming:0.08,"3x3 Basketball":0.04,"Modern Pentathlon":0.06,Weightlifting:0.05,Wrestling:0.05,Shooting:0.05,"Canoe Sprint":0.07};
+const ALEKNA_SC   = {peak:1.0, uncertain:0.65, out:0.18};
+const MEIL_SC     = {normal:1.0, confirmed_50m:1.62, retired:0.55};
+const BBALL_SC    = {full:1.0, partial:0.85, new:0.56, dnq:0.09};
+const BUDGET_SC   = {recession:0.90, baseline:1.0, strong:1.12};
+const HOST_SC     = {negative:0.93, neutral:1.0, positive:1.05};
+const COACH_D     = {low:-0.04, normal:0.0, high:0.05, elite:0.10};
+const PEAK_D      = {poor:-0.05, normal:0.0, good:0.03};
+const PIPE_MAP    = {
+  "pipe-lukminas":{s:"Athletics",  d:0.020},
+  "pipe-dilyte":  {s:"Wrestling",  d:0.047},
+  "pipe-navikonis":{s:"Rowing",    d:0.019},
+  "pipe-unknown": {s:"Athletics",  d:0.025}
+};
+const TOP_SPORTS = new Set(["Athletics","Rowing","Swimming","3x3 Basketball","Modern Pentathlon"]);
+const FOCUS_TOP3 = new Set(["Athletics","Rowing","Swimming"]);
+const FOCUS_TOP2 = new Set(["Athletics","Rowing"]);
+
+// STATE
+let currentFundingIdx = 2;
+const selectedSports = new Set(SPORTS);
+
+const BG  = {paper_bgcolor:"#1a1d27",plot_bgcolor:"#1a1d27",font:{color:"#e8eaf0",size:11},xaxis:{gridcolor:"#2d3148",zerolinecolor:"#2d3148"},yaxis:{gridcolor:"#2d3148",zerolinecolor:"#2d3148"}};
+const CFG = {responsive:true, displayModeBar:false};
+
+function g(id){ return document.getElementById(id); }
+
+function getFactors(){
+  return {
+    alekna:    g("adv-alekna")   ? g("adv-alekna").value    : "peak",
+    meilutyte: g("adv-meilutyte")? g("adv-meilutyte").value : "normal",
+    bball:     g("adv-bball")    ? g("adv-bball").value     : "full",
+    focus:     g("adv-focus")    ? g("adv-focus").value     : "broad",
+    deleg:   +(g("adv-deleg")    ? g("adv-deleg").value     : 50),
+    coaching:  g("adv-coaching") ? g("adv-coaching").value  : "normal",
+    peak:      g("adv-peak")     ? g("adv-peak").value      : "normal",
+    host:      g("adv-host")     ? g("adv-host").value      : "neutral",
+    gdp:       g("adv-gdp")      ? g("adv-gdp").value       : "baseline",
+    rho:      ({low:0.05,medium:0.15,high:0.30})[g("adv-rho") ? g("adv-rho").value : "medium"] || 0.15,
+    pipes: Object.keys(PIPE_MAP).filter(function(id){ var el=g(id); return el && el.checked; }),
+  };
+}
+
+function calcProbs(){
+  var d  = PRE[String(FUNDING_LEVELS[currentFundingIdx])];
+  var f  = getFactors();
+  var fm = FUNDING_LEVELS[currentFundingIdx];
+  var bs = BUDGET_SC[f.gdp]  || 1.0;
+  var hs = HOST_SC[f.host]   || 1.0;
+
+  return SPORTS.map(function(s){
+    if (!selectedSports.has(s)) return 0;
+    var p = d.per_sport[s] || 0;
+
+    p += (FUNDING_SENS[s]||0.05) * (fm*bs - fm);
+
+    if (f.focus==="top3") p *= FOCUS_TOP3.has(s) ? 1.18 : 0.88;
+    if (f.focus==="top2") p *= FOCUS_TOP2.has(s) ? 1.30 : 0.75;
+
+    if (s==="Athletics")      p *= ALEKNA_SC[f.alekna]    || 1.0;
+    if (s==="Swimming")       p *= MEIL_SC[f.meilutyte]   || 1.0;
+    if (s==="3x3 Basketball") p *= BBALL_SC[f.bball]      || 1.0;
+
+    f.pipes.forEach(function(id){ if(PIPE_MAP[id] && PIPE_MAP[id].s===s) p += PIPE_MAP[id].d; });
+
+    if (TOP_SPORTS.has(s)){
+      p += COACH_D[f.coaching]||0;
+      p += PEAK_D[f.peak]||0;
+    }
+    if (s !== "3x3 Basketball") p *= 0.85 + 0.15*Math.min(f.deleg/50, 2.0);
+    p *= hs;
+    return Math.min(Math.max(p,0),0.95);
+  });
+}
+
+function mcDist(probs){
+  var d=[1.0];
+  for(var i=0;i<probs.length;i++){
+    var p=probs[i];
+    var n=new Array(d.length+1);
+    for(var j=0;j<n.length;j++) n[j]=0;
+    for(var k=0;k<d.length;k++){n[k]+=d[k]*(1-p);n[k+1]+=d[k]*p;}
+    d=n;
+  }
+  return d;
+}
+
+// Assigned to window so inline onchange="updateAll()" always finds it
+window.updateAll = function(){
+  var probs    = calcProbs();
+  var active   = probs.filter(function(p){return p>0;});
+  var expected = probs.reduce(function(a,b){return a+b;},0);
+  var dist     = mcDist(active);
+
+  var cum=0,p10=0,p90=0,f10=false,f90=false;
+  for(var k=0;k<dist.length;k++){
+    cum+=dist[k];
+    if(!f10&&cum>=0.10){p10=k;f10=true;}
+    if(!f90&&cum>=0.90){p90=k;f90=true;break;}
+  }
+
+  // Metrics
+  g("val-expected").textContent = expected.toFixed(2);
+  g("sub-expected").textContent = "P10–P90: "+p10+"–"+p90;
+  g("val-range").textContent    = p10+"–"+p90;
+  var ze=g("val-zero"); if(ze) ze.textContent=((dist[0]||0)*100).toFixed(1)+"%";
+  var ae=g("val-ath");  if(ae) ae.textContent=(probs[0]*100).toFixed(0)+"%";
+
+  // Table cells
+  document.querySelectorAll(".prob-cell").forEach(function(cell){
+    var idx=SPORTS.indexOf(cell.dataset.sport);
+    var p=idx>=0?probs[idx]:0;
+    cell.innerHTML="<strong>"+(p*100).toFixed(0)+"%</strong>";
+    cell.style.opacity=selectedSports.has(cell.dataset.sport)?"1":"0.3";
+  });
+
+  var colors=probs.map(function(p,i){
+    if(!selectedSports.has(SPORTS[i]))return"rgba(100,100,100,0.2)";
+    if(p>=0.55)return"#4f8ef7";
+    if(p>=0.25)return"#2ca02c";
+    if(p>=0.12)return"#ff7f0e";
+    return"#d62728";
+  });
+
+  Plotly.newPlot("chart-sports",[
+    {x:HRATES,y:SPORTS,type:"bar",orientation:"h",name:"Historical win rate",marker:{color:"rgba(150,150,150,0.2)"},width:0.5},
+    {x:probs, y:SPORTS,type:"bar",orientation:"h",name:"2028 probability",   marker:{color:colors},width:0.32,
+     text:probs.map(function(p){return p>0.01?(p*100).toFixed(0)+"%":"";}),textposition:"outside"}
+  ],Object.assign({},BG,{barmode:"overlay",
+    xaxis:Object.assign({},BG.xaxis,{title:"Medal probability",tickformat:".0%",range:[0,1.1]}),
+    yaxis:Object.assign({},BG.yaxis,{autorange:"reversed"}),
+    legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
+    height:320,margin:{t:10,b:40,l:10,r:72}}),CFG);
+
+  Plotly.newPlot("chart-mc",[
+    {x:dist.map(function(_,i){return i;}),y:dist,type:"bar",marker:{color:"#4f8ef7",opacity:0.82},
+     text:dist.map(function(v){return v>0.02?(v*100).toFixed(0)+"%":"";}),textposition:"outside"}
+  ],Object.assign({},BG,{
+    xaxis:Object.assign({},BG.xaxis,{title:"Total medals",dtick:1}),
+    yaxis:Object.assign({},BG.yaxis,{title:"Probability",tickformat:".0%"}),
+    shapes:[{type:"line",x0:expected,x1:expected,y0:0,y1:1,yref:"paper",line:{color:"#ff4444",dash:"dash",width:2}}],
+    annotations:[{x:expected,y:0.97,yref:"paper",text:"Mean "+expected.toFixed(1),showarrow:false,font:{color:"#ff4444",size:11}}],
+    height:300,margin:{t:20,b:40,l:50,r:20}}),CFG);
+
+  Plotly.newPlot("chart-hist",[
+    {x:HIST_YEARS,y:HIST_TOTAL, mode:"lines+markers",name:"Total", line:{color:"#4f8ef7",width:3},marker:{size:7}},
+    {x:HIST_YEARS,y:HIST_GOLD,  mode:"lines+markers",name:"Gold",  line:{color:"#ffd700",width:2}},
+    {x:HIST_YEARS,y:HIST_SILVER,mode:"lines+markers",name:"Silver",line:{color:"#c0c0c0",width:2}},
+    {x:HIST_YEARS,y:HIST_BRONZE,mode:"lines+markers",name:"Bronze",line:{color:"#cd7f32",width:2}},
+    {x:[2028],y:[expected],mode:"markers",name:"2028 Forecast",
+     marker:{size:16,color:"#ff4444",symbol:"star"},
+     error_y:{type:"data",array:[Math.max(0,p90-expected)],arrayminus:[Math.max(0,expected-p10)],visible:true,color:"#ff4444"}}
+  ],Object.assign({},BG,{
+    xaxis:Object.assign({},BG.xaxis,{title:"Year"}),
+    yaxis:Object.assign({},BG.yaxis,{title:"Medals",rangemode:"tozero"}),
+    legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
+    height:290,margin:{t:10,b:40,l:40,r:20}}),CFG);
+
+  var gP=TYPE_SPORTS.map(function(s,i){
+    var idx=SPORTS.indexOf(s);
+    var p=idx>=0?probs[idx]:0;
+    var tot=GOLD_BASE[i]+SILVER_BASE[i]+BRONZE_BASE[i];
+    return[p*GOLD_BASE[i]/tot,p*SILVER_BASE[i]/tot,p*BRONZE_BASE[i]/tot];
+  });
+  Plotly.newPlot("chart-type",[
+    {x:gP.map(function(x){return x[0];}),y:TYPE_SPORTS,type:"bar",orientation:"h",name:"Gold",  marker:{color:"#ffd700"},text:gP.map(function(x){return x[0]>0.02?(x[0]*100).toFixed(0)+"%":"";}),textposition:"outside"},
+    {x:gP.map(function(x){return x[1];}),y:TYPE_SPORTS,type:"bar",orientation:"h",name:"Silver",marker:{color:"#c0c0c0"}},
+    {x:gP.map(function(x){return x[2];}),y:TYPE_SPORTS,type:"bar",orientation:"h",name:"Bronze",marker:{color:"#cd7f32"}}
+  ],Object.assign({},BG,{barmode:"stack",
+    xaxis:Object.assign({},BG.xaxis,{title:"Medal probability",tickformat:".0%",range:[0,0.95]}),
+    yaxis:Object.assign({},BG.yaxis,{autorange:"reversed"}),
+    legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
+    height:290,margin:{t:10,b:40,l:10,r:80}}),CFG);
+
+  Plotly.newPlot("chart-scen",[
+    {x:["Baseline (1x)"],y:[PRE["1.0"].expected],type:"bar",marker:{color:"#4f8ef7"},text:[PRE["1.0"].expected.toFixed(1)],textposition:"outside",error_y:{type:"data",array:[PRE["1.0"].p90-PRE["1.0"].expected],arrayminus:[PRE["1.0"].expected-PRE["1.0"].p10],visible:true}},
+    {x:["2x Funding"],   y:[PRE["2.0"].expected],type:"bar",marker:{color:"#2ca02c"},text:[PRE["2.0"].expected.toFixed(1)],textposition:"outside",error_y:{type:"data",array:[PRE["2.0"].p90-PRE["2.0"].expected],arrayminus:[PRE["2.0"].expected-PRE["2.0"].p10],visible:true}},
+    {x:["Current"],      y:[expected],            type:"bar",marker:{color:"#EF553B"},text:[expected.toFixed(1)],            textposition:"outside",error_y:{type:"data",array:[Math.max(0,p90-expected)],arrayminus:[Math.max(0,expected-p10)],visible:true}},
+    {x:["3x Funding"],   y:[PRE["3.0"].expected],type:"bar",marker:{color:"#AB63FA"},text:[PRE["3.0"].expected.toFixed(1)],textposition:"outside",error_y:{type:"data",array:[PRE["3.0"].p90-PRE["3.0"].expected],arrayminus:[PRE["3.0"].expected-PRE["3.0"].p10],visible:true}}
+  ],Object.assign({},BG,{showlegend:false,
+    yaxis:Object.assign({},BG.yaxis,{title:"Expected medals",rangemode:"tozero"}),
+    height:280,margin:{t:20,b:60,l:50,r:20}}),CFG);
+};
+
+function buildToggles(){
+  var container=g("sport-toggles");
+  SPORTS.forEach(function(s){
+    var btn=document.createElement("div");
+    btn.className="sport-toggle active";
+    btn.textContent=s;
+    btn.dataset.sport=s;
+    btn.addEventListener("click",function(){
+      if(selectedSports.has(s)){
+        if(selectedSports.size>1){selectedSports.delete(s);btn.classList.remove("active");}
+      }else{selectedSports.add(s);btn.classList.add("active");}
+      updateAll();
+    });
+    container.appendChild(btn);
+  });
+}
+
+Plotly.newPlot("chart-peers",[
+  {x:PEER_COUNTRIES,y:PEER_GOLD,  type:"bar",name:"Gold",  marker:{color:"#ffd700"}},
+  {x:PEER_COUNTRIES,y:PEER_SILVER,type:"bar",name:"Silver",marker:{color:"#c0c0c0"}},
+  {x:PEER_COUNTRIES,y:PEER_BRONZE,type:"bar",name:"Bronze",marker:{color:"#cd7f32"}}
+],{paper_bgcolor:"#1a1d27",plot_bgcolor:"#1a1d27",font:{color:"#e8eaf0",size:11},
+  xaxis:{gridcolor:"#2d3148"},yaxis:{gridcolor:"#2d3148",title:"Medals (Paris 2024)"},
+  barmode:"stack",legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
+  height:280,margin:{t:10,b:50,l:50,r:20}},{responsive:true,displayModeBar:false});
+
+g("funding-slider").addEventListener("input",function(){
+  currentFundingIdx=parseInt(this.value);
+  g("funding-display").textContent=FUNDING_LEVELS[currentFundingIdx].toFixed(2)+"x";
+  updateAll();
+});
+
+buildToggles();
+updateAll();
 </script>
 
 </body>
