@@ -6,142 +6,185 @@
 <title>Lithuania LA 2028 Olympic Medal Forecast</title>
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <style>
-:root {
-  --bg:#0f1117; --card:#1a1d27; --card2:#1e2235; --border:#2d3148;
-  --text:#e8eaf0; --muted:#8b91a8; --accent:#4f8ef7; --accent2:#7ab3ff;
-  --gold:#ffd700; --silver:#c0c0c0; --bronze:#cd7f32;
-  --green:#2ca02c; --orange:#ff7f0e; --red:#d62728;
+:root{
+  --bg:#0f1117;--card:#1a1d27;--card2:#1e2235;--border:#2d3148;
+  --text:#e8eaf0;--muted:#8b91a8;--accent:#4f8ef7;--accent2:#7ab3ff;
+  --gold:#ffd700;--silver:#c0c0c0;--bronze:#cd7f32;
+  --green:#2ca02c;--orange:#ff7f0e;--red:#d62728;
+  --r:14px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;padding-bottom:80px}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif}
+
+/* NAV */
+.top-nav{position:sticky;top:0;z-index:100;background:rgba(15,17,23,.95);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 32px;height:46px;gap:4px}
+.top-nav .brand{font-weight:700;font-size:.87rem;color:var(--accent);
+  margin-right:20px;white-space:nowrap;letter-spacing:-.3px}
+.top-nav a{color:var(--muted);text-decoration:none;font-size:.76rem;
+  padding:5px 12px;border-radius:6px;transition:all .15s;white-space:nowrap}
+.top-nav a:hover{color:var(--text);background:var(--card2)}
+
+/* PAGE WRAP */
+.page-wrap{max-width:1340px;margin:0 auto;padding-bottom:60px}
 
 /* HERO */
-.hero{background:linear-gradient(135deg,#0a1540 0%,#1a2d6e 55%,#0f1117 100%);
-  padding:52px 32px 44px;text-align:center;border-bottom:1px solid var(--border)}
+.hero{background:linear-gradient(135deg,#071030 0%,#162660 52%,#0f1117 100%);
+  padding:56px 40px 44px;text-align:center;border-bottom:1px solid var(--border)}
 .hero .flag{font-size:3.2rem;margin-bottom:14px;display:block}
-.hero h1{font-size:clamp(1.7rem,4.5vw,2.6rem);font-weight:800;margin-bottom:8px;letter-spacing:-0.5px}
+.hero h1{font-size:clamp(1.9rem,4.5vw,2.8rem);font-weight:800;margin-bottom:10px;letter-spacing:-.5px}
 .hero h1 span{color:var(--accent)}
-.hero .sub{color:var(--muted);font-size:.95rem;max-width:640px;margin:0 auto 6px;line-height:1.6}
-.hero .datasrc{font-size:.73rem;color:#636882;margin-top:10px}
+.hero .sub{color:var(--muted);font-size:.94rem;max-width:640px;margin:0 auto;line-height:1.65}
+.datasrc{font-size:.69rem;color:#545872;margin-top:14px;text-align:center;padding:0 40px}
 
-/* METRICS */
-.metrics{display:flex;flex-wrap:wrap;gap:14px;padding:24px 28px;justify-content:center}
-.metric{background:var(--card);border:1px solid var(--border);border-radius:14px;
-  padding:20px 24px;min-width:130px;text-align:center;flex:1;max-width:190px;
-  transition:border-color .2s}
+/* METRICS STRIP */
+.metrics{display:flex;flex-wrap:wrap;gap:14px;padding:22px 28px;justify-content:center}
+.metric{background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:18px 22px;min-width:130px;text-align:center;flex:1;max-width:200px;transition:border-color .2s}
 .metric:hover{border-color:var(--accent)}
-.metric .val{font-size:2.1rem;font-weight:700;color:var(--accent);line-height:1;
-  transition:all .3s}
-.metric .lbl{font-size:.68rem;color:var(--muted);margin-top:6px;text-transform:uppercase;letter-spacing:.7px}
-.metric .sub{font-size:.76rem;color:var(--text);margin-top:3px;transition:all .3s}
-#metric-expected .val{font-size:2.6rem}
+.metric .val{font-size:2rem;font-weight:700;color:var(--accent);line-height:1;transition:all .3s}
+.metric .lbl{font-size:.66rem;color:var(--muted);margin-top:6px;text-transform:uppercase;letter-spacing:.7px}
+.metric .sub{font-size:.73rem;color:var(--text);margin-top:3px;transition:all .3s}
+#metric-expected .val{font-size:2.5rem}
+
+/* SECTION HEADER */
+.sec-head{padding:28px 28px 14px}
+.sec-head h2{font-size:1.15rem;font-weight:700;display:flex;align-items:center;gap:10px}
+.sec-head h2::before{content:'';width:3px;height:1.1em;background:var(--accent);
+  border-radius:2px;flex-shrink:0;display:inline-block}
+.sec-head .sec-sub{color:var(--muted);font-size:.8rem;margin-top:5px;padding-left:13px}
+hr.divider{border:none;border-top:1px solid var(--border);margin:6px 28px 0}
 
 /* SIMULATOR BAR */
-.sim-bar{background:var(--card2);border:1px solid var(--border);border-radius:14px;
-  margin:0 28px 20px;padding:20px 28px}
-.sim-bar h3{font-size:.85rem;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:16px}
-.sim-controls{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start}
+.sim-bar{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);
+  margin:0 28px 18px;padding:20px 26px}
+.sim-bar h3{font-size:.76rem;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:14px}
+.sim-controls{display:flex;flex-wrap:wrap;gap:22px;align-items:flex-start}
 .sim-block{flex:1;min-width:200px}
-.sim-block label{font-size:.78rem;color:var(--muted);display:block;margin-bottom:6px}
-.sim-block .val-display{font-size:1.1rem;font-weight:700;color:var(--accent2);float:right}
+.sim-block label{font-size:.77rem;color:var(--muted);display:block;margin-bottom:6px}
+.sim-block .val-display{font-size:1.05rem;font-weight:700;color:var(--accent2);float:right}
 input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer;height:6px}
+.range-ticks{display:flex;justify-content:space-between;font-size:.66rem;color:var(--muted);margin-top:4px}
 .sport-toggles{display:flex;flex-wrap:wrap;gap:8px}
 .sport-toggle{background:var(--card);border:1px solid var(--border);border-radius:20px;
-  padding:4px 12px;font-size:.76rem;cursor:pointer;transition:all .2s;user-select:none}
-.sport-toggle.active{background:#1b3a6b;border-color:var(--accent);color:var(--accent2)}
+  padding:4px 13px;font-size:.74rem;cursor:pointer;transition:all .2s;user-select:none}
+.sport-toggle.active{background:#192f5c;border-color:var(--accent);color:var(--accent2)}
 .sport-toggle:hover{border-color:var(--accent)}
+
+/* ADVANCED PANEL */
+.adv-panel{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);
+  margin:0 28px 18px;padding:16px 26px}
+.adv-panel summary{font-size:.76rem;text-transform:uppercase;letter-spacing:.8px;
+  color:var(--muted);cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px}
+.adv-panel summary::before{content:"▶";font-size:.6rem;transition:transform .2s}
+details[open]>summary::before{transform:rotate(90deg)}
+.adv-groups{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-top:16px}
+@media(max-width:900px){.adv-groups{grid-template-columns:1fr}}
+.adv-group h4{font-size:.7rem;text-transform:uppercase;letter-spacing:.8px;color:var(--accent);
+  margin-bottom:10px;border-bottom:1px solid var(--border);padding-bottom:6px}
+.adv-row{margin-bottom:10px}
+.adv-row label{font-size:.75rem;color:var(--muted);display:block;margin-bottom:4px}
+.adv-row .val-disp{color:var(--accent2);font-weight:700;float:right;font-size:.79rem}
+.adv-row select{width:100%;background:var(--card);border:1px solid var(--border);
+  border-radius:6px;color:var(--text);padding:5px 8px;font-size:.75rem;cursor:pointer}
+.adv-row select:focus{outline:1px solid var(--accent)}
+.checkbox-row{display:flex;align-items:center;gap:7px;font-size:.75rem;color:var(--muted);
+  margin-bottom:6px;cursor:pointer}
+.checkbox-row input{accent-color:var(--accent);cursor:pointer}
 
 /* GRID */
 .grid{display:grid;gap:18px;padding:0 28px 18px}
 .grid-2{grid-template-columns:1fr 1fr}
 .grid-3-2{grid-template-columns:3fr 2fr}
-@media(max-width:860px){.grid-2,.grid-3-2{grid-template-columns:1fr}}
+@media(max-width:920px){.grid-2,.grid-3-2{grid-template-columns:1fr}}
 
 /* CARD */
-.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px}
-.card h2{font-size:1rem;font-weight:700;margin-bottom:4px}
-.card .caption{font-size:.74rem;color:var(--muted);margin-bottom:14px;line-height:1.5}
-
-/* SECTION */
-section{padding:0 28px 10px}
-section h2{font-size:1.15rem;font-weight:700;margin:28px 0 14px;
-  border-left:3px solid var(--accent);padding-left:12px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px}
+.card h2{font-size:.94rem;font-weight:700;margin-bottom:4px}
+.card .caption{font-size:.72rem;color:var(--muted);margin-bottom:12px;line-height:1.5}
 
 /* TABLE */
-table{width:100%;border-collapse:collapse;font-size:.82rem}
+table{width:100%;border-collapse:collapse;font-size:.8rem}
 th{text-align:left;padding:8px 10px;color:var(--muted);font-weight:500;
-  border-bottom:1px solid var(--border);font-size:.7rem;text-transform:uppercase;letter-spacing:.3px}
-td{padding:9px 10px;border-bottom:1px solid #222640;vertical-align:top}
+  border-bottom:1px solid var(--border);font-size:.68rem;text-transform:uppercase;letter-spacing:.3px}
+td{padding:9px 10px;border-bottom:1px solid #1e2138;vertical-align:top;line-height:1.55}
 tr:last-child td{border-bottom:none}
-tr:hover td{background:#1e2235}
-.muted{color:var(--muted)}.small{font-size:.74rem}
+tr:hover td{background:var(--card2)}
+.muted{color:var(--muted)}.small{font-size:.73rem}
 
 /* PILLS */
-.pill{display:inline-block;padding:2px 8px;border-radius:20px;font-size:.68rem;font-weight:600}
+.pill{display:inline-block;padding:2px 9px;border-radius:20px;font-size:.66rem;font-weight:600;white-space:nowrap}
 .pill.high{background:#1b3a6b;color:#7ab3ff}
-.pill.med{background:#1b3d1b;color:#6fcf6f}
-.pill.low{background:#3d2b0f;color:#ffb347}
-.pill.dark{background:#2b1b1b;color:#ff8080}
+.pill.med{background:#1a3d1a;color:#6fcf6f}
+.pill.low{background:#3a2a0d;color:#ffb347}
+.pill.dark{background:#2b1818;color:#ff8080}
 
 /* ATHLETE CARDS */
-.athlete-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.athlete-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
 .acard{background:var(--card);border:1px solid var(--border);border-radius:12px;
-  padding:18px;transition:border-color .2s}
+  padding:18px;transition:border-color .2s;position:relative}
 .acard:hover{border-color:var(--accent)}
-.acard .aname{font-size:.96rem;font-weight:700;margin-bottom:2px}
-.acard .asport{font-size:.74rem;color:var(--accent);margin-bottom:10px}
-.acard .abadge{float:right;background:var(--accent);color:#fff;font-weight:700;
-  font-size:.86rem;padding:3px 10px;border-radius:8px}
-.acard p{font-size:.78rem;color:var(--muted);line-height:1.55}
-.acard .astat{font-size:.74rem;color:var(--text);margin-top:7px;padding-top:7px;
+.acard .aname{font-size:.95rem;font-weight:700;margin-bottom:2px;padding-right:58px}
+.acard .asport{font-size:.72rem;color:var(--accent);margin-bottom:10px}
+.acard .abadge{position:absolute;top:16px;right:16px;background:var(--accent);color:#fff;
+  font-weight:700;font-size:.84rem;padding:3px 10px;border-radius:8px}
+.acard p{font-size:.77rem;color:var(--muted);line-height:1.55}
+.acard .astat{font-size:.72rem;color:var(--text);margin-top:8px;padding-top:8px;
   border-top:1px solid var(--border)}
 
 /* WARN */
-.warn{background:#2b1f0a;border:1px solid #6b4a12;border-radius:12px;
-  padding:14px 18px;font-size:.82rem;color:#ffc97a;margin:0 28px 22px}
+.warn{background:#251b08;border:1px solid #5e4010;border-radius:var(--r);
+  padding:13px 20px;font-size:.81rem;color:#ffc97a;margin:4px 28px 20px;line-height:1.6}
+
+/* MODEL CORRECTIONS GRID */
+.model-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:780px){.model-grid{grid-template-columns:1fr}}
+.model-item{padding:14px 16px;background:var(--card2);border-radius:10px;border:1px solid var(--border)}
+.model-item .mi-title{font-size:.79rem;font-weight:700;color:var(--accent);margin-bottom:6px}
+.model-item .mi-body{font-size:.76rem;color:var(--muted);line-height:1.65}
+
+/* SCENARIO BOX */
+.scenario-box{background:#152a15;border:1px solid #2a502a;border-radius:8px;
+  padding:14px;font-size:.8rem;color:#6fcf6f;line-height:1.9;margin-top:8px}
 
 /* FOOTER */
-.footer{text-align:center;color:var(--muted);font-size:.7rem;padding:0 28px;line-height:2}
-
-/* FADE TRANSITION */
-.fade{transition:opacity .25s}
-
-/* ADVANCED PANEL */
-.adv-panel{background:var(--card2);border:1px solid var(--border);border-radius:14px;
-  margin:0 28px 20px;padding:18px 28px}
-.adv-panel summary{font-size:.85rem;text-transform:uppercase;letter-spacing:.8px;
-  color:var(--muted);cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px}
-.adv-panel summary::before{content:"▶";font-size:.65rem;transition:transform .2s}
-details[open] summary::before{transform:rotate(90deg)}
-.adv-groups{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-top:16px}
-@media(max-width:900px){.adv-groups{grid-template-columns:1fr}}
-.adv-group h4{font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;color:var(--accent);
-  margin-bottom:10px;border-bottom:1px solid var(--border);padding-bottom:6px}
-.adv-row{margin-bottom:10px}
-.adv-row label{font-size:.76rem;color:var(--muted);display:block;margin-bottom:4px}
-.adv-row .val-disp{color:var(--accent2);font-weight:700;float:right;font-size:.8rem}
-.adv-row select{width:100%;background:var(--card);border:1px solid var(--border);
-  border-radius:6px;color:var(--text);padding:5px 8px;font-size:.76rem;cursor:pointer}
-.adv-row select:focus{outline:1px solid var(--accent)}
-.checkbox-row{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--muted);
-  margin-bottom:6px;cursor:pointer}
-.checkbox-row input{accent-color:var(--accent);cursor:pointer}
+.site-footer{text-align:center;color:var(--muted);font-size:.7rem;
+  padding:26px 28px;border-top:1px solid var(--border);margin-top:12px;line-height:1.9}
+.site-footer a{color:var(--accent);text-decoration:none}
+.site-footer a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
 
-<!-- HERO -->
-<div class="hero">
+<!-- STICKY NAV -->
+<nav class="top-nav">
+  <span class="brand">&#x1F1F1;&#x1F1F9;&nbsp; LT 2028 Forecast</span>
+  <a href="#overview">Overview</a>
+  <a href="#simulator">Simulator</a>
+  <a href="#athletes">Athletes</a>
+  <a href="#analysis">Analysis</a>
+  <a href="#data">Data</a>
+</nav>
+
+<div class="page-wrap">
+
+<!-- ═══ HERO ═══ -->
+<header class="hero" id="top">
   <span class="flag">&#x1F1F1;&#x1F1F9;</span>
   <h1>Lithuania <span>LA 2028</span> Olympic Medal Forecast</h1>
-  <p class="sub">Sport-by-sport prediction based on historical Olympic data (1992&ndash;2024) and the known athlete pipeline heading into Los Angeles.</p>
-  <p class="datasrc">Base probabilities computed from Olympedia + IOC Paris 2024 data &bull; Bayesian shrinkage on small samples &bull; Known correction: Gudzius Discus Gold Rio 2016</p>
-</div>
+  <p class="sub">Sport-by-sport prediction built from Olympedia historical data (1992&ndash;2024),
+    the known athlete pipeline, and a correlated Monte Carlo simulation.</p>
+  <p class="datasrc">
+    Olympedia 1992&ndash;2020 &bull; IOC Paris 2024 &bull; Bayesian shrinkage &bull;
+    10,000-run Monte Carlo &bull; Gaussian copula &rho;=0.15
+  </p>
+</header>
 
-<!-- LIVE METRICS (update with slider) -->
-<div class="metrics">
+<!-- ═══ LIVE METRICS ═══ -->
+<div class="metrics" id="overview">
   <div class="metric" id="metric-expected">
-    <div class="val" id="val-expected">2.221</div>
+    <div class="val" id="val-expected">2.22</div>
     <div class="lbl">Expected medals</div>
     <div class="sub" id="sub-expected">P10&ndash;P90: 0&ndash;4</div>
   </div>
@@ -167,403 +210,485 @@ details[open] summary::before{transform:rotate(90deg)}
   </div>
 </div>
 
-<!-- SIMULATOR CONTROLS -->
-<div class="sim-bar">
-  <h3>Simulator &mdash; adjust and charts update live</h3>
-  <div class="sim-controls">
-    <div class="sim-block" style="min-width:280px">
-      <label>Funding multiplier <span class="val-display" id="funding-display">1.00x</span></label>
-      <input type="range" id="funding-slider" min="0" max="9" value="2" step="1">
-      <div style="display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted);margin-top:4px">
-        <span>0.5x (cut)</span><span>1.0x (current)</span><span>2.0x</span><span>4.0x</span>
+<hr class="divider">
+
+<!-- ═══ SIMULATOR ═══ -->
+<section id="simulator">
+  <div class="sec-head">
+    <h2>Interactive Simulator</h2>
+    <p class="sec-sub">Adjust funding and scenario factors &mdash; all six charts update live</p>
+  </div>
+
+  <div class="sim-bar">
+    <h3>Core controls</h3>
+    <div class="sim-controls">
+      <div class="sim-block" style="min-width:260px">
+        <label>Funding multiplier <span class="val-display" id="funding-display">1.00x</span></label>
+        <input type="range" id="funding-slider" min="0" max="9" value="2" step="1">
+        <div class="range-ticks">
+          <span>0.5x (cut)</span><span>1.0x (current)</span><span>2.0x</span><span>4.0x</span>
+        </div>
+      </div>
+      <div class="sim-block" style="flex:2;min-width:280px">
+        <label>Sports to include &mdash; click to toggle off / on</label>
+        <div class="sport-toggles" id="sport-toggles"></div>
       </div>
     </div>
-    <div class="sim-block" style="flex:2;min-width:300px">
-      <label>Sports to include (toggle off to exclude from total)</label>
-      <div class="sport-toggles" id="sport-toggles"></div>
+  </div>
+
+  <details class="adv-panel">
+    <summary>Advanced Factors &mdash; athlete status, programme, external conditions</summary>
+    <div class="adv-groups">
+
+      <div class="adv-group">
+        <h4>Athlete Status</h4>
+        <div class="adv-row">
+          <label>Mykolas Alekna</label>
+          <select id="adv-alekna" onchange="updateAll()">
+            <option value="peak" selected>Peak form (world #1)</option>
+            <option value="uncertain">Minor injury / uncertain</option>
+            <option value="out">Out / retired</option>
+          </select>
+        </div>
+        <div class="adv-row">
+          <label>Ruta Meilutyte</label>
+          <select id="adv-meilutyte" onchange="updateAll()">
+            <option value="normal" selected>Active (100m breast only)</option>
+            <option value="confirmed_50m">50m breast confirmed for LA 2028</option>
+            <option value="retired">Retired by 2028</option>
+          </select>
+        </div>
+        <div class="adv-row">
+          <label>3x3 Basketball roster</label>
+          <select id="adv-bball" onchange="updateAll()">
+            <option value="full" selected>Full core roster (Paris 2024 squad)</option>
+            <option value="partial">2&ndash;3 core players remain</option>
+            <option value="new">Mostly new / young squad</option>
+            <option value="dnq">Fails to qualify</option>
+          </select>
+        </div>
+        <div class="adv-row" style="margin-top:10px">
+          <label style="margin-bottom:6px">Youth pipeline</label>
+          <label class="checkbox-row"><input type="checkbox" id="pipe-lukminas" onchange="updateAll()"> Lukminas (Athletics +2%)</label>
+          <label class="checkbox-row"><input type="checkbox" id="pipe-dilyte" onchange="updateAll()"> Dilyte (Wrestling +5%)</label>
+          <label class="checkbox-row"><input type="checkbox" id="pipe-navikonis" onchange="updateAll()"> Navikonis (Rowing +2%)</label>
+          <label class="checkbox-row"><input type="checkbox" id="pipe-unknown" onchange="updateAll()"> Unknown breakout (+2.5%)</label>
+        </div>
+      </div>
+
+      <div class="adv-group">
+        <h4>Programme &amp; Investment</h4>
+        <div class="adv-row">
+          <label>Focus mode</label>
+          <select id="adv-focus" onchange="updateAll()">
+            <option value="broad" selected>Broad (all sports)</option>
+            <option value="top3">Focused &mdash; top 3 sports</option>
+            <option value="top2">Elite &mdash; top 2 sports only</option>
+          </select>
+        </div>
+        <div class="adv-row">
+          <label>Delegation size <span class="val-disp" id="deleg-display">50</span></label>
+          <input type="range" id="adv-deleg" min="25" max="80" value="50" step="5"
+            oninput="document.getElementById('deleg-display').textContent=this.value;updateAll()">
+        </div>
+        <div class="adv-row">
+          <label>Coaching &amp; support quality</label>
+          <select id="adv-coaching" onchange="updateAll()">
+            <option value="low">Below average</option>
+            <option value="normal" selected>Average (current)</option>
+            <option value="high">Above average (+5%)</option>
+            <option value="elite">Elite programme (+10%)</option>
+          </select>
+        </div>
+        <div class="adv-row">
+          <label>Competition peaking</label>
+          <select id="adv-peak" onchange="updateAll()">
+            <option value="poor">Poor peaking</option>
+            <option value="normal" selected>Normal</option>
+            <option value="good">Good peaking (+3%)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="adv-group">
+        <h4>External Conditions</h4>
+        <div class="adv-row">
+          <label>Host nation effect (LA 2028)</label>
+          <select id="adv-host" onchange="updateAll()">
+            <option value="negative">Negative (crowd disadvantage)</option>
+            <option value="neutral" selected>Neutral</option>
+            <option value="positive">Positive (diaspora boost)</option>
+          </select>
+        </div>
+        <div class="adv-row">
+          <label>GDP &amp; budget scenario</label>
+          <select id="adv-gdp" onchange="updateAll()">
+            <option value="recession">Recession (budget &minus;10%)</option>
+            <option value="baseline" selected>Baseline (modest growth)</option>
+            <option value="strong">Strong growth (+15%)</option>
+          </select>
+        </div>
+        <div class="adv-row">
+          <label>Cross-sport correlation &rho;</label>
+          <select id="adv-rho" onchange="updateAll()">
+            <option value="low">Low (0.05 &mdash; independent)</option>
+            <option value="medium" selected>Medium (0.15 &mdash; default)</option>
+            <option value="high">High (0.30 &mdash; shared luck)</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- Row 1: per-sport probability + MC distribution -->
+  <div class="grid grid-3-2">
+    <div class="card">
+      <h2>Per-Sport Medal Probability</h2>
+      <p class="caption">Grey = historical win rate &bull; Coloured = 2028 model estimate &bull; All controls update this chart live</p>
+      <div id="chart-sports"></div>
+    </div>
+    <div class="card">
+      <h2>Medal Count Distribution</h2>
+      <p class="caption">Exact Poisson-binomial at current settings</p>
+      <div id="chart-mc"></div>
     </div>
   </div>
-</div>
 
-<!-- ADVANCED CONTROLS -->
-<details class="adv-panel" open>
-  <summary>Advanced Factors &mdash; click to expand</summary>
-  <div class="adv-groups">
-
-    <div class="adv-group">
-      <h4>Athletes</h4>
-      <div class="adv-row">
-        <label>Mykolas Alekna status</label>
-        <select id="adv-alekna" onchange="updateAll()">
-          <option value="peak" selected>Peak form (world #1)</option>
-          <option value="uncertain">Minor injury / uncertain</option>
-          <option value="out">Out / retired</option>
-        </select>
-      </div>
-      <div class="adv-row">
-        <label>Ruta Meilutyte status</label>
-        <select id="adv-meilutyte" onchange="updateAll()">
-          <option value="normal" selected>Active (100m breast only)</option>
-          <option value="confirmed_50m">50m breast confirmed for LA 2028</option>
-          <option value="retired">Retired by 2028</option>
-        </select>
-      </div>
-      <div class="adv-row">
-        <label>3x3 Basketball roster</label>
-        <select id="adv-bball" onchange="updateAll()">
-          <option value="full" selected>Full core roster (Paris 2024 squad)</option>
-          <option value="partial">2&ndash;3 core players remain</option>
-          <option value="new">Mostly new/young squad</option>
-          <option value="dnq">Fails to qualify</option>
-        </select>
-      </div>
-      <div class="adv-row" style="margin-top:10px">
-        <label style="margin-bottom:6px">Youth pipeline (add emerging contenders)</label>
-        <label class="checkbox-row"><input type="checkbox" id="pipe-lukminas" onchange="updateAll()"> Lukminas (Athletics, +2%)</label>
-        <label class="checkbox-row"><input type="checkbox" id="pipe-dilyte" onchange="updateAll()"> Dilyte (Wrestling, +5%)</label>
-        <label class="checkbox-row"><input type="checkbox" id="pipe-navikonis" onchange="updateAll()"> Navikonis (Rowing, +2%)</label>
-        <label class="checkbox-row"><input type="checkbox" id="pipe-unknown" onchange="updateAll()"> Unknown breakout (+2.5%)</label>
-      </div>
+  <!-- Row 2: historical trend + medal type -->
+  <div class="grid grid-2">
+    <div class="card">
+      <h2>Historical Performance 1992&ndash;2024</h2>
+      <p class="caption">Red star = 2028 forecast with P10&ndash;P90 error bar</p>
+      <div id="chart-hist"></div>
     </div>
-
-    <div class="adv-group">
-      <h4>Program &amp; Investment</h4>
-      <div class="adv-row">
-        <label>Focus mode</label>
-        <select id="adv-focus" onchange="updateAll()">
-          <option value="broad" selected>Broad (spread across all sports)</option>
-          <option value="top3">Focused &mdash; top 3 sports</option>
-          <option value="top2">Elite &mdash; top 2 sports only</option>
-        </select>
-      </div>
-      <div class="adv-row">
-        <label>Delegation size <span class="val-disp" id="deleg-display">50</span></label>
-        <input type="range" id="adv-deleg" min="25" max="80" value="50" step="5" oninput="document.getElementById('deleg-display').textContent=this.value; updateAll()">
-      </div>
-      <div class="adv-row">
-        <label>Coaching &amp; support quality</label>
-        <select id="adv-coaching" onchange="updateAll()">
-          <option value="low">Below average</option>
-          <option value="normal" selected>Average (current)</option>
-          <option value="high">Above average (+5% top sports)</option>
-          <option value="elite">Elite programme (+10% top sports)</option>
-        </select>
-      </div>
-      <div class="adv-row">
-        <label>Competition peaking &amp; timing</label>
-        <select id="adv-peak" onchange="updateAll()">
-          <option value="poor">Poor peaking (off-form at Games)</option>
-          <option value="normal" selected>Normal</option>
-          <option value="good">Good peaking (+3% top sports)</option>
-        </select>
-      </div>
+    <div class="card">
+      <h2>Medal Type Breakdown</h2>
+      <p class="caption">Estimated gold / silver / bronze split per sport at current settings</p>
+      <div id="chart-type"></div>
     </div>
+  </div>
 
-    <div class="adv-group">
-      <h4>External Conditions</h4>
-      <div class="adv-row">
-        <label>Host nation effect (LA 2028)</label>
-        <select id="adv-host" onchange="updateAll()">
-          <option value="negative">Negative (crowd disadvantage)</option>
-          <option value="neutral" selected>Neutral</option>
-          <option value="positive">Positive (Lithuanian diaspora boost)</option>
-        </select>
-      </div>
-      <div class="adv-row">
-        <label>GDP &amp; budget growth scenario</label>
-        <select id="adv-gdp" onchange="updateAll()">
-          <option value="recession">Recession (budget cut -10%)</option>
-          <option value="baseline" selected>Baseline (modest growth)</option>
-          <option value="strong">Strong growth (+15%)</option>
-        </select>
-      </div>
-      <div class="adv-row">
-        <label>Cross-sport correlation &rho;</label>
-        <select id="adv-rho" onchange="updateAll()">
-          <option value="low">Low (0.05 &mdash; sports independent)</option>
-          <option value="medium" selected>Medium (0.15 &mdash; default)</option>
-          <option value="high">High (0.30 &mdash; shared luck)</option>
-        </select>
-      </div>
+  <!-- Row 3: scenarios + peers -->
+  <div class="grid grid-2">
+    <div class="card">
+      <h2>Scenario Comparison</h2>
+      <p class="caption">Baseline, 2x, 3x funding vs current slider value (red bar)</p>
+      <div id="chart-scen"></div>
     </div>
-
-  </div>
-</details>
-
-<!-- CHARTS ROW 1 -->
-<div class="grid grid-3-2">
-  <div class="card">
-    <h2>Per-Sport Medal Probability</h2>
-    <p class="caption">Grey = historical win rate from data &bull; Coloured = 2028 forecast &bull; Updates with slider</p>
-    <div id="chart-sports"></div>
-  </div>
-  <div class="card">
-    <h2>Medal Count Distribution</h2>
-    <p class="caption">10,000 Monte Carlo simulations at current funding level</p>
-    <div id="chart-mc"></div>
-  </div>
-</div>
-
-<!-- CHARTS ROW 2 -->
-<div class="grid grid-2">
-  <div class="card">
-    <h2>Historical Performance 1992&ndash;2024</h2>
-    <p class="caption">Red star = 2028 forecast with P10&ndash;P90 interval &bull; Updates with slider</p>
-    <div id="chart-hist"></div>
-  </div>
-  <div class="card">
-    <h2>Medal Type Breakdown</h2>
-    <p class="caption">Estimated gold / silver / bronze probability per sport at current funding</p>
-    <div id="chart-type"></div>
-  </div>
-</div>
-
-<!-- CHARTS ROW 3 -->
-<div class="grid grid-2">
-  <div class="card">
-    <h2>Scenario Comparison</h2>
-    <p class="caption">Four preset scenarios vs current slider value</p>
-    <div id="chart-scen"></div>
-  </div>
-  <div class="card">
-    <h2>Peer Country Comparison &mdash; Paris 2024</h2>
-    <p class="caption">Lithuania vs similar small European nations</p>
-    <div id="chart-peers"></div>
-  </div>
-</div>
-
-<!-- SPORT DETAIL TABLE -->
-<section>
-  <h2>Per-Sport Detail &amp; Data Sources</h2>
-  <div class="card">
-    <table>
-      <tr><th>Sport</th><th>2028 Prob</th><th>Historical</th><th>Medal years</th><th>Outlook</th><th>Notes</th></tr>
-      <tr>
-      <td><strong>Athletics</strong></td>
-      <td class="prob-cell" data-sport="Athletics"><strong>58%</strong></td>
-      <td>7/9 Games (78%)</td>
-      <td class="muted small">1992, 2000, 2004, 2008, 2012, 2016, 2024</td>
-      <td><span class="pill med">Realistic</span></td>
-      <td class="muted small">Mykolas Alekna (21 in 2028): Olympic silver 2024, world lead 74.35m. Top global favorite. Andrius Gudzius may ...</td>
-    </tr><tr>
-      <td><strong>Rowing</strong></td>
-      <td class="prob-cell" data-sport="Rowing"><strong>38%</strong></td>
-      <td>3/9 Games (33%)</td>
-      <td class="muted small">2000, 2016, 2024</td>
-      <td><span class="pill med">Realistic</span></td>
-      <td class="muted small">Viktorija Senkute (32 in 2028): Olympic bronze 2024 (W Single Sculls). Born 1996, near peak sculling age. Strong program with fu...</td>
-    </tr><tr>
-      <td><strong>Swimming</strong></td>
-      <td class="prob-cell" data-sport="Swimming"><strong>27%</strong></td>
-      <td>1/9 Games (11%)</td>
-      <td class="muted small">2012</td>
-      <td><span class="pill med">Realistic</span></td>
-      <td class="muted small">Ruta Meilutyte (31 in 2028): WR holder 100m breaststroke, Olympic gold 2012. Danas Rapsys (33 in 2028): multip...</td>
-    </tr><tr>
-      <td><strong>3x3 Basketball</strong></td>
-      <td class="prob-cell" data-sport="3x3 Basketball"><strong>25%</strong></td>
-      <td>1/2 Games (50%)</td>
-      <td class="muted small">2024</td>
-      <td><span class="pill med">Realistic</span></td>
-      <td class="muted small">Olympic bronze 2024. Core roster ages 31&ndash;41 in 2028 &mdash; roster continuity uncertain. Lithuania basketball culture is structural advantage. ...</td>
-    </tr><tr>
-      <td><strong>Modern Pentathlon</strong></td>
-      <td class="prob-cell" data-sport="Modern Pentathlon"><strong>20%</strong></td>
-      <td>4/9 Games (44%)</td>
-      <td class="muted small">2004, 2008, 2012, 2020</td>
-      <td><span class="pill low">Possible</span></td>
-      <td class="muted small">Laura Asadauskaite (44 in 2028): virtually certain to have retired. Gintare Venckauskaite is the development p...</td>
-    </tr><tr>
-      <td><strong>Weightlifting</strong></td>
-      <td class="prob-cell" data-sport="Weightlifting"><strong>15%</strong></td>
-      <td>1/6 Games (17%)</td>
-      <td class="muted small">2016</td>
-      <td><span class="pill low">Possible</span></td>
-      <td class="muted small">Aurimas Didzbalis bronze 2016. Program affected by IWF sanctions era. No confirmed 2028 contender.</td>
-    </tr><tr>
-      <td><strong>Wrestling</strong></td>
-      <td class="prob-cell" data-sport="Wrestling"><strong>14%</strong></td>
-      <td>2/9 Games (22%)</td>
-      <td class="muted small">2008, 2012</td>
-      <td><span class="pill low">Possible</span></td>
-      <td class="muted small">2 medals (2008, 2012). No current UWW top-global Lithuanian contender.</td>
-    </tr><tr>
-      <td><strong>Shooting</strong></td>
-      <td class="prob-cell" data-sport="Shooting"><strong>12%</strong></td>
-      <td>1/7 Games (14%)</td>
-      <td class="muted small">2000</td>
-      <td><span class="pill dark">Dark horse</span></td>
-      <td class="muted small">Last medal: Daina Gudzineviciute, Trap Gold 2000. No current ISSF top-20 Lithuanian shooter identified.</td>
-    </tr><tr>
-      <td><strong>Canoe Sprint</strong></td>
-      <td class="prob-cell" data-sport="Canoe Sprint"><strong>11%</strong></td>
-      <td>1/9 Games (11%)</td>
-      <td class="muted small">2016</td>
-      <td><span class="pill dark">Dark horse</span></td>
-      <td class="muted small">2016 bronze (K2-200m). No confirmed 2028 contender identified yet.</td>
-    </tr>
-    </table>
-  </div>
-</section>
-
-<!-- ATHLETES -->
-<section>
-  <h2>Key Athletes &mdash; LA 2028 Contenders</h2>
-  <div class="athlete-grid">
-    <div class="acard">
-      <span class="abadge">58%</span>
-      <div class="aname">Mykolas Alekna</div>
-      <div class="asport">Athletics &mdash; Discus Throw</div>
-      <p>Top global gold favorite. Olympic silver Paris 2024 aged 21. 74.35m world lead 2024. Father Virgilijus won discus gold 2000 &amp; 2004. Will be 25 in LA (born Sept 2002) &mdash; absolute prime.</p>
-      <div class="astat">Paris 2024: Silver &bull; 74.35m WL &bull; Age in 2028: 25</div>
-    </div>
-    <div class="acard">
-      <span class="abadge">38%</span>
-      <div class="aname">Viktorija Senkute</div>
-      <div class="asport">Rowing &mdash; Women's Single Sculls</div>
-      <p>Olympic bronze Paris 2024. Born 1996, age 32 in 2028 &mdash; near peak sculling age. Consistent top-3 competitor in single sculls on World Cup circuit.</p>
-      <div class="astat">Paris 2024: Bronze &bull; Born 1996 &bull; Age in 2028: 32</div>
-    </div>
-    <div class="acard">
-      <span class="abadge">25%</span>
-      <div class="aname">Lithuania 3x3 Basketball</div>
-      <div class="asport">3x3 Basketball &mdash; Men's Team</div>
-      <p>Olympic bronze 2024. Core roster ages 31&ndash;41 in 2028 &mdash; roster continuity is the key uncertainty. Basketball is Lithuania's structural sport &mdash; FIBA 3x3 consistent top-10 globally.</p>
-      <div class="astat">Paris 2024: Bronze &bull; FIBA 3x3 World Ranking top-10</div>
-    </div>
-    <div class="acard">
-      <span class="abadge">27%</span>
-      <div class="aname">Ruta Meilutyte &amp; Danas Rapsys</div>
-      <div class="asport">Swimming</div>
-      <p>Meilutyte: 50m breast world record holder, Olympic gold 2012, still active at 31 in 2028. Psych factor applied (Olympic underperformer vs world ranking). Rapsys: 3 Olympic A-finals, age 33 in 2028.</p>
-      <div class="astat">Meilutyte age: 31 &bull; Rapsys age: 33 &bull; Two podium threats</div>
-    </div>
-    <div class="acard">
-      <span class="abadge">20%</span>
-      <div class="aname">Gintare Venckauskaite</div>
-      <div class="asport">Modern Pentathlon</div>
-      <p>Born 1992, age 35&ndash;36 in 2028 &mdash; late career, same generation as Asadauskaite. No confirmed next-generation pentathlete identified yet. Probability reflects weak pipeline.</p>
-      <div class="astat">Born 1992 &bull; Age in 2028: 35&ndash;36 &bull; Asadauskaite: 44 (retired)</div>
+    <div class="card">
+      <h2>Peer Country Comparison &mdash; Paris 2024</h2>
+      <p class="caption">Lithuania vs similar small European nations</p>
+      <div id="chart-peers"></div>
     </div>
   </div>
 </section>
 
-<div style="height:20px"></div>
-<div class="warn">
-  <strong>Breaking is NOT on the LA 2028 program.</strong>
-  NICKA (Dominyka Banevic) won Silver at Paris 2024, but the IOC removed Breaking from the 2028 Games.
-  Lithuania's 2028 forecast is calculated without this sport. &nbsp;<em>Source: IOC Program Commission, 2023.</em>
-</div>
+<hr class="divider">
 
-<div class="footer">
-  <strong>Data sources:</strong>
-  Olympedia historical results 1992&ndash;2020 (Kaggle) &bull;
-  Paris 2024 official results (IOC) &bull;
-  World Athletics, FINA, FIBA 3x3, ICF, UIPM, ISSF rankings 2024 &bull;
-  IOC Program Commission 2023 (Breaking removal) &bull;
-  Known correction: Gudzius Discus Gold Rio 2016 (absent from source dataset) &bull;
-  Bayesian shrinkage applied to sports with &lt;5 Games of data &bull;
-  Macro ensemble: XGBoost + RF trained on 137 countries 1960&ndash;2024
-  <br>
-  Generated 2026-03-25 &bull;
-  <a href="https://github.com/yonathan-star/lt-olympic-forecast" style="color:var(--accent)">GitHub</a>
-</div>
+<!-- ═══ ATHLETES ═══ -->
+<section id="athletes">
+  <div class="sec-head">
+    <h2>Key Athletes &mdash; LA 2028 Contenders</h2>
+    <p class="sec-sub">Primary medal candidates driving the per-sport probabilities above</p>
+  </div>
 
+  <div style="padding:0 28px 22px">
+    <div class="athlete-grid">
+      <div class="acard">
+        <span class="abadge">58%</span>
+        <div class="aname">Mykolas Alekna</div>
+        <div class="asport">Athletics &mdash; Discus Throw</div>
+        <p>Top global gold favorite. Olympic silver Paris 2024 aged 21. World lead 74.35m in 2024. Father Virgilijus won discus gold 2000 &amp; 2004. Born Sept 2002 &mdash; will be 25 at LA 2028, absolute prime.</p>
+        <div class="astat">Paris 2024: Silver &bull; 74.35m WL &bull; Age in 2028: <strong>25</strong></div>
+      </div>
+      <div class="acard">
+        <span class="abadge">38%</span>
+        <div class="aname">Viktorija Senkute</div>
+        <div class="asport">Rowing &mdash; Women's Single Sculls</div>
+        <p>Olympic bronze Paris 2024. Born 1996, age 32 in 2028 &mdash; near peak sculling age. Consistent top-3 on World Cup circuit. Psych factor: normal (consistent Olympic performer).</p>
+        <div class="astat">Paris 2024: Bronze &bull; Born 1996 &bull; Age in 2028: <strong>32</strong></div>
+      </div>
+      <div class="acard">
+        <span class="abadge">27%</span>
+        <div class="aname">Ruta Meilutyte &amp; Danas Rapsys</div>
+        <div class="asport">Swimming</div>
+        <p>Meilutyte: 50m breast world record holder, Olympic gold 2012, still active at 31 in 2028. Psych discount applied (Olympic underperformer). Rapsys: 3 Olympic A-finals, age 33 in 2028.</p>
+        <div class="astat">Meilutyte age: 31 &bull; Rapsys age: 33 &bull; Two podium paths</div>
+      </div>
+      <div class="acard">
+        <span class="abadge">25%</span>
+        <div class="aname">Lithuania 3x3 Basketball</div>
+        <div class="asport">3x3 Basketball &mdash; Men's Team</div>
+        <p>Olympic bronze 2024. Core roster ages 31&ndash;41 in 2028 &mdash; roster continuity is the key uncertainty. Basketball is Lithuania's structural sport; FIBA 3x3 consistent global top-10.</p>
+        <div class="astat">Paris 2024: Bronze &bull; FIBA 3x3 World Ranking: top-10</div>
+      </div>
+      <div class="acard">
+        <span class="abadge">20%</span>
+        <div class="aname">Gintare Venckauskaite</div>
+        <div class="asport">Modern Pentathlon</div>
+        <p>Born 1992, age 35&ndash;36 in 2028 &mdash; late career. Same generation as Asadauskaite (born 1984, age 44 in 2028, retired). No confirmed next-generation pentathlete. Probability reflects weak pipeline.</p>
+        <div class="astat">Born 1992 &bull; Age in 2028: 35&ndash;36 &bull; Asadauskaite: retired</div>
+      </div>
+    </div>
+  </div>
 
+  <!-- Per-sport detail table -->
+  <div class="sec-head" style="padding-top:8px">
+    <h2>Per-Sport Detail</h2>
+    <p class="sec-sub">2028 probability updates with all simulator controls above</p>
+  </div>
+  <div style="padding:0 28px 18px">
+    <div class="card">
+      <table>
+        <tr><th>Sport</th><th>2028 Prob</th><th>Historical</th><th>Medal years</th><th>Outlook</th><th>Notes</th></tr>
+        <tr>
+          <td><strong>Athletics</strong></td>
+          <td class="prob-cell" data-sport="Athletics"><strong>58%</strong></td>
+          <td>7/9 Games (78%)</td>
+          <td class="muted small">1992, 2000, 2004, 2008, 2012, 2016, 2024</td>
+          <td><span class="pill med">Realistic</span></td>
+          <td class="muted small">Mykolas Alekna (25 in 2028): Olympic silver 2024, world lead 74.35m. Top global gold favorite. Gudzius may also compete (Rio 2016 gold).</td>
+        </tr>
+        <tr>
+          <td><strong>Rowing</strong></td>
+          <td class="prob-cell" data-sport="Rowing"><strong>38%</strong></td>
+          <td>3/9 Games (33%)</td>
+          <td class="muted small">2000, 2016, 2024</td>
+          <td><span class="pill med">Realistic</span></td>
+          <td class="muted small">Viktorija Senkute (32 in 2028): Olympic bronze 2024 (W Single Sculls). Born 1996, near peak sculling age. Strong programme with funding upside.</td>
+        </tr>
+        <tr>
+          <td><strong>Swimming</strong></td>
+          <td class="prob-cell" data-sport="Swimming"><strong>27%</strong></td>
+          <td>1/9 Games (11%)</td>
+          <td class="muted small">2012</td>
+          <td><span class="pill med">Realistic</span></td>
+          <td class="muted small">Ruta Meilutyte (31 in 2028): WR holder 50m breast, Olympic gold 2012, psych factor applied. Danas Rapsys (33 in 2028): multiple Olympic A-finals.</td>
+        </tr>
+        <tr>
+          <td><strong>3x3 Basketball</strong></td>
+          <td class="prob-cell" data-sport="3x3 Basketball"><strong>25%</strong></td>
+          <td>1/2 Games (50%)</td>
+          <td class="muted small">2024</td>
+          <td><span class="pill med">Realistic</span></td>
+          <td class="muted small">Olympic bronze 2024. Core roster ages 31&ndash;41 in 2028 &mdash; roster continuity uncertain. Lithuania basketball culture is a structural advantage.</td>
+        </tr>
+        <tr>
+          <td><strong>Modern Pentathlon</strong></td>
+          <td class="prob-cell" data-sport="Modern Pentathlon"><strong>20%</strong></td>
+          <td>4/9 Games (44%)</td>
+          <td class="muted small">2004, 2008, 2012, 2020</td>
+          <td><span class="pill low">Possible</span></td>
+          <td class="muted small">Asadauskaite (44 in 2028): virtually certain to have retired. Venckauskaite (35&ndash;36) is the only pipeline; no next-generation contender identified.</td>
+        </tr>
+        <tr>
+          <td><strong>Weightlifting</strong></td>
+          <td class="prob-cell" data-sport="Weightlifting"><strong>15%</strong></td>
+          <td>1/6 Games (17%)</td>
+          <td class="muted small">2016</td>
+          <td><span class="pill low">Possible</span></td>
+          <td class="muted small">Aurimas Didzbalis bronze 2016. Programme affected by IWF sanctions era. No confirmed 2028 contender.</td>
+        </tr>
+        <tr>
+          <td><strong>Wrestling</strong></td>
+          <td class="prob-cell" data-sport="Wrestling"><strong>14%</strong></td>
+          <td>2/9 Games (22%)</td>
+          <td class="muted small">2008, 2012</td>
+          <td><span class="pill low">Possible</span></td>
+          <td class="muted small">Two medals in 2008 and 2012. No current UWW top-ranked Lithuanian contender. Gabija Dilyte (25 in 2028) is a developing prospect.</td>
+        </tr>
+        <tr>
+          <td><strong>Shooting</strong></td>
+          <td class="prob-cell" data-sport="Shooting"><strong>12%</strong></td>
+          <td>1/7 Games (14%)</td>
+          <td class="muted small">2000</td>
+          <td><span class="pill dark">Dark horse</span></td>
+          <td class="muted small">Last medal: Daina Gudzineviciute, Trap Gold 2000. No current ISSF top-20 Lithuanian shooter identified.</td>
+        </tr>
+        <tr>
+          <td><strong>Canoe Sprint</strong></td>
+          <td class="prob-cell" data-sport="Canoe Sprint"><strong>11%</strong></td>
+          <td>1/9 Games (11%)</td>
+          <td class="muted small">2016</td>
+          <td><span class="pill dark">Dark horse</span></td>
+          <td class="muted small">2016 bronze (K2-200m). No confirmed 2028 contender identified yet.</td>
+        </tr>
+      </table>
+    </div>
+  </div>
 
-<!-- PROBABILITY DECOMPOSITION -->
-<section>
-  <h2>How Each Sport Probability Is Built</h2>
+  <div class="warn">
+    <strong>Breaking is NOT on the LA 2028 programme.</strong>
+    NICKA (Dominyka Banevic) won Silver at Paris 2024, but the IOC removed Breaking from the 2028 Games.
+    Lithuania's 2028 forecast is calculated without this sport.
+    <em style="opacity:.8">&nbsp; Source: IOC Programme Commission, 2023.</em>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ ANALYSIS ═══ -->
+<section id="analysis">
+  <div class="sec-head">
+    <h2>Model Analysis</h2>
+    <p class="sec-sub">How each probability is built &mdash; athlete decomposition, pipeline, and key corrections</p>
+  </div>
+
+  <!-- Decomp chart + pipeline table -->
   <div class="grid grid-2">
     <div class="card">
       <h2>Athlete Model vs Historical Rate</h2>
-      <p class="caption">Grey = recency-weighted historical win rate. Blue = athlete ranking model (union of contenders). Red diamond = final blended estimate.</p>
+      <p class="caption">Grey = recency-weighted historical win rate &bull; Blue = athlete ranking model (union of contenders) &bull; Red diamond = final blended estimate</p>
       <div id="chart-decomp"></div>
     </div>
     <div class="card">
       <h2>Athlete Pipeline &amp; World Rankings</h2>
-      <p class="caption">Event medal prob = rank_prob x psych_factor x age_factor. Union across contenders = sport probability.</p>
+      <p class="caption">Event medal prob = rank_prob &times; psych_factor &times; age_factor. Union across contenders gives sport probability.</p>
       <div style="overflow-x:auto">
-      <table>
-        <tr><th>Athlete</th><th>Event</th><th>Rank</th><th>Age 2028</th><th>Event prob</th><th>Olympic factor</th><th>Notes</th></tr>
-        <tr><td><strong>Mykolas Alekna</strong></td><td class="muted small">Discus Throw Men</td><td><strong>#1</strong></td><td>25</td><td><strong>58%</strong></td><td style="color:var(--accent);font-size:.76rem">Slight discount</td><td class="muted small">World #1 2024, 74.35m WL, Olympic silver 2024 (age 21). Age 25 in 2028.</td></tr><tr><td><strong>Viktorija Senkute</strong></td><td class="muted small">W Single Sculls</td><td><strong>#3</strong></td><td>32</td><td><strong>37%</strong></td><td style="color:var(--green);font-size:.76rem">Normal</td><td class="muted small">Olympic bronze 2024, born 1996, age 32 in 2028. Peak rowing years.</td></tr><tr><td><strong>Stankunas Domantas/Dovydas</strong></td><td class="muted small">M Double Sculls</td><td><strong>#14</strong></td><td>28</td><td><strong>6%</strong></td><td style="color:var(--green);font-size:.76rem">Normal</td><td class="muted small">Twin brothers, Paris 2024 participants, age 27-28 in 2028. Developing.</td></tr><tr><td><strong>Ruta Meilutyte</strong></td><td class="muted small">100m Breaststroke Women</td><td><strong>#4</strong></td><td>31</td><td><strong>22%</strong></td><td style="color:var(--orange);font-size:.76rem">Olympic underperformer</td><td class="muted small">WR holder 50m breast, top-5 100m breast. Age 31 in 2028. Olympic underperformer (last meda...</td></tr><tr><td><strong>Danas Rapsys</strong></td><td class="muted small">200m Freestyle Men</td><td><strong>#7</strong></td><td>33</td><td><strong>13%</strong></td><td style="color:var(--accent);font-size:.76rem">Slight discount</td><td class="muted small">European champion, 3 Olympic A-finals. Age 33 in 2028 — at the edge.</td></tr><tr><td><strong>Lithuania 3x3 Men</strong></td><td class="muted small">3x3 Basketball Men</td><td><strong>#5</strong></td><td>35</td><td><strong>21%</strong></td><td style="color:var(--green);font-size:.76rem">Normal</td><td class="muted small">Olympic bronze 2024. Core roster ages 31-41 in 2028 — roster uncertainty high. FIBA rank ~...</td></tr><tr><td><strong>Gintare Venckauskaite</strong></td><td class="muted small">Women's Pentathlon</td><td><strong>#10</strong></td><td>36</td><td><strong>7%</strong></td><td style="color:var(--orange);font-size:.76rem">Olympic underperformer</td><td class="muted small">Born 1992, age 35 in 2028 — late career. Previous top-10 senior.</td></tr><tr><td><strong>Gabija Dilyte</strong></td><td class="muted small">Women's Wrestling</td><td><strong>#15</strong></td><td>25</td><td><strong>5%</strong></td><td style="color:var(--green);font-size:.76rem">Normal</td><td class="muted small">Born 2003, age 25 in 2028. Paris 2024 participant. Prime years, developing.</td></tr>
-      </table>
+        <table>
+          <tr><th>Athlete</th><th>Event</th><th>Rank</th><th>Age 2028</th><th>Prob</th><th>Olympic factor</th><th>Notes</th></tr>
+          <tr>
+            <td><strong>Mykolas Alekna</strong></td>
+            <td class="muted small">Discus Throw Men</td>
+            <td><strong>#1</strong></td><td>25</td><td><strong>58%</strong></td>
+            <td style="color:var(--accent);font-size:.73rem">Slight discount</td>
+            <td class="muted small">World #1 2024, 74.35m WL, Olympic silver 2024 (age 21). Age 25 in 2028.</td>
+          </tr>
+          <tr>
+            <td><strong>Viktorija Senkute</strong></td>
+            <td class="muted small">W Single Sculls</td>
+            <td><strong>#3</strong></td><td>32</td><td><strong>37%</strong></td>
+            <td style="color:var(--green);font-size:.73rem">Normal</td>
+            <td class="muted small">Olympic bronze 2024, born 1996, age 32 in 2028. Peak rowing years.</td>
+          </tr>
+          <tr>
+            <td><strong>Stankunas twins</strong></td>
+            <td class="muted small">M Double Sculls</td>
+            <td><strong>#14</strong></td><td>28</td><td><strong>6%</strong></td>
+            <td style="color:var(--green);font-size:.73rem">Normal</td>
+            <td class="muted small">Domantas &amp; Dovydas, Paris 2024 participants, age 27&ndash;28 in 2028.</td>
+          </tr>
+          <tr>
+            <td><strong>Ruta Meilutyte</strong></td>
+            <td class="muted small">100m Breaststroke</td>
+            <td><strong>#4</strong></td><td>31</td><td><strong>22%</strong></td>
+            <td style="color:var(--orange);font-size:.73rem">Olympic underperformer</td>
+            <td class="muted small">WR holder 50m breast, top-5 100m. Age 31 in 2028. Last medal: gold 2012.</td>
+          </tr>
+          <tr>
+            <td><strong>Danas Rapsys</strong></td>
+            <td class="muted small">200m Freestyle Men</td>
+            <td><strong>#7</strong></td><td>33</td><td><strong>13%</strong></td>
+            <td style="color:var(--accent);font-size:.73rem">Slight discount</td>
+            <td class="muted small">European champion, 3 Olympic A-finals. Age 33 in 2028 &mdash; upper edge of peak.</td>
+          </tr>
+          <tr>
+            <td><strong>Lithuania 3x3 Men</strong></td>
+            <td class="muted small">3x3 Basketball</td>
+            <td><strong>#5</strong></td><td>35</td><td><strong>21%</strong></td>
+            <td style="color:var(--green);font-size:.73rem">Normal</td>
+            <td class="muted small">Olympic bronze 2024. Core roster ages 31&ndash;41 in 2028. Roster uncertainty high.</td>
+          </tr>
+          <tr>
+            <td><strong>Gintare Venckauskaite</strong></td>
+            <td class="muted small">Women's Pentathlon</td>
+            <td><strong>#10</strong></td><td>36</td><td><strong>7%</strong></td>
+            <td style="color:var(--orange);font-size:.73rem">Olympic underperformer</td>
+            <td class="muted small">Born 1992, age 35&ndash;36 in 2028 &mdash; late career. Previous top-10 senior.</td>
+          </tr>
+          <tr>
+            <td><strong>Gabija Dilyte</strong></td>
+            <td class="muted small">Women's Wrestling</td>
+            <td><strong>#15</strong></td><td>25</td><td><strong>5%</strong></td>
+            <td style="color:var(--green);font-size:.73rem">Normal</td>
+            <td class="muted small">Born 2003, age 25 in 2028. Paris 2024 participant. Prime years, developing.</td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
-</section>
 
-<!-- OUTLIERS -->
-<section>
-  <h2>Emerging Athletes &mdash; Not in Current Predictions</h2>
-  <p style="color:var(--muted);font-size:.82rem;margin-bottom:14px">
-    These athletes competed at Paris 2024 and will be at prime age in 2028, but have no identified
-    medal path yet in the current model. Worth tracking as 2028 approaches.
-  </p>
+  <!-- Emerging athletes + 50m scenario -->
   <div class="grid grid-2">
     <div class="card">
+      <h2>Emerging Athletes &mdash; Not in Current Model</h2>
+      <p class="caption">Competed at Paris 2024, prime age in 2028, no identified medal path yet. Worth tracking as 2028 approaches.</p>
       <table>
         <tr><th>Athlete</th><th>Sport</th><th>Age 2028</th><th>Born</th><th>Status</th></tr>
-        <tr><td><strong>SAVICKAS Aleksas</strong></td><td>Swimming</td><td>25</td><td>2003</td><td><span class="pill med">Prime 2028</span></td></tr><tr><td><strong>TETEREVKOVA Kotryna</strong></td><td>Swimming</td><td>26</td><td>2002</td><td><span class="pill med">Prime 2028</span></td></tr><tr><td><strong>RIMKUTE Dovile</strong></td><td>Rowing</td><td>27</td><td>2001</td><td><span class="pill med">Prime 2028</span></td></tr><tr><td><strong>KRALIKAITE Kamile</strong></td><td>Rowing</td><td>27</td><td>2001</td><td><span class="pill med">Prime 2028</span></td></tr><tr><td><strong>RAUPELYTE Aine</strong></td><td>Beach Volleyball</td><td>28</td><td>2000</td><td><span class="pill med">Prime 2028</span></td></tr><tr><td><strong>BALEISYTE Olivija</strong></td><td>Cycling Track</td><td>30</td><td>1998</td><td><span class="pill med">Prime 2028</span></td></tr><tr><td><strong>ZAGAINOVA Diana</strong></td><td>Athletics</td><td>31</td><td>1997</td><td><span class="pill med">Prime 2028</span></td></tr><tr><td><strong>BIELIAUSKAS Giedrius</strong></td><td>Rowing</td><td>31</td><td>1997</td><td><span class="pill med">Prime 2028</span></td></tr><tr><td><strong>MATUSEVICIUS Edis</strong></td><td>Athletics</td><td>32</td><td>1996</td><td><span class="pill med">Prime 2028</span></td></tr>
+        <tr><td><strong>SAVICKAS Aleksas</strong></td><td>Swimming</td><td>25</td><td>2003</td><td><span class="pill med">Prime 2028</span></td></tr>
+        <tr><td><strong>TETEREVKOVA Kotryna</strong></td><td>Swimming</td><td>26</td><td>2002</td><td><span class="pill med">Prime 2028</span></td></tr>
+        <tr><td><strong>RIMKUTE Dovile</strong></td><td>Rowing</td><td>27</td><td>2001</td><td><span class="pill med">Prime 2028</span></td></tr>
+        <tr><td><strong>KRALIKAITE Kamile</strong></td><td>Rowing</td><td>27</td><td>2001</td><td><span class="pill med">Prime 2028</span></td></tr>
+        <tr><td><strong>RAUPELYTE Aine</strong></td><td>Beach Volleyball</td><td>28</td><td>2000</td><td><span class="pill med">Prime 2028</span></td></tr>
+        <tr><td><strong>BALEISYTE Olivija</strong></td><td>Cycling Track</td><td>30</td><td>1998</td><td><span class="pill med">Prime 2028</span></td></tr>
+        <tr><td><strong>ZAGAINOVA Diana</strong></td><td>Athletics</td><td>31</td><td>1997</td><td><span class="pill med">Prime 2028</span></td></tr>
+        <tr><td><strong>BIELIAUSKAS Giedrius</strong></td><td>Rowing</td><td>31</td><td>1997</td><td><span class="pill med">Prime 2028</span></td></tr>
+        <tr><td><strong>MATUSEVICIUS Edis</strong></td><td>Athletics</td><td>32</td><td>1996</td><td><span class="pill med">Prime 2028</span></td></tr>
       </table>
     </div>
     <div class="card">
       <h2>50m Breaststroke &mdash; Conditional Scenario</h2>
-      <p class="caption">
-        Meilutyte holds the 50m breaststroke world record and won the 2023 World Championship in that event.
-        If 50m breast is confirmed for LA 2028, her probability in that event alone is estimated at 42%.
-      </p>
-      <div style="background:#1b3a1b;border:1px solid #2d5a2d;border-radius:8px;padding:14px;margin-top:8px;font-size:.81rem;color:#6fcf6f;line-height:1.8">
+      <p class="caption">Meilutyte holds the 50m breast world record and won the 2023 World Championship. If confirmed for LA 2028, her probability in that event alone is estimated at 42%.</p>
+      <div class="scenario-box">
         <strong>Current model (100m breast only):</strong> Swimming = 27%<br>
-        <strong>If 50m breast confirmed for LA 2028:</strong> Swimming approx 50%<br>
+        <strong>If 50m breast confirmed for LA 2028:</strong> Swimming &asymp; 44&ndash;50%<br>
         <strong>Source:</strong> World Aquatics Programme Commission lobbying, 2024<br>
         <strong>Status:</strong> Pending IOC confirmation
       </div>
-      <div style="margin-top:12px;font-size:.78rem;color:var(--muted);line-height:1.6">
-        Note: Meilutyte's Olympic track record includes inconsistency vs world ranking — psych factor 0.85 applied in current model. Last Olympic medal: gold 2012.
+      <div style="margin-top:12px;font-size:.76rem;color:var(--muted);line-height:1.6">
+        Psych factor 0.85 applied in current model (Olympic underperformer vs world ranking).
+        Last Olympic medal: gold 2012. Use the Meilutyte dropdown in the Advanced Factors
+        panel to model the 50m confirmation scenario.
+      </div>
+    </div>
+  </div>
+
+  <!-- Model corrections -->
+  <div class="sec-head" style="padding-top:8px">
+    <h2>Key Model Corrections</h2>
+    <p class="sec-sub">Data-verified revisions from partner analysis and Olympedia cross-checks</p>
+  </div>
+  <div style="padding:0 28px 20px">
+    <div class="card">
+      <div class="model-grid">
+        <div class="model-item">
+          <div class="mi-title">Alekna: 82% &rarr; 58% (psychological factor)</div>
+          <div class="mi-body">World #1 rank gives 62% base probability. Psych factor 0.90 applied: silver (not gold) at Paris despite world lead. Age corrected to 25 in 2028 (born Sept 2002). Still the top gold candidate globally, but not a near-certainty.</div>
+        </div>
+        <div class="model-item">
+          <div class="mi-title">Senkute: age corrected to 32 (not 27)</div>
+          <div class="mi-body">Born 1996-04-12 from Paris 2024 athletes data. Age 32 in 2028. Near the upper range of peak sculling age, but not past it. Still a serious medal contender.</div>
+        </div>
+        <div class="model-item">
+          <div class="mi-title">Venckauskaite: age 35&ndash;36, not next generation</div>
+          <div class="mi-body">Born 1992-11-04. Same generation as Asadauskaite (born 1984). Modern Pentathlon probability revised down sharply. No clear next-generation pentathlete identified for 2028.</div>
+        </div>
+        <div class="model-item">
+          <div class="mi-title">Martynas Alekna: secondary Athletics contender</div>
+          <div class="mi-body">Mykolas's brother, born 2000, age 28 in 2028. Discus thrower at Paris 2024. Added as secondary contender via union formula, contributing ~3% independently at world ranking ~18.</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- MODEL NOTES -->
-<section>
-  <h2>Key Model Corrections &amp; Methodology Notes</h2>
-  <div class="card">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
-      <div>
-        <div style="font-size:.8rem;font-weight:700;color:var(--accent);margin-bottom:6px">Alekna: 82% to 58% (psychological factor)</div>
-        <div style="font-size:.78rem;color:var(--muted);line-height:1.6">
-          World #1 rank gives 62% base probability. Psych factor 0.90 applied: silver (not gold) at Paris despite world lead.
-          Age corrected to 25/26 in 2028 (born Sept 2002, not 2004). Competition field will improve.
-          Still the top gold candidate globally, just not a near-certainty.
-        </div>
-      </div>
-      <div>
-        <div style="font-size:.8rem;font-weight:700;color:var(--accent);margin-bottom:6px">Senkute: age corrected to 32 (not 27)</div>
-        <div style="font-size:.78rem;color:var(--muted);line-height:1.6">
-          Born 1996-04-12 from Paris 2024 athletes data. Age 32 in 2028.
-          32 is near the upper range of peak sculling age but not past it. Still a serious contender.
-        </div>
-      </div>
-      <div>
-        <div style="font-size:.8rem;font-weight:700;color:var(--accent);margin-bottom:6px">Venckauskaite: age 35-36, not "next gen"</div>
-        <div style="font-size:.78rem;color:var(--muted);line-height:1.6">
-          Born 1992-11-04. Same generation as Asadauskaite (born 1984). Modern Pentathlon
-          probability revised down sharply. No clear next-generation pentathlete identified.
-        </div>
-      </div>
-      <div>
-        <div style="font-size:.8rem;font-weight:700;color:var(--accent);margin-bottom:6px">Martynas Alekna: outlier find</div>
-        <div style="font-size:.78rem;color:var(--muted);line-height:1.6">
-          Mykolas's brother, born 2000, age 28 in 2028. Also a discus thrower at Paris 2024.
-          Not in original model. Added as secondary contender in Athletics via union formula,
-          contributing ~3% independently at current world ranking ~18.
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- ═══ FOOTER ═══ -->
+<footer class="site-footer" id="data">
+  <strong>Data sources:</strong>
+  Olympedia historical results 1992&ndash;2020 (Kaggle) &bull;
+  Paris 2024 official results (IOC) &bull;
+  World Athletics, FINA, FIBA 3x3, ICF, UIPM, ISSF rankings 2024 &bull;
+  IOC Programme Commission 2023 (Breaking removal) &bull;
+  Known correction: Gudzius Discus Gold Rio 2016 (absent from source dataset) &bull;
+  Bayesian shrinkage on sports with &lt;5 Games of data &bull;
+  Macro ensemble: XGBoost + RF trained on 137 countries 1960&ndash;2024
+  <br>
+  Generated 2026-03-25 &bull;
+  <a href="https://github.com/yonathan-star/lt-olympic-forecast">GitHub</a>
+</footer>
+
+</div><!-- end .page-wrap -->
 
 <script>
 // PRECOMPUTED DATA
