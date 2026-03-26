@@ -7,12 +7,24 @@
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <style>
 :root{
-  --bg:#07091a; --card:#0d1226; --card2:#111830; --border:#1c2244;
-  --text:#e8ecff; --muted:#6a72a0;
-  --gold:#e8b840; --gold2:#f5d060; --silver:#b8c0d0; --bronze:#c07830;
-  --accent:#3a7ef0; --accent2:#60a0ff;
-  --green:#1a9e4a; --orange:#d97020; --red:#cc2828;
-  --r:12px; --rr:18px;
+  --bg:#f5f3ef;
+  --card:#ffffff;
+  --card2:#edeae4;
+  --border:#d4cec6;
+  --text:#1c1a2a;
+  --muted:#70688a;
+  --gold:#a07800;
+  --gold2:#c09010;
+  --silver:#505870;
+  --bronze:#7a4c18;
+  --accent:#1e4eb8;
+  --accent2:#2860d8;
+  --green:#186038;
+  --orange:#b85e10;
+  --red:#a01818;
+  --beet:#b02860;
+  --r:12px;
+  --rr:18px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -25,14 +37,13 @@ body{background:var(--bg);color:var(--text);
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 
 /* ── OLYMPIC RINGS — proper 3-top / 2-bottom layout ─────────────────── */
-/* Each size: ring-diameter d, horizontal step s ≈ d+1, vertical drop v ≈ d*0.65 */
 .oring{position:relative;display:inline-block;vertical-align:middle}
 .or{position:absolute;border-radius:50%;border-style:solid}
 /* SM  d=14  s=16  v=9  total-w=46  h=23 */
 .oring.sm{width:46px;height:23px}
 .oring.sm .or{width:14px;height:14px;border-width:2px}
 .oring.sm .or:nth-child(1){left:0;  top:0;  border-color:#0081c8}
-.oring.sm .or:nth-child(2){left:16px;top:0; border-color:#8890b0}
+.oring.sm .or:nth-child(2){left:16px;top:0; border-color:#6a6a80}
 .oring.sm .or:nth-child(3){left:32px;top:0; border-color:#ee334e}
 .oring.sm .or:nth-child(4){left:8px; top:9px;border-color:#fcb131}
 .oring.sm .or:nth-child(5){left:24px;top:9px;border-color:#00a651}
@@ -40,7 +51,7 @@ body{background:var(--bg);color:var(--text);
 .oring.md{width:64px;height:33px}
 .oring.md .or{width:20px;height:20px;border-width:2.5px}
 .oring.md .or:nth-child(1){left:0;  top:0;   border-color:#0081c8}
-.oring.md .or:nth-child(2){left:22px;top:0;  border-color:#8890b0}
+.oring.md .or:nth-child(2){left:22px;top:0;  border-color:#6a6a80}
 .oring.md .or:nth-child(3){left:44px;top:0;  border-color:#ee334e}
 .oring.md .or:nth-child(4){left:11px;top:13px;border-color:#fcb131}
 .oring.md .or:nth-child(5){left:33px;top:13px;border-color:#00a651}
@@ -48,7 +59,7 @@ body{background:var(--bg);color:var(--text);
 .oring.lg{width:88px;height:46px}
 .oring.lg .or{width:28px;height:28px;border-width:3px}
 .oring.lg .or:nth-child(1){left:0;  top:0;   border-color:#0081c8}
-.oring.lg .or:nth-child(2){left:30px;top:0;  border-color:#8890b0}
+.oring.lg .or:nth-child(2){left:30px;top:0;  border-color:#6a6a80}
 .oring.lg .or:nth-child(3){left:60px;top:0;  border-color:#ee334e}
 .oring.lg .or:nth-child(4){left:15px;top:18px;border-color:#fcb131}
 .oring.lg .or:nth-child(5){left:45px;top:18px;border-color:#00a651}
@@ -56,7 +67,7 @@ body{background:var(--bg);color:var(--text);
 /* ── NAV ── */
 .top-nav{
   position:sticky;top:0;z-index:200;
-  background:rgba(7,9,26,.96);backdrop-filter:blur(16px);
+  background:rgba(245,243,239,.97);backdrop-filter:blur(16px);
   border-bottom:1px solid var(--border);
   display:flex;align-items:center;padding:0 36px;height:50px;gap:2px;
 }
@@ -70,8 +81,14 @@ body{background:var(--bg);color:var(--text);
   padding:5px 12px;border-radius:6px;transition:all .15s;white-space:nowrap;
 }
 .top-nav a:hover{color:var(--text);background:var(--card2)}
-.nav-right{margin-left:auto;font-size:.72rem;color:var(--muted)}
+.nav-right{margin-left:auto;font-size:.72rem;color:var(--muted);display:flex;align-items:center;gap:10px}
 .nav-right span{color:var(--gold);font-weight:600}
+.lang-btn{
+  background:none;border:1px solid var(--border);border-radius:6px;
+  color:var(--muted);font-size:.72rem;padding:4px 10px;cursor:pointer;
+  font-family:inherit;transition:all .15s;
+}
+.lang-btn:hover{color:var(--gold);border-color:var(--gold)}
 
 /* ── PAGE WRAP ── */
 .page-wrap{max-width:1360px;margin:0 auto;padding-bottom:60px}
@@ -79,7 +96,7 @@ body{background:var(--bg);color:var(--text);
 /* ── HERO ── */
 .hero{
   position:relative;overflow:hidden;
-  background:linear-gradient(160deg,#04081a 0%,#0a1535 40%,#060b1e 100%);
+  background:linear-gradient(160deg,#eef0ff 0%,#f0f3ff 45%,#eaedff 100%);
   border-bottom:1px solid var(--border);
   padding:60px 48px 52px;text-align:center;
 }
@@ -90,11 +107,11 @@ body{background:var(--bg);color:var(--text);
 .hero-glow{
   position:absolute;top:-80px;left:50%;transform:translateX(-50%);
   width:600px;height:400px;border-radius:50%;
-  background:radial-gradient(ellipse,rgba(232,184,64,.07) 0%,transparent 70%);
+  background:radial-gradient(ellipse,rgba(160,120,0,.05) 0%,transparent 70%);
   pointer-events:none;
 }
 .hero .flag{font-size:3rem;margin-bottom:14px;display:block;
-  filter:drop-shadow(0 0 24px rgba(232,184,64,.3))}
+  filter:drop-shadow(0 0 18px rgba(160,120,0,.2))}
 .hero h1{
   font-size:clamp(2rem,4.5vw,3rem);font-weight:800;margin-bottom:10px;
   letter-spacing:-.8px;line-height:1.1;
@@ -107,8 +124,8 @@ body{background:var(--bg);color:var(--text);
   color:var(--muted);font-size:.96rem;max-width:600px;
   margin:0 auto 32px;line-height:1.7;
 }
-.hero-rings-row{display:flex;justify-content:center;margin-bottom:14px;opacity:.65}
-.hero-datasrc{font-size:.68rem;color:#3e4570;margin-top:2px}
+.hero-rings-row{display:flex;justify-content:center;margin-bottom:14px;opacity:.7}
+.hero-datasrc{font-size:.68rem;color:#9090a8;margin-top:2px}
 
 /* ── OVERVIEW ── */
 .ovw-grid{
@@ -125,16 +142,19 @@ body{background:var(--bg);color:var(--text);
   padding:16px 18px;text-align:center;
   transition:border-color .2s,box-shadow .2s;
 }
-.metric:hover{border-color:rgba(232,184,64,.4);box-shadow:0 0 18px rgba(232,184,64,.06)}
+.metric:hover{border-color:rgba(160,120,0,.35);box-shadow:0 0 16px rgba(160,120,0,.07)}
 .metric .val{
   font-size:1.85rem;font-weight:800;line-height:1;
   color:var(--gold);transition:all .3s;
 }
 .metric .lbl{font-size:.63rem;color:var(--muted);margin-top:5px;text-transform:uppercase;letter-spacing:.8px}
-.metric .sub{font-size:.72rem;color:var(--text);margin-top:3px;transition:all .3s;opacity:.8}
+.metric .sub{font-size:.72rem;color:var(--text);margin-top:3px;transition:all .3s;opacity:.75}
 #metric-expected .val{font-size:2.2rem}
 .metric-gold .val{color:var(--gold)}
 .metric-silver .val{color:var(--silver)}
+.metric-beet .val{color:var(--beet)}
+.metric-beet{border-color:rgba(176,40,96,.15)}
+.metric-beet:hover{border-color:rgba(176,40,96,.35);box-shadow:0 0 16px rgba(176,40,96,.08)}
 
 /* ── SECTION HEADER ── */
 .sec-head{padding:32px 28px 14px}
@@ -144,8 +164,8 @@ body{background:var(--bg);color:var(--text);
 }
 .sec-head h2 .sh-icon{
   width:32px;height:32px;border-radius:8px;
-  background:linear-gradient(135deg,rgba(232,184,64,.2),rgba(232,184,64,.05));
-  border:1px solid rgba(232,184,64,.2);
+  background:linear-gradient(135deg,rgba(160,120,0,.12),rgba(160,120,0,.03));
+  border:1px solid rgba(160,120,0,.18);
   display:flex;align-items:center;justify-content:center;
   font-size:.9rem;flex-shrink:0;
 }
@@ -175,7 +195,7 @@ input[type=range]{
 input[type=range]::-webkit-slider-thumb{
   -webkit-appearance:none;width:16px;height:16px;
   border-radius:50%;background:var(--gold);cursor:pointer;
-  box-shadow:0 0 8px rgba(232,184,64,.5);
+  box-shadow:0 0 6px rgba(160,120,0,.4);
 }
 .range-ticks{display:flex;justify-content:space-between;font-size:.63rem;color:var(--muted);margin-top:5px}
 .sport-toggles{display:flex;flex-wrap:wrap;gap:7px}
@@ -183,8 +203,8 @@ input[type=range]::-webkit-slider-thumb{
   background:var(--card);border:1px solid var(--border);border-radius:20px;
   padding:4px 13px;font-size:.73rem;cursor:pointer;transition:all .2s;user-select:none;
 }
-.sport-toggle.active{background:rgba(232,184,64,.1);border-color:rgba(232,184,64,.4);color:var(--gold2)}
-.sport-toggle:hover{border-color:rgba(232,184,64,.3)}
+.sport-toggle.active{background:rgba(160,120,0,.08);border-color:rgba(160,120,0,.35);color:var(--gold)}
+.sport-toggle:hover{border-color:rgba(160,120,0,.3)}
 
 /* ── ADVANCED PANEL ── */
 .adv-panel{
@@ -204,7 +224,7 @@ details[open]>summary::before{transform:rotate(90deg)}
 .adv-group h4{
   font-size:.68rem;text-transform:uppercase;letter-spacing:.9px;color:var(--gold);
   margin-bottom:12px;padding-bottom:7px;
-  border-bottom:1px solid rgba(232,184,64,.15);
+  border-bottom:1px solid rgba(160,120,0,.18);
 }
 .adv-row{margin-bottom:10px}
 .adv-row label{font-size:.74rem;color:var(--muted);display:block;margin-bottom:4px}
@@ -214,38 +234,41 @@ details[open]>summary::before{transform:rotate(90deg)}
   border-radius:6px;color:var(--text);padding:6px 8px;
   font-size:.74rem;cursor:pointer;outline:none;transition:border-color .15s;
 }
-.adv-row select:focus{border-color:rgba(232,184,64,.4)}
+.adv-row select:focus{border-color:rgba(160,120,0,.4)}
 .checkbox-row{
   display:flex;align-items:center;gap:8px;font-size:.74rem;
   color:var(--muted);margin-bottom:6px;cursor:pointer;
 }
 .checkbox-row input{accent-color:var(--gold);cursor:pointer}
+.checkbox-row.beet-cb{color:var(--beet)}
+.checkbox-row.beet-cb input{accent-color:var(--beet)}
 
 /* ── GRID ── */
 .grid{display:grid;gap:18px;padding:0 28px 18px}
 .grid-2{grid-template-columns:1fr 1fr}
-.grid-3-2{grid-template-columns:3fr 2fr}
-@media(max-width:960px){.grid-2,.grid-3-2{grid-template-columns:1fr}}
+@media(max-width:960px){.grid-2{grid-template-columns:1fr}}
 
 /* ── CARD ── */
 .card{
   background:var(--card);border:1px solid var(--border);border-radius:var(--rr);
   padding:22px;transition:border-color .2s;
+  box-shadow:0 1px 4px rgba(0,0,0,.04);
 }
-.card:hover{border-color:rgba(232,184,64,.15)}
+.card:hover{border-color:rgba(160,120,0,.2)}
 .card h2{font-size:.93rem;font-weight:700;margin-bottom:5px;color:var(--text)}
 .card .caption{font-size:.71rem;color:var(--muted);margin-bottom:14px;line-height:1.55}
 
 /* ── TABLES ── */
 table{width:100%;border-collapse:collapse;font-size:.79rem}
 th{
-  text-align:left;padding:9px 10px;color:var(--muted);font-weight:500;
+  text-align:left;padding:9px 10px;color:var(--muted);font-weight:600;
   border-bottom:1px solid var(--border);
   font-size:.66rem;text-transform:uppercase;letter-spacing:.4px;
+  background:var(--card2);
 }
-td{padding:10px 10px;border-bottom:1px solid rgba(28,34,68,.8);vertical-align:top;line-height:1.55}
+td{padding:10px 10px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55}
 tr:last-child td{border-bottom:none}
-tr:hover td{background:var(--card2)}
+tr:hover td{background:#faf9f6}
 .muted{color:var(--muted)}.small{font-size:.72rem}
 
 /* ── PILLS ── */
@@ -253,31 +276,32 @@ tr:hover td{background:var(--card2)}
   display:inline-block;padding:2px 9px;border-radius:20px;
   font-size:.65rem;font-weight:600;white-space:nowrap;letter-spacing:.2px;
 }
-.pill.high{background:rgba(232,184,64,.12);color:var(--gold);border:1px solid rgba(232,184,64,.2)}
-.pill.med{background:rgba(26,158,74,.12);color:#3ecf70;border:1px solid rgba(26,158,74,.2)}
-.pill.low{background:rgba(217,112,32,.12);color:#e08844;border:1px solid rgba(217,112,32,.2)}
-.pill.dark{background:rgba(204,40,40,.08);color:#e06060;border:1px solid rgba(204,40,40,.15)}
+.pill.high{background:rgba(160,120,0,.1);color:#8a6000;border:1px solid rgba(160,120,0,.2)}
+.pill.med{background:rgba(24,96,56,.08);color:#186038;border:1px solid rgba(24,96,56,.2)}
+.pill.low{background:rgba(184,94,16,.08);color:#b85e10;border:1px solid rgba(184,94,16,.2)}
+.pill.dark{background:rgba(160,24,24,.06);color:#a01818;border:1px solid rgba(160,24,24,.15)}
 
 /* ── ATHLETE CARDS ── */
 .athlete-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:16px}
 .acard{
   background:var(--card);border:1px solid var(--border);border-radius:var(--rr);
   padding:20px;transition:all .2s;position:relative;overflow:hidden;
+  box-shadow:0 1px 4px rgba(0,0,0,.05);
 }
 .acard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
 .acard.gold-tier::before{background:linear-gradient(90deg,var(--gold),var(--gold2))}
-.acard.silver-tier::before{background:linear-gradient(90deg,#8090b0,var(--silver))}
-.acard.bronze-tier::before{background:linear-gradient(90deg,var(--bronze),#e0a060)}
-.acard:hover{border-color:rgba(232,184,64,.25);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.acard.silver-tier::before{background:linear-gradient(90deg,#7080a0,var(--silver))}
+.acard.bronze-tier::before{background:linear-gradient(90deg,var(--bronze),#c09060)}
+.acard:hover{border-color:rgba(160,120,0,.3);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.1)}
 .acard .aname{font-size:.96rem;font-weight:700;margin-bottom:2px;padding-right:62px;color:var(--text)}
 .acard .asport{font-size:.71rem;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:.4px}
 .acard .abadge{
   position:absolute;top:18px;right:18px;font-weight:800;font-size:.88rem;
   padding:4px 11px;border-radius:8px;
 }
-.acard.gold-tier   .abadge{background:rgba(232,184,64,.15);color:var(--gold);border:1px solid rgba(232,184,64,.3)}
-.acard.silver-tier .abadge{background:rgba(184,192,208,.1);color:var(--silver);border:1px solid rgba(184,192,208,.25)}
-.acard.bronze-tier .abadge{background:rgba(192,120,48,.12);color:#e09850;border:1px solid rgba(192,120,48,.25)}
+.acard.gold-tier   .abadge{background:rgba(160,120,0,.1);color:var(--gold);border:1px solid rgba(160,120,0,.25)}
+.acard.silver-tier .abadge{background:rgba(80,88,112,.08);color:var(--silver);border:1px solid rgba(80,88,112,.2)}
+.acard.bronze-tier .abadge{background:rgba(122,76,24,.08);color:#8a5820;border:1px solid rgba(122,76,24,.2)}
 .acard p{font-size:.77rem;color:var(--muted);line-height:1.6}
 .acard .astat{
   font-size:.71rem;color:var(--text);margin-top:10px;padding-top:10px;
@@ -289,18 +313,28 @@ tr:hover td{background:var(--card2)}
 
 /* ── WARN ── */
 .warn{
-  background:rgba(204,40,40,.07);border:1px solid rgba(204,40,40,.2);
+  background:rgba(160,24,24,.04);border:1px solid rgba(160,24,24,.18);
   border-radius:var(--r);padding:14px 20px;font-size:.8rem;
-  color:#e88888;margin:0 28px 20px;line-height:1.6;
+  color:#8a1818;margin:0 28px 20px;line-height:1.6;
 }
-.warn strong{color:#ff9090}
+.warn strong{color:#a01818}
 
 /* ── SCENARIO BOX ── */
 .scenario-box{
-  background:rgba(26,158,74,.07);border:1px solid rgba(26,158,74,.2);
+  background:rgba(24,96,56,.05);border:1px solid rgba(24,96,56,.2);
   border-radius:var(--r);padding:16px;font-size:.8rem;
-  color:#4ed080;line-height:1.9;margin-top:8px;
+  color:#186038;line-height:1.9;margin-top:8px;
 }
+
+/* ── SALTIBARCIAI TOAST ── */
+.beet-toast{
+  position:fixed;bottom:24px;right:24px;z-index:999;
+  background:var(--beet);color:#fff;
+  border-radius:12px;padding:14px 20px;font-size:.8rem;
+  max-width:360px;box-shadow:0 4px 24px rgba(176,40,96,.25);
+  line-height:1.6;animation:toastIn .3s ease;
+}
+@keyframes toastIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── FOOTER ── */
 .site-footer{
@@ -308,14 +342,14 @@ tr:hover td{background:var(--card2)}
   padding:32px 28px;border-top:1px solid var(--border);
   margin-top:16px;line-height:2;
 }
-.site-footer a{color:var(--gold);text-decoration:none;opacity:.8}
+.site-footer a{color:var(--gold);text-decoration:none;opacity:.9}
 .site-footer a:hover{opacity:1}
 .footer-rings-row{display:flex;justify-content:center;margin-bottom:18px}
 
 /* ── PIPELINE FACTOR COLORS ── */
-.f-good{color:#3ecf70;font-size:.72rem}
+.f-good{color:var(--green);font-size:.72rem}
 .f-disc{color:var(--gold);font-size:.72rem}
-.f-poor{color:#e08844;font-size:.72rem}
+.f-poor{color:var(--orange);font-size:.72rem}
 </style>
 </head>
 <body>
@@ -326,12 +360,15 @@ tr:hover td{background:var(--card2)}
     <div class="oring sm"><span class="or"></span><span class="or"></span><span class="or"></span><span class="or"></span><span class="or"></span></div>
     LT&nbsp;2028
   </a>
-  <a href="#overview">Forecast</a>
-  <a href="#athletes">Athletes</a>
-  <a href="#simulator">Simulator</a>
-  <a href="#analysis">Analysis</a>
-  <a href="#data">Data</a>
-  <span class="nav-right">Expected medals: <span id="nav-expected">2.22</span></span>
+  <a href="#overview" data-i18n="nav-forecast">Forecast</a>
+  <a href="#athletes" data-i18n="nav-athletes">Athletes</a>
+  <a href="#simulator" data-i18n="nav-simulator">Simulator</a>
+  <a href="#analysis" data-i18n="nav-analysis">Analysis</a>
+  <a href="#data" data-i18n="nav-data">Data</a>
+  <span class="nav-right">
+    <span data-i18n="nav-expected-lbl">Expected medals:</span>&nbsp;<span id="nav-expected">2.22</span>
+    <button class="lang-btn" id="lang-btn" onclick="toggleLang()">LT</button>
+  </span>
 </nav>
 
 <div class="page-wrap">
@@ -340,15 +377,15 @@ tr:hover td{background:var(--card2)}
 <header class="hero" id="top">
   <div class="hero-glow"></div>
   <span class="flag">&#x1F1F1;&#x1F1F9;</span>
-  <h1>Lithuania&ensp;<span class="edition">LA 2028</span><br>Olympic Medal Forecast</h1>
-  <p class="tagline">
+  <h1 data-i18n-html="hero-title">Lithuania&ensp;<span class="edition">LA&nbsp;2028</span><br>Olympic Medal Forecast</h1>
+  <p class="tagline" data-i18n="hero-tagline">
     Sport-by-sport prediction built from Olympedia historical data (1992&ndash;2024),
     the known athlete pipeline, and a correlated Monte Carlo simulation.
   </p>
   <div class="hero-rings-row">
     <div class="oring lg"><span class="or"></span><span class="or"></span><span class="or"></span><span class="or"></span><span class="or"></span></div>
   </div>
-  <p class="hero-datasrc">
+  <p class="hero-datasrc" data-i18n="hero-datasrc">
     Olympedia 1992&ndash;2020 &bull; IOC Paris 2024 &bull; Bayesian shrinkage &bull;
     10,000-run Monte Carlo &bull; Gaussian copula &rho;=0.15
   </p>
@@ -357,40 +394,43 @@ tr:hover td{background:var(--card2)}
 <!-- ═══ FORECAST OVERVIEW ═══ -->
 <section id="overview">
   <div class="sec-head">
-    <h2><span class="sh-icon">&#127942;</span>2028 Forecast</h2>
-    <p class="sec-sub">Baseline scenario &mdash; use the Simulator below to adjust funding, athletes, and conditions</p>
+    <h2><span class="sh-icon">&#127942;</span><span data-i18n="sec-forecast">2028 Forecast</span></h2>
+    <p class="sec-sub" data-i18n="sub-forecast">Baseline scenario &mdash; use the Simulator below to adjust funding, athletes, and conditions</p>
   </div>
 
   <div class="ovw-grid">
-    <!-- left: live metric cards -->
     <div class="ovw-metrics">
       <div class="metric metric-gold" id="metric-expected">
         <div class="val" id="val-expected">2.22</div>
-        <div class="lbl">Expected medals</div>
+        <div class="lbl" data-i18n="lbl-expected">Expected medals</div>
         <div class="sub" id="sub-expected">P10&ndash;P90: 0&ndash;4</div>
       </div>
       <div class="metric">
         <div class="val" id="val-range">0&ndash;4</div>
-        <div class="lbl">Likely range</div>
-        <div class="sub">P10 &ndash; P90</div>
+        <div class="lbl" data-i18n="lbl-range">Likely range</div>
+        <div class="sub" data-i18n="sub-range">P10 &ndash; P90</div>
       </div>
       <div class="metric">
         <div class="val" id="val-zero">13.2%</div>
-        <div class="lbl">Zero-medal risk</div>
-        <div class="sub" id="sub-zero">current settings</div>
+        <div class="lbl" data-i18n="lbl-zero">Zero-medal risk</div>
+        <div class="sub" id="sub-zero" data-i18n="sub-zero-static">current settings</div>
       </div>
       <div class="metric metric-gold">
         <div class="val" id="val-ath">58%</div>
-        <div class="lbl">Athletics</div>
-        <div class="sub">Alekna &mdash; gold favourite</div>
+        <div class="lbl" data-i18n="lbl-athletics">Athletics</div>
+        <div class="sub" data-i18n="sub-athletics">Alekna &mdash; gold favourite</div>
       </div>
       <div class="metric metric-silver">
         <div class="val">4</div>
-        <div class="lbl">Paris 2024 actual</div>
-        <div class="sub">incl. Breaking silver</div>
+        <div class="lbl" data-i18n="lbl-paris">Paris 2024 actual</div>
+        <div class="sub" data-i18n="sub-paris">incl. Breaking silver</div>
+      </div>
+      <div class="metric metric-beet" title="&#352;altibar&#353;&#269;iai: Lithuania's beloved cold pink beet soup. Widely considered the true source of Lithuanian athletic excellence.">
+        <div class="val">100%</div>
+        <div class="lbl" data-i18n="lbl-beet">&#352;altibar&#353;&#269;iai Index</div>
+        <div class="sub" data-i18n="sub-beet">Post-medal ceremony probability</div>
       </div>
     </div>
-    <!-- right: per-sport chart -->
     <div class="card">
       <h2>Per-Sport Medal Probability</h2>
       <p class="caption">Grey = historical win rate &bull; Coloured = 2028 estimate &bull; Updates with all simulator controls</p>
@@ -398,10 +438,9 @@ tr:hover td{background:var(--card2)}
     </div>
   </div>
 
-  <!-- per-sport detail table -->
   <div class="ovw-table">
     <div class="card">
-      <h2 style="margin-bottom:12px">Sport-by-Sport Detail</h2>
+      <h2 style="margin-bottom:12px" data-i18n="tbl-title">Sport-by-Sport Detail</h2>
       <div style="overflow-x:auto">
       <table>
         <tr><th>Sport</th><th>2028 Prob</th><th>Historical</th><th>Medal years</th><th>Outlook</th><th>Notes</th></tr>
@@ -419,7 +458,7 @@ tr:hover td{background:var(--card2)}
           <td class="muted small">3/9 Games (33%)</td>
           <td class="muted small">2000, 2016, 2024</td>
           <td><span class="pill med">Realistic</span></td>
-          <td class="muted small">Viktorija Senkute (32 in 2028): Olympic bronze 2024 (W Single Sculls). Born 1996, near peak sculling age. Strong programme with funding upside.</td>
+          <td class="muted small">Viktorija Senkute (32 in 2028): Olympic bronze 2024 (W Single Sculls). Born 1996, near peak sculling age.</td>
         </tr>
         <tr>
           <td><strong>Swimming</strong></td>
@@ -427,7 +466,7 @@ tr:hover td{background:var(--card2)}
           <td class="muted small">1/9 Games (11%)</td>
           <td class="muted small">2012</td>
           <td><span class="pill med">Realistic</span></td>
-          <td class="muted small">Ruta Meilutyte (31 in 2028): WR holder 50m breast, Olympic gold 2012, psych factor applied. Danas Rapsys (33 in 2028): multiple Olympic A-finals.</td>
+          <td class="muted small">Ruta Meilutyte (31 in 2028): WR holder 50m breast, Olympic gold 2012, psych factor applied. Danas Rapsys (33): multiple Olympic A-finals.</td>
         </tr>
         <tr>
           <td><strong>3x3 Basketball</strong></td>
@@ -435,7 +474,7 @@ tr:hover td{background:var(--card2)}
           <td class="muted small">1/2 Games (50%)</td>
           <td class="muted small">2024</td>
           <td><span class="pill med">Realistic</span></td>
-          <td class="muted small">Olympic bronze 2024. Core roster ages 31&ndash;41 in 2028 &mdash; roster continuity uncertain. Lithuania basketball culture is a structural advantage.</td>
+          <td class="muted small">Olympic bronze 2024. Core roster ages 31&ndash;41 in 2028 &mdash; roster continuity uncertain.</td>
         </tr>
         <tr>
           <td><strong>Modern Pentathlon</strong></td>
@@ -443,7 +482,7 @@ tr:hover td{background:var(--card2)}
           <td class="muted small">4/9 Games (44%)</td>
           <td class="muted small">2004, 2008, 2012, 2020</td>
           <td><span class="pill low">Possible</span></td>
-          <td class="muted small">Asadauskaite (44 in 2028): virtually certain to have retired. Venckauskaite (35&ndash;36) is the only pipeline; no next-generation contender identified.</td>
+          <td class="muted small">Asadauskaite (44 in 2028): virtually certain to have retired. Venckauskaite (35&ndash;36) is the only pipeline.</td>
         </tr>
         <tr>
           <td><strong>Weightlifting</strong></td>
@@ -459,7 +498,7 @@ tr:hover td{background:var(--card2)}
           <td class="muted small">2/9 Games (22%)</td>
           <td class="muted small">2008, 2012</td>
           <td><span class="pill low">Possible</span></td>
-          <td class="muted small">Two medals in 2008 and 2012. No current top-ranked Lithuanian contender. Gabija Dilyte (25 in 2028) is a developing prospect.</td>
+          <td class="muted small">Two medals in 2008 and 2012. Gabija Dilyte (25 in 2028) is a developing prospect.</td>
         </tr>
         <tr>
           <td><strong>Shooting</strong></td>
@@ -488,8 +527,8 @@ tr:hover td{background:var(--card2)}
 <!-- ═══ ATHLETES ═══ -->
 <section id="athletes">
   <div class="sec-head">
-    <h2><span class="sh-icon">&#127941;</span>Key Athletes &mdash; LA 2028 Contenders</h2>
-    <p class="sec-sub">Primary medal candidates driving the per-sport probabilities above</p>
+    <h2><span class="sh-icon">&#127941;</span><span data-i18n="sec-athletes">Key Athletes &mdash; LA 2028 Contenders</span></h2>
+    <p class="sec-sub" data-i18n="sub-athletes">Primary medal candidates driving the per-sport probabilities above</p>
   </div>
 
   <div style="padding:0 28px 24px">
@@ -526,13 +565,13 @@ tr:hover td{background:var(--card2)}
         <span class="abadge">20%</span>
         <div class="aname">Gintare Venckauskaite</div>
         <div class="asport">Modern Pentathlon</div>
-        <p>Born 1992, age 35&ndash;36 in 2028 &mdash; late career. Same generation as Asadauskaite (born 1984, age 44, retired). No confirmed next-generation pentathlete. Probability reflects weak pipeline.</p>
+        <p>Born 1992, age 35&ndash;36 in 2028 &mdash; late career. Same generation as Asadauskaite (born 1984, age 44, retired). No confirmed next-generation pentathlete identified.</p>
         <div class="astat">Born 1992 &bull; Age in 2028: 35&ndash;36 &bull; Asadauskaite: retired</div>
       </div>
     </div>
   </div>
 
-  <div class="warn">
+  <div class="warn" data-i18n-html="warn-breaking">
     <strong>Breaking is NOT on the LA 2028 programme.</strong>
     NICKA (Dominyka Banevic) won Silver at Paris 2024, but the IOC removed Breaking from the 2028 Games.
     Lithuania's 2028 forecast is calculated without this sport.
@@ -545,34 +584,34 @@ tr:hover td{background:var(--card2)}
 <!-- ═══ SIMULATOR ═══ -->
 <section id="simulator">
   <div class="sec-head">
-    <h2><span class="sh-icon">&#9881;</span>Interactive Simulator</h2>
-    <p class="sec-sub">Adjust funding, athlete status, and conditions &mdash; charts update live. The forecast table above also updates.</p>
+    <h2><span class="sh-icon">&#9881;</span><span data-i18n="sec-simulator">Interactive Simulator</span></h2>
+    <p class="sec-sub" data-i18n="sub-simulator">Adjust funding, athlete status, and conditions &mdash; charts update live. The forecast table above also updates.</p>
   </div>
 
   <div class="sim-bar">
-    <h3>Core controls</h3>
+    <h3 data-i18n="ctrl-core">Core controls</h3>
     <div class="sim-controls">
       <div class="sim-block" style="min-width:260px">
-        <label>Funding multiplier &nbsp;<span class="val-display" id="funding-display">1.00x</span></label>
+        <label><span data-i18n="lbl-funding">Funding multiplier</span>&nbsp;<span class="val-display" id="funding-display">1.00x</span></label>
         <input type="range" id="funding-slider" min="0" max="9" value="2" step="1">
         <div class="range-ticks">
           <span>0.5x (cut)</span><span>1.0x (baseline)</span><span>2.0x</span><span>4.0x</span>
         </div>
       </div>
       <div class="sim-block" style="flex:2;min-width:280px">
-        <label>Sports to include &mdash; click to toggle off / on</label>
+        <label data-i18n="lbl-sports">Sports to include &mdash; click to toggle off / on</label>
         <div class="sport-toggles" id="sport-toggles"></div>
       </div>
     </div>
   </div>
 
   <details class="adv-panel">
-    <summary>Advanced Factors &mdash; athlete status, programme &amp; external conditions</summary>
+    <summary data-i18n="adv-title">Advanced Factors &mdash; athlete status, programme &amp; external conditions</summary>
     <div class="adv-groups">
       <div class="adv-group">
-        <h4>Athlete Status</h4>
+        <h4 data-i18n="adv-ath-head">Athlete Status</h4>
         <div class="adv-row">
-          <label>Mykolas Alekna</label>
+          <label data-i18n="lbl-alekna">Mykolas Alekna</label>
           <select id="adv-alekna" onchange="updateAll()">
             <option value="peak" selected>Peak form (world #1)</option>
             <option value="uncertain">Minor injury / uncertain</option>
@@ -580,7 +619,7 @@ tr:hover td{background:var(--card2)}
           </select>
         </div>
         <div class="adv-row">
-          <label>Ruta Meilutyte</label>
+          <label data-i18n="lbl-meilutyte">Ruta Meilutyte</label>
           <select id="adv-meilutyte" onchange="updateAll()">
             <option value="normal" selected>Active (100m breast only)</option>
             <option value="confirmed_50m">50m breast confirmed for LA 2028</option>
@@ -588,7 +627,7 @@ tr:hover td{background:var(--card2)}
           </select>
         </div>
         <div class="adv-row">
-          <label>3x3 Basketball roster</label>
+          <label data-i18n="lbl-bball">3x3 Basketball roster</label>
           <select id="adv-bball" onchange="updateAll()">
             <option value="full" selected>Full core roster (Paris 2024)</option>
             <option value="partial">2&ndash;3 core players remain</option>
@@ -597,17 +636,18 @@ tr:hover td{background:var(--card2)}
           </select>
         </div>
         <div class="adv-row" style="margin-top:10px">
-          <label style="margin-bottom:7px">Youth pipeline</label>
+          <label style="margin-bottom:7px" data-i18n="lbl-pipeline">Youth pipeline</label>
           <label class="checkbox-row"><input type="checkbox" id="pipe-lukminas" onchange="updateAll()"> Lukminas (Athletics +2%)</label>
           <label class="checkbox-row"><input type="checkbox" id="pipe-dilyte" onchange="updateAll()"> Dilyte (Wrestling +5%)</label>
           <label class="checkbox-row"><input type="checkbox" id="pipe-navikonis" onchange="updateAll()"> Navikonis (Rowing +2%)</label>
           <label class="checkbox-row"><input type="checkbox" id="pipe-unknown" onchange="updateAll()"> Unknown breakout (+2.5%)</label>
+          <label class="checkbox-row beet-cb"><input type="checkbox" id="pipe-saltibarciai" onchange="saltibarciai(this)"> <span data-i18n="lbl-saltibarciai">&#352;altibar&#353;&#269;iai protocol (+&infin;%)</span></label>
         </div>
       </div>
       <div class="adv-group">
-        <h4>Programme &amp; Investment</h4>
+        <h4 data-i18n="adv-prog-head">Programme &amp; Investment</h4>
         <div class="adv-row">
-          <label>Focus mode</label>
+          <label data-i18n="lbl-focus">Focus mode</label>
           <select id="adv-focus" onchange="updateAll()">
             <option value="broad" selected>Broad (all sports)</option>
             <option value="top3">Focused &mdash; top 3 sports</option>
@@ -615,12 +655,12 @@ tr:hover td{background:var(--card2)}
           </select>
         </div>
         <div class="adv-row">
-          <label>Delegation size &nbsp;<span class="val-disp" id="deleg-display">50</span></label>
+          <label><span data-i18n="lbl-deleg">Delegation size</span>&nbsp;<span class="val-disp" id="deleg-display">50</span></label>
           <input type="range" id="adv-deleg" min="25" max="80" value="50" step="5"
             oninput="document.getElementById('deleg-display').textContent=this.value;updateAll()">
         </div>
         <div class="adv-row">
-          <label>Coaching &amp; support quality</label>
+          <label data-i18n="lbl-coaching">Coaching &amp; support quality</label>
           <select id="adv-coaching" onchange="updateAll()">
             <option value="low">Below average</option>
             <option value="normal" selected>Average (current)</option>
@@ -629,7 +669,7 @@ tr:hover td{background:var(--card2)}
           </select>
         </div>
         <div class="adv-row">
-          <label>Competition peaking</label>
+          <label data-i18n="lbl-peaking">Competition peaking</label>
           <select id="adv-peak" onchange="updateAll()">
             <option value="poor">Poor peaking</option>
             <option value="normal" selected>Normal</option>
@@ -638,9 +678,9 @@ tr:hover td{background:var(--card2)}
         </div>
       </div>
       <div class="adv-group">
-        <h4>External Conditions</h4>
+        <h4 data-i18n="adv-ext-head">External Conditions</h4>
         <div class="adv-row">
-          <label>Host nation effect (LA 2028)</label>
+          <label data-i18n="lbl-host">Host nation effect (LA 2028)</label>
           <select id="adv-host" onchange="updateAll()">
             <option value="negative">Negative (crowd disadvantage)</option>
             <option value="neutral" selected>Neutral</option>
@@ -648,7 +688,7 @@ tr:hover td{background:var(--card2)}
           </select>
         </div>
         <div class="adv-row">
-          <label>GDP &amp; budget scenario</label>
+          <label data-i18n="lbl-gdp">GDP &amp; budget scenario</label>
           <select id="adv-gdp" onchange="updateAll()">
             <option value="recession">Recession (budget &minus;10%)</option>
             <option value="baseline" selected>Baseline (modest growth)</option>
@@ -656,7 +696,7 @@ tr:hover td{background:var(--card2)}
           </select>
         </div>
         <div class="adv-row">
-          <label>Cross-sport correlation &rho;</label>
+          <label data-i18n="lbl-rho">Cross-sport correlation &rho;</label>
           <select id="adv-rho" onchange="updateAll()">
             <option value="low">Low (0.05 &mdash; independent)</option>
             <option value="medium" selected>Medium (0.15 &mdash; default)</option>
@@ -669,34 +709,34 @@ tr:hover td{background:var(--card2)}
 
   <div class="grid grid-2">
     <div class="card">
-      <h2>Medal Count Distribution</h2>
-      <p class="caption">Exact Poisson-binomial probability at current settings</p>
+      <h2 data-i18n="chart-mc-title">Medal Count Distribution</h2>
+      <p class="caption" data-i18n="chart-mc-cap">Exact Poisson-binomial probability at current settings</p>
       <div id="chart-mc"></div>
     </div>
     <div class="card">
-      <h2>Historical Performance 1992&ndash;2024</h2>
-      <p class="caption">Red star = 2028 forecast with P10&ndash;P90 error bar</p>
+      <h2 data-i18n="chart-hist-title">Historical Performance 1992&ndash;2024</h2>
+      <p class="caption" data-i18n="chart-hist-cap">Red star = 2028 forecast with P10&ndash;P90 error bar</p>
       <div id="chart-hist"></div>
     </div>
   </div>
 
   <div class="grid grid-2">
     <div class="card">
-      <h2>Medal Type Breakdown</h2>
-      <p class="caption">Estimated gold / silver / bronze split per sport</p>
+      <h2 data-i18n="chart-type-title">Medal Type Breakdown</h2>
+      <p class="caption" data-i18n="chart-type-cap">Estimated gold / silver / bronze split per sport</p>
       <div id="chart-type"></div>
     </div>
     <div class="card">
-      <h2>Scenario Comparison</h2>
-      <p class="caption">Baseline, 2x &amp; 3x funding vs current settings (red bar)</p>
+      <h2 data-i18n="chart-scen-title">Scenario Comparison</h2>
+      <p class="caption" data-i18n="chart-scen-cap">Baseline, 2x &amp; 3x funding vs current settings (red bar)</p>
       <div id="chart-scen"></div>
     </div>
   </div>
 
   <div class="grid">
     <div class="card">
-      <h2>Peer Country Comparison &mdash; Paris 2024</h2>
-      <p class="caption">Lithuania vs similar small European nations</p>
+      <h2 data-i18n="chart-peers-title">Peer Country Comparison &mdash; Paris 2024</h2>
+      <p class="caption" data-i18n="chart-peers-cap">Lithuania vs similar small European nations</p>
       <div id="chart-peers"></div>
     </div>
   </div>
@@ -707,19 +747,19 @@ tr:hover td{background:var(--card2)}
 <!-- ═══ ANALYSIS ═══ -->
 <section id="analysis">
   <div class="sec-head">
-    <h2><span class="sh-icon">&#128202;</span>Model Analysis</h2>
-    <p class="sec-sub">How each probability is built &mdash; athlete decomposition and pipeline</p>
+    <h2><span class="sh-icon">&#128202;</span><span data-i18n="sec-analysis">Model Analysis</span></h2>
+    <p class="sec-sub" data-i18n="sub-analysis">How each probability is built &mdash; athlete decomposition and pipeline</p>
   </div>
 
   <div class="grid grid-2">
     <div class="card">
-      <h2>Athlete Model vs Historical Rate</h2>
-      <p class="caption">Grey = recency-weighted historical win rate &bull; Blue = athlete ranking model (union of contenders) &bull; Red diamond = final blended estimate</p>
+      <h2 data-i18n="chart-decomp-title">Athlete Model vs Historical Rate</h2>
+      <p class="caption" data-i18n="chart-decomp-cap">Grey = recency-weighted historical win rate &bull; Blue = athlete ranking model (union of contenders) &bull; Red diamond = final blended estimate</p>
       <div id="chart-decomp"></div>
     </div>
     <div class="card">
-      <h2>Athlete Pipeline &amp; World Rankings</h2>
-      <p class="caption">Event medal prob = rank_prob &times; psych_factor &times; age_factor. Union across contenders gives sport probability.</p>
+      <h2 data-i18n="pipe-title">Athlete Pipeline &amp; World Rankings</h2>
+      <p class="caption" data-i18n="pipe-cap">Event medal prob = rank_prob &times; psych_factor &times; age_factor. Union across contenders gives sport probability.</p>
       <div style="overflow-x:auto">
         <table>
           <tr><th>Athlete</th><th>Event</th><th>Rank</th><th>Age 2028</th><th>Prob</th><th>Factor</th><th>Notes</th></tr>
@@ -727,49 +767,49 @@ tr:hover td{background:var(--card2)}
             <td><strong>Mykolas Alekna</strong></td><td class="muted small">Discus Men</td>
             <td><strong>#1</strong></td><td>25</td><td><strong>58%</strong></td>
             <td class="f-disc">Slight discount</td>
-            <td class="muted small">World #1 2024, 74.35m WL, Olympic silver 2024 (aged 21). Age 25 in 2028.</td>
+            <td class="muted small">World #1 2024, 74.35m WL, Olympic silver 2024 (aged 21).</td>
           </tr>
           <tr>
             <td><strong>Viktorija Senkute</strong></td><td class="muted small">W Single Sculls</td>
             <td><strong>#3</strong></td><td>32</td><td><strong>37%</strong></td>
             <td class="f-good">Normal</td>
-            <td class="muted small">Olympic bronze 2024, born 1996, age 32 in 2028. Peak rowing years.</td>
+            <td class="muted small">Olympic bronze 2024, born 1996, age 32 in 2028.</td>
           </tr>
           <tr>
             <td><strong>Stankunas twins</strong></td><td class="muted small">M Double Sculls</td>
             <td><strong>#14</strong></td><td>28</td><td><strong>6%</strong></td>
             <td class="f-good">Normal</td>
-            <td class="muted small">Domantas &amp; Dovydas, Paris 2024 participants, age 27&ndash;28 in 2028.</td>
+            <td class="muted small">Domantas &amp; Dovydas, Paris 2024 participants.</td>
           </tr>
           <tr>
             <td><strong>Ruta Meilutyte</strong></td><td class="muted small">100m Breaststroke</td>
             <td><strong>#4</strong></td><td>31</td><td><strong>22%</strong></td>
             <td class="f-poor">Olympic underperformer</td>
-            <td class="muted small">WR holder 50m breast, top-5 100m. Age 31 in 2028. Last medal: gold 2012.</td>
+            <td class="muted small">WR holder 50m breast, top-5 100m. Last medal: gold 2012.</td>
           </tr>
           <tr>
             <td><strong>Danas Rapsys</strong></td><td class="muted small">200m Freestyle Men</td>
             <td><strong>#7</strong></td><td>33</td><td><strong>13%</strong></td>
             <td class="f-disc">Slight discount</td>
-            <td class="muted small">European champion, 3 Olympic A-finals. Age 33 in 2028 &mdash; upper edge of prime.</td>
+            <td class="muted small">European champion, 3 Olympic A-finals. Age 33 in 2028.</td>
           </tr>
           <tr>
             <td><strong>Lithuania 3x3 Men</strong></td><td class="muted small">3x3 Basketball</td>
             <td><strong>#5</strong></td><td>35</td><td><strong>21%</strong></td>
             <td class="f-good">Normal</td>
-            <td class="muted small">Olympic bronze 2024. Core roster ages 31&ndash;41 in 2028. Roster uncertainty high.</td>
+            <td class="muted small">Olympic bronze 2024. Roster continuity uncertain.</td>
           </tr>
           <tr>
             <td><strong>Gintare Venckauskaite</strong></td><td class="muted small">Women's Pentathlon</td>
             <td><strong>#10</strong></td><td>36</td><td><strong>7%</strong></td>
             <td class="f-poor">Olympic underperformer</td>
-            <td class="muted small">Born 1992, age 35&ndash;36 in 2028 &mdash; late career. Previous top-10 senior.</td>
+            <td class="muted small">Born 1992, age 35&ndash;36 in 2028 &mdash; late career.</td>
           </tr>
           <tr>
             <td><strong>Gabija Dilyte</strong></td><td class="muted small">Women's Wrestling</td>
             <td><strong>#15</strong></td><td>25</td><td><strong>5%</strong></td>
             <td class="f-good">Normal</td>
-            <td class="muted small">Born 2003, age 25 in 2028. Paris 2024 participant. Prime years, developing.</td>
+            <td class="muted small">Born 2003, age 25 in 2028. Paris 2024 participant, developing.</td>
           </tr>
         </table>
       </div>
@@ -778,8 +818,8 @@ tr:hover td{background:var(--card2)}
 
   <div class="grid grid-2">
     <div class="card">
-      <h2>Emerging Athletes &mdash; Not in Current Model</h2>
-      <p class="caption">Competed at Paris 2024, prime age in 2028, no identified medal path yet. Worth tracking as 2028 approaches.</p>
+      <h2 data-i18n="emerging-title">Emerging Athletes &mdash; Not in Current Model</h2>
+      <p class="caption" data-i18n="emerging-cap">Competed at Paris 2024, prime age in 2028, no identified medal path yet. Worth tracking as 2028 approaches.</p>
       <table>
         <tr><th>Athlete</th><th>Sport</th><th>Age 2028</th><th>Born</th><th>Status</th></tr>
         <tr><td><strong>SAVICKAS Aleksas</strong></td><td>Swimming</td><td>25</td><td>2003</td><td><span class="pill med">Prime 2028</span></td></tr>
@@ -794,8 +834,8 @@ tr:hover td{background:var(--card2)}
       </table>
     </div>
     <div class="card">
-      <h2>50m Breaststroke &mdash; Conditional Scenario</h2>
-      <p class="caption">Meilutyte holds the 50m breast world record and won the 2023 World Championship. If confirmed for LA 2028, her probability in that event alone is estimated at 42%.</p>
+      <h2 data-i18n="breaststroke-title">50m Breaststroke &mdash; Conditional Scenario</h2>
+      <p class="caption" data-i18n="breaststroke-cap">Meilutyte holds the 50m breast world record and won the 2023 World Championship. If confirmed for LA 2028, her probability in that event alone is estimated at 42%.</p>
       <div class="scenario-box">
         <strong>Current model (100m breast only):</strong> Swimming = 27%<br>
         <strong>If 50m breast confirmed for LA 2028:</strong> Swimming &asymp; 44&ndash;50%<br>
@@ -816,16 +856,15 @@ tr:hover td{background:var(--card2)}
   <div class="footer-rings-row">
     <div class="oring md"><span class="or"></span><span class="or"></span><span class="or"></span><span class="or"></span><span class="or"></span></div>
   </div>
-  <strong style="color:var(--text)">Data sources:</strong>
+  <strong style="color:var(--text)" data-i18n="footer-sources">Data sources:</strong>
   Olympedia historical results 1992&ndash;2020 (Kaggle) &bull;
   Paris 2024 official results (IOC) &bull;
   World Athletics, FINA, FIBA 3x3, ICF, UIPM, ISSF rankings 2024 &bull;
   IOC Programme Commission 2023 (Breaking removal) &bull;
-  Known correction: Gudzius Discus Gold Rio 2016 (absent from source dataset) &bull;
   Bayesian shrinkage on sports with &lt;5 Games of data &bull;
   Macro ensemble: XGBoost + RF trained on 137 countries 1960&ndash;2024
   <br>
-  Generated 2026-03-26 &bull;
+  <span data-i18n="footer-gen">Generated 2026-03-26</span> &bull;
   <a href="https://github.com/yonathan-star/lt-olympic-forecast">GitHub</a>
 </footer>
 
@@ -841,6 +880,184 @@ tr:hover td{background:var(--card2)}
   var m = document.getElementById('metric-expected');
   if(m) obs.observe(m, {subtree:true, characterData:true, childList:true});
 })();
+
+// Saltibarciai Easter egg
+function saltibarciai(cb) {
+  if (!cb.checked) return;
+  var msg = LANG === 'lt'
+    ? 'Skanu! Deja, TOK dar nepripažįsta šaltibarščių kaip sportinės veiklos gerinimo priemonė. Tikimybė nesikeitė.'
+    : 'Delicious. However, the IOC has not yet classified šaltibarščiai as a performance-enhancing substance. Probability unchanged.';
+  var t = document.createElement('div');
+  t.className = 'beet-toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(function(){ t.style.opacity='0'; t.style.transition='opacity .4s'; }, 3600);
+  setTimeout(function(){ if(t.parentNode) t.parentNode.removeChild(t); cb.checked=false; }, 4100);
+}
+</script>
+
+
+<script>
+var LANG = 'en';
+var T = {
+  en: {
+    'nav-forecast':   'Forecast',
+    'nav-athletes':   'Athletes',
+    'nav-simulator':  'Simulator',
+    'nav-analysis':   'Analysis',
+    'nav-data':       'Data',
+    'nav-expected-lbl': 'Expected medals:',
+    'hero-title':     'Lithuania <span class="edition">LA 2028</span><br>Olympic Medal Forecast',
+    'hero-tagline':   'Sport-by-sport prediction built from Olympedia historical data (1992–2024), the known athlete pipeline, and a correlated Monte Carlo simulation.',
+    'hero-datasrc':   'Olympedia 1992–2020 • IOC Paris 2024 • Bayesian shrinkage • 10,000-run Monte Carlo • Gaussian copula ρ=0.15',
+    'sec-forecast':   '2028 Forecast',
+    'sub-forecast':   'Baseline scenario — use the Simulator below to adjust funding, athletes, and conditions',
+    'lbl-expected':   'Expected medals',
+    'lbl-range':      'Likely range',
+    'sub-range':      'P10 – P90',
+    'lbl-zero':       'Zero-medal risk',
+    'sub-zero-static':'current settings',
+    'lbl-athletics':  'Athletics',
+    'sub-athletics':  'Alekna — gold favourite',
+    'lbl-paris':      'Paris 2024 actual',
+    'sub-paris':      'incl. Breaking silver',
+    'lbl-beet':       'Sšaltibarščiai Index',
+    'sub-beet':       'Post-medal ceremony probability',
+    'tbl-title':      'Sport-by-Sport Detail',
+    'sec-athletes':   'Key Athletes — LA 2028 Contenders',
+    'sub-athletes':   'Primary medal candidates driving the per-sport probabilities above',
+    'warn-breaking':  '<strong>Breaking is NOT on the LA 2028 programme.</strong> NICKA (Dominyka Banevic) won Silver at Paris 2024, but the IOC removed Breaking from the 2028 Games. Lithuania's 2028 forecast is calculated without this sport. <em style="opacity:.7">  Source: IOC Programme Commission, 2023.</em>',
+    'sec-simulator':  'Interactive Simulator',
+    'sub-simulator':  'Adjust funding, athlete status, and conditions — charts update live. The forecast table above also updates.',
+    'ctrl-core':      'Core controls',
+    'lbl-funding':    'Funding multiplier',
+    'lbl-sports':     'Sports to include — click to toggle off / on',
+    'adv-title':      'Advanced Factors — athlete status, programme & external conditions',
+    'adv-ath-head':   'Athlete Status',
+    'adv-prog-head':  'Programme & Investment',
+    'adv-ext-head':   'External Conditions',
+    'lbl-alekna':     'Mykolas Alekna',
+    'lbl-meilutyte':  'Ruta Meilutyte',
+    'lbl-bball':      '3x3 Basketball roster',
+    'lbl-pipeline':   'Youth pipeline',
+    'lbl-focus':      'Focus mode',
+    'lbl-deleg':      'Delegation size',
+    'lbl-coaching':   'Coaching & support quality',
+    'lbl-peaking':    'Competition peaking',
+    'lbl-host':       'Host nation effect (LA 2028)',
+    'lbl-gdp':        'GDP & budget scenario',
+    'lbl-rho':        'Cross-sport correlation ρ',
+    'lbl-saltibarciai': 'Sšaltibarščiai protocol (+∞%)',
+    'chart-mc-title': 'Medal Count Distribution',
+    'chart-mc-cap':   'Exact Poisson-binomial probability at current settings',
+    'chart-hist-title':'Historical Performance 1992–2024',
+    'chart-hist-cap': 'Red star = 2028 forecast with P10–P90 error bar',
+    'chart-type-title':'Medal Type Breakdown',
+    'chart-type-cap': 'Estimated gold / silver / bronze split per sport',
+    'chart-scen-title':'Scenario Comparison',
+    'chart-scen-cap': 'Baseline, 2x & 3x funding vs current settings (red bar)',
+    'chart-peers-title':'Peer Country Comparison — Paris 2024',
+    'chart-peers-cap':'Lithuania vs similar small European nations',
+    'sec-analysis':   'Model Analysis',
+    'sub-analysis':   'How each probability is built — athlete decomposition and pipeline',
+    'chart-decomp-title':'Athlete Model vs Historical Rate',
+    'chart-decomp-cap':'Grey = recency-weighted historical win rate • Blue = athlete ranking model • Red diamond = final blended estimate',
+    'pipe-title':     'Athlete Pipeline & World Rankings',
+    'pipe-cap':       'Event medal prob = rank_prob × psych_factor × age_factor. Union across contenders gives sport probability.',
+    'emerging-title': 'Emerging Athletes — Not in Current Model',
+    'emerging-cap':   'Competed at Paris 2024, prime age in 2028, no identified medal path yet.',
+    'breaststroke-title':'50m Breaststroke — Conditional Scenario',
+    'breaststroke-cap':'Meilutyte holds the 50m breast world record and won the 2023 World Championship. If confirmed for LA 2028, her probability in that event alone is estimated at 42%.',
+    'footer-sources': 'Data sources:',
+    'footer-gen':     'Generated 2026-03-26',
+  },
+  lt: {
+    'nav-forecast':   'Prognozė',
+    'nav-athletes':   'Sportininkai',
+    'nav-simulator':  'Simuliatorius',
+    'nav-analysis':   'Analizė',
+    'nav-data':       'Duomenys',
+    'nav-expected-lbl': 'Tikėtini medaliai:',
+    'hero-title':     'Lietuva <span class="edition">LA 2028</span><br>olimpinių medalių prognozė',
+    'hero-tagline':   'Prognozė kiekvienai sporto šakai, pagrista Olympedia istoriniais duomenimis (1992–2024), žinomu sportininkų pajegumo vertinimu ir koreliuotu Monte Carlo modeliu.',
+    'hero-datasrc':   'Olympedia 1992–2020 • IOC Paryžius 2024 • Bajeso susiaurimas • 10 000 Monte Carlo band. • Gauso kopula ρ=0.15',
+    'sec-forecast':   '2028 Prognozė',
+    'sub-forecast':   'Bazinis scenarijus — naudokite simuliatoriumi žemiau, kad keistumėte finansavimą, sportininkus ir sąlygas',
+    'lbl-expected':   'Tikėtini medaliai',
+    'lbl-range':      'Tikėtinas diapazonas',
+    'sub-range':      'P10 – P90',
+    'lbl-zero':       'Nulio medalių rizika',
+    'sub-zero-static':'dabartiniai nustatymai',
+    'lbl-athletics':  'Lengvoji atletika',
+    'sub-athletics':  'Alekna — auksinio medalio favoritas',
+    'lbl-paris':      'Paryžius 2024 faktai',
+    'sub-paris':      'įskaitant Breaking sidabrą',
+    'lbl-beet':       'Šaltibarščių indeksas',
+    'sub-beet':       'Tikimybė po medalio ceremonijos',
+    'tbl-title':      'Sporto šakų detalus pjūvis',
+    'sec-athletes':   'Pagrindiniai sportininkai — LA 2028 pretendentai',
+    'sub-athletes':   'Pagrindiniai medalio pretendentai, lėmę auklščiausias tikimybes',
+    'warn-breaking':  '<strong>Breaking NĖRA LA 2028 programų.</strong> NICKA (Dominyka Banevič) laimejo silverą Paryžiuje 2024, tačiau TOK pašalino Breaking iš 2028 žaidynių. Lietuva 2028 prognozė skaičiuojama be šios sporto šakos.',
+    'sec-simulator':  'Interaktyvus simuliatorius',
+    'sub-simulator':  'Keiskite finansavimą, sportininkų statusą ir sąlygas — diagramos atnaujinamos realiuoju laiku.',
+    'ctrl-core':      'Pagrindiniai valdikliai',
+    'lbl-funding':    'Finansavimo koeficientas',
+    'lbl-sports':     'Sporto šakos — spauskite norėdami įjungti / išjungti',
+    'adv-title':      'Papildomi veiksniai — sportininkų statusas, programa ir išorinės sąlynos',
+    'adv-ath-head':   'Sportininkų statusas',
+    'adv-prog-head':  'Programa ir investicijos',
+    'adv-ext-head':   'Išorinės sąlynos',
+    'lbl-alekna':     'Mykolas Alekna',
+    'lbl-meilutyte':  'Rūta Meilutytė',
+    'lbl-bball':      '3x3 krepšinio rinktinė',
+    'lbl-pipeline':   'Jaunimo programa',
+    'lbl-focus':      'Focus režimas',
+    'lbl-deleg':      'Delegacijos dydis',
+    'lbl-coaching':   'Treniravimo ir aptarnavimo kokybė',
+    'lbl-peaking':    'Varžybų forma',
+    'lbl-host':       'Kinių efektas (LA 2028)',
+    'lbl-gdp':        'BVP ir biudžeto scenarijus',
+    'lbl-rho':        'Sporto koreliacijos koeficientas ρ',
+    'lbl-saltibarciai': 'Šaltibarščių protokolas (+∞%)',
+    'chart-mc-title': 'Medalių skaičiaus pasiskirstymas',
+    'chart-mc-cap':   'Tikslus Puasono-binominis pasiskirstymas esamomis sąlynomis',
+    'chart-hist-title':'Istoriniai rezultatai 1992–2024',
+    'chart-hist-cap': 'Raudona žvaigzdė = 2028 prognozė su P10–P90 paklaida',
+    'chart-type-title':'Medalių tipų pasiskirstymas',
+    'chart-type-cap': 'Numatomas auksas / sidabras / bronza pagal sporto šaką',
+    'chart-scen-title':'Scenarijaus palyginimas',
+    'chart-scen-cap': 'Bazinis, 2x ir 3x finansavimas vs dabartiniai nustatymai',
+    'chart-peers-title':'Šalių palyginimas — Paryžius 2024',
+    'chart-peers-cap':'Lietuva vs panašios mažosios Europos šalys',
+    'sec-analysis':   'Modelio analizė',
+    'sub-analysis':   'Kaip kiekviena tikimybė yra sukonstruota',
+    'chart-decomp-title':'Sportininkų modelis vs. istorinis rodiklis',
+    'chart-decomp-cap':'Pilka = istorinis laimejimo rodiklis • Mėlyna = sportininkų modelis • Raudona = galutinis įvertinimas',
+    'pipe-title':     'Sportininkų programa ir pasaulio reitingai',
+    'pipe-cap':       'Renginio medalių tikimybė = rank_prob × psych_factor × age_factor.',
+    'emerging-title': 'Kylantys sportininkai — nėra dabartiniame modelyje',
+    'emerging-cap':   'Dalyvavo Paryžiuje 2024, geriausi amžiuje 2028, kol kas be medalio kelio.',
+    'breaststroke-title':'50 m krūtine — sąlyginis scenarijus',
+    'breaststroke-cap':'Meilutytė turi 50 m krūtine pasaulio rekordą ir laimejo 2023 m. pasaulio čempionatą.',
+    'footer-sources': 'Duomenų šaltiniai:',
+    'footer-gen':     'Sugeneruota 2026-03-26',
+  }
+};
+
+function setLang(l) {
+  LANG = l;
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var k = el.getAttribute('data-i18n');
+    if (T[l] && T[l][k] !== undefined) el.textContent = T[l][k];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+    var k = el.getAttribute('data-i18n-html');
+    if (T[l] && T[l][k] !== undefined) el.innerHTML = T[l][k];
+  });
+  var btn = document.getElementById('lang-btn');
+  if (btn) btn.textContent = (l === 'en') ? 'LT' : 'EN';
+}
+function toggleLang() { setLang(LANG === 'en' ? 'lt' : 'en'); }
 </script>
 
 <script>
@@ -889,7 +1106,7 @@ var PRE_KEYS = ["0.5","0.75","1.0","1.25","1.5","1.75","2.0","2.5","3.0","4.0"];
 let currentFundingIdx = 2;
 const selectedSports = new Set(SPORTS);
 
-const BG  = {paper_bgcolor:"#1a1d27",plot_bgcolor:"#1a1d27",font:{color:"#e8eaf0",size:11},xaxis:{gridcolor:"#2d3148",zerolinecolor:"#2d3148"},yaxis:{gridcolor:"#2d3148",zerolinecolor:"#2d3148"}};
+const BG  = {paper_bgcolor:"#f5f3ef",plot_bgcolor:"#ffffff",font:{color:"#1c1a2a",size:11},xaxis:{gridcolor:"#e0dcd6",zerolinecolor:"#c8c4bc"},yaxis:{gridcolor:"#e0dcd6",zerolinecolor:"#c8c4bc"}};
 const CFG = {responsive:true, displayModeBar:false};
 
 function g(id){ return document.getElementById(id); }
