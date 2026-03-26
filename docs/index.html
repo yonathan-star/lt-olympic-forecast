@@ -477,7 +477,7 @@ details[open] summary::before{transform:rotate(90deg)}
   <div class="grid grid-2">
     <div class="card">
       <h2>Athlete Model vs Historical Rate</h2>
-      <p class="caption">Grey = recency-weighted historical win rate (1992&ndash;2024). Red diamond = final blended 2028 estimate (athlete pipeline + Bayesian shrinkage).</p>
+      <p class="caption">Grey = recency-weighted historical win rate. Blue = athlete ranking model (union of contenders). Red diamond = final blended estimate.</p>
       <div id="chart-decomp"></div>
     </div>
     <div class="card">
@@ -805,16 +805,22 @@ g("funding-slider").addEventListener("input",function(){
 buildToggles();
 updateAll();
 
-// Static decomposition chart (baseline 1x, shows methodology)
-var decomp_final = SPORTS.map(function(s){ return PRE["1.0"].per_sport[s]||0; });
+// Static decomposition chart: 3 traces from computed model data
+// Order matches SPORTS array: Athletics, Rowing, Swimming, 3x3 Basketball,
+//   Modern Pentathlon, Weightlifting, Wrestling, Shooting, Canoe Sprint
+var DECOMP_HIST    = [0.556,0.313,0.142,0.305,0.364,0.195,0.209,0.140,0.151];
+var DECOMP_ATHLETE = [0.594,0.404,0.341,0.213,0.072,0.013,0.072,0.014,0.014];
+var DECOMP_FINAL   = [0.585,0.376,0.271,0.250,0.203,0.149,0.140,0.115,0.110];
 Plotly.newPlot("chart-decomp",[
-  {x:HRATES,       y:SPORTS,type:"bar",orientation:"h",name:"Historical win rate (1992\u20132024)",
+  {x:DECOMP_HIST,    y:SPORTS,type:"bar",orientation:"h",name:"Recency-weighted historical rate",
    marker:{color:"rgba(140,140,170,0.35)"},width:0.55},
-  {x:decomp_final, y:SPORTS,type:"scatter",mode:"markers+text",name:"Final blended 2028 estimate",
+  {x:DECOMP_ATHLETE, y:SPORTS,type:"bar",orientation:"h",name:"Athlete ranking model",
+   marker:{color:"rgba(79,142,247,0.55)"},width:0.35},
+  {x:DECOMP_FINAL,   y:SPORTS,type:"scatter",mode:"markers+text",name:"Final blended estimate",
    marker:{color:"#ff4444",size:9,symbol:"diamond"},
-   text:decomp_final.map(function(p){return (p*100).toFixed(0)+"%";}),textposition:"middle right"}
+   text:DECOMP_FINAL.map(function(p){return (p*100).toFixed(0)+"%";}),textposition:"middle right"}
 ],Object.assign({},BG,{barmode:"overlay",
-  xaxis:Object.assign({},BG.xaxis,{title:"Probability",tickformat:".0%",range:[0,0.90]}),
+  xaxis:Object.assign({},BG.xaxis,{title:"Probability",tickformat:".0%",range:[0,0.85]}),
   yaxis:Object.assign({},BG.yaxis,{autorange:"reversed"}),
   legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
   height:320,margin:{t:10,b:40,l:10,r:80}}),CFG);
