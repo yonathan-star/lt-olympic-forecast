@@ -163,7 +163,7 @@ details[open] summary::before{transform:rotate(90deg)}
   <div class="metric">
     <div class="val">4</div>
     <div class="lbl">Paris 2024 actual</div>
-    <div class="sub">2S + 2B (excl. Breaking)</div>
+    <div class="sub">incl. Breaking silver (not in LA 2028)</div>
   </div>
 </div>
 
@@ -172,7 +172,7 @@ details[open] summary::before{transform:rotate(90deg)}
   <h3>Simulator &mdash; adjust and charts update live</h3>
   <div class="sim-controls">
     <div class="sim-block" style="min-width:280px">
-      <label>Funding multiplier <span class="val-display" id="funding-display">1.0x</span></label>
+      <label>Funding multiplier <span class="val-display" id="funding-display">1.00x</span></label>
       <input type="range" id="funding-slider" min="0" max="9" value="2" step="1">
       <div style="display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted);margin-top:4px">
         <span>0.5x (cut)</span><span>1.0x (current)</span><span>2.0x</span><span>4.0x</span>
@@ -477,7 +477,7 @@ details[open] summary::before{transform:rotate(90deg)}
   <div class="grid grid-2">
     <div class="card">
       <h2>Athlete Model vs Historical Rate</h2>
-      <p class="caption">Grey = recency-weighted historical win rate. Blue = athlete ranking model (union of contenders). Red diamond = final blended estimate.</p>
+      <p class="caption">Grey = recency-weighted historical win rate (1992&ndash;2024). Red diamond = final blended 2028 estimate (athlete pipeline + Bayesian shrinkage).</p>
       <div id="chart-decomp"></div>
     </div>
     <div class="card">
@@ -486,7 +486,7 @@ details[open] summary::before{transform:rotate(90deg)}
       <div style="overflow-x:auto">
       <table>
         <tr><th>Athlete</th><th>Event</th><th>Rank</th><th>Age 2028</th><th>Event prob</th><th>Olympic factor</th><th>Notes</th></tr>
-        <tr><td><strong>Mykolas Alekna</strong></td><td class="muted small">Discus Throw Men</td><td><strong>#1</strong></td><td>25</td><td><strong>58%</strong></td><td style="color:var(--accent);font-size:.76rem">Slight discount</td><td class="muted small">World #1 2024, 74.35m WL, Olympic silver 2024 (age 21). Age 25 in 2028.</td></tr><tr><td><strong>Viktorija Senkute</strong></td><td class="muted small">W Single Sculls</td><td><strong>#3</strong></td><td>32</td><td><strong>37%</strong></td><td style="color:var(--green);font-size:.76rem">Normal</td><td class="muted small">Olympic bronze 2024, born 1996, age 32 in 2028. Peak rowing years.</td></tr><tr><td><strong>Stankunas Domantas/Dovydas</strong></td><td class="muted small">M Double Sculls</td><td><strong>#14</strong></td><td>28</td><td><strong>6%</strong></td><td style="color:var(--green);font-size:.76rem">Normal</td><td class="muted small">Twin brothers, Paris 2024 participants, age 27-28 in 2028. Developing.</td></tr><tr><td><strong>Ruta Meilutyte</strong></td><td class="muted small">100m Breaststroke Women</td><td><strong>#4</strong></td><td>31</td><td><strong>22%</strong></td><td style="color:var(--orange);font-size:.76rem">Olympic underperformer</td><td class="muted small">WR holder 50m breast, top-5 100m breast. Age 31 in 2028. Olympic underperformer (last meda...</td></tr><tr><td><strong>Danas Rapsys</strong></td><td class="muted small">200m Freestyle Men</td><td><strong>#7</strong></td><td>33</td><td><strong>13%</strong></td><td style="color:var(--accent);font-size:.76rem">Slight discount</td><td class="muted small">European champion, 3 Olympic A-finals. Age 33 in 2028 — at the edge.</td></tr><tr><td><strong>Lithuania 3x3 Men</strong></td><td class="muted small">3x3 Basketball Men</td><td><strong>#5</strong></td><td>35</td><td><strong>21%</strong></td><td style="color:var(--green);font-size:.76rem">Normal</td><td class="muted small">Olympic bronze 2024. Core roster ages 31-41 in 2028 — roster uncertainty high. FIBA rank ~...</td></tr><tr><td><strong>Gintare Venckauskaite</strong></td><td class="muted small">Women's Pentathlon</td><td><strong>#10</strong></td><td>36</td><td><strong>7%</strong></td><td style="color:var(--orange);font-size:.76rem">Olympic underperformer</td><td class="muted small">Born 1992, age 35 in 2028 — late career. Previous top-10 senior.</td></tr><tr><td><strong>Gabija Dilyte</strong></td><td class="muted small">Women's Wrestling</td><td><strong>#15</strong></td><td>25</td><td><strong>5%</strong></td><td style="color:var(--green);font-size:.76rem">Normal</td><td class="muted small">Born 2003, age 24 in 2028. Paris 2024 participant. Prime years, developing.</td></tr>
+        <tr><td><strong>Mykolas Alekna</strong></td><td class="muted small">Discus Throw Men</td><td><strong>#1</strong></td><td>25</td><td><strong>58%</strong></td><td style="color:var(--accent);font-size:.76rem">Slight discount</td><td class="muted small">World #1 2024, 74.35m WL, Olympic silver 2024 (age 21). Age 25 in 2028.</td></tr><tr><td><strong>Viktorija Senkute</strong></td><td class="muted small">W Single Sculls</td><td><strong>#3</strong></td><td>32</td><td><strong>37%</strong></td><td style="color:var(--green);font-size:.76rem">Normal</td><td class="muted small">Olympic bronze 2024, born 1996, age 32 in 2028. Peak rowing years.</td></tr><tr><td><strong>Stankunas Domantas/Dovydas</strong></td><td class="muted small">M Double Sculls</td><td><strong>#14</strong></td><td>28</td><td><strong>6%</strong></td><td style="color:var(--green);font-size:.76rem">Normal</td><td class="muted small">Twin brothers, Paris 2024 participants, age 27-28 in 2028. Developing.</td></tr><tr><td><strong>Ruta Meilutyte</strong></td><td class="muted small">100m Breaststroke Women</td><td><strong>#4</strong></td><td>31</td><td><strong>22%</strong></td><td style="color:var(--orange);font-size:.76rem">Olympic underperformer</td><td class="muted small">WR holder 50m breast, top-5 100m breast. Age 31 in 2028. Olympic underperformer (last meda...</td></tr><tr><td><strong>Danas Rapsys</strong></td><td class="muted small">200m Freestyle Men</td><td><strong>#7</strong></td><td>33</td><td><strong>13%</strong></td><td style="color:var(--accent);font-size:.76rem">Slight discount</td><td class="muted small">European champion, 3 Olympic A-finals. Age 33 in 2028 — at the edge.</td></tr><tr><td><strong>Lithuania 3x3 Men</strong></td><td class="muted small">3x3 Basketball Men</td><td><strong>#5</strong></td><td>35</td><td><strong>21%</strong></td><td style="color:var(--green);font-size:.76rem">Normal</td><td class="muted small">Olympic bronze 2024. Core roster ages 31-41 in 2028 — roster uncertainty high. FIBA rank ~...</td></tr><tr><td><strong>Gintare Venckauskaite</strong></td><td class="muted small">Women's Pentathlon</td><td><strong>#10</strong></td><td>36</td><td><strong>7%</strong></td><td style="color:var(--orange);font-size:.76rem">Olympic underperformer</td><td class="muted small">Born 1992, age 35 in 2028 — late career. Previous top-10 senior.</td></tr><tr><td><strong>Gabija Dilyte</strong></td><td class="muted small">Women's Wrestling</td><td><strong>#15</strong></td><td>25</td><td><strong>5%</strong></td><td style="color:var(--green);font-size:.76rem">Normal</td><td class="muted small">Born 2003, age 25 in 2028. Paris 2024 participant. Prime years, developing.</td></tr>
       </table>
       </div>
     </div>
@@ -804,6 +804,20 @@ g("funding-slider").addEventListener("input",function(){
 
 buildToggles();
 updateAll();
+
+// Static decomposition chart (baseline 1x, shows methodology)
+var decomp_final = SPORTS.map(function(s){ return PRE["1.0"].per_sport[s]||0; });
+Plotly.newPlot("chart-decomp",[
+  {x:HRATES,       y:SPORTS,type:"bar",orientation:"h",name:"Historical win rate (1992\u20132024)",
+   marker:{color:"rgba(140,140,170,0.35)"},width:0.55},
+  {x:decomp_final, y:SPORTS,type:"scatter",mode:"markers+text",name:"Final blended 2028 estimate",
+   marker:{color:"#ff4444",size:9,symbol:"diamond"},
+   text:decomp_final.map(function(p){return (p*100).toFixed(0)+"%";}),textposition:"middle right"}
+],Object.assign({},BG,{barmode:"overlay",
+  xaxis:Object.assign({},BG.xaxis,{title:"Probability",tickformat:".0%",range:[0,0.90]}),
+  yaxis:Object.assign({},BG.yaxis,{autorange:"reversed"}),
+  legend:{orientation:"h",yanchor:"bottom",y:1.02,bgcolor:"rgba(0,0,0,0)"},
+  height:320,margin:{t:10,b:40,l:10,r:80}}),CFG);
 </script>
 
 </body>
